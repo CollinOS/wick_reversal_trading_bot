@@ -1,0 +1,1253 @@
+2026-01-19 19:07:53 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-19 19:07:53 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39323.633504 | price=0.09990909
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39323.633504 | price=0.09990909 | slippage=0.000% | latency=13.9ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.099909 | stop=0.098638 | target=0.100409
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39323.633504 | price=0.102191468705 | slippage=0.005% | latency=13.8ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$178.32 | duration=3 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=32627.339694 | price=0.10216381
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=32627.339694 | price=0.10216381 | slippage=0.000% | latency=23.1ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.102164 | stop=0.103696 | target=0.101653
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=32627.339694 | price=0.10057310142 | slippage=0.005% | latency=15.9ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$102.81 | duration=1 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34714.545245 | price=0.09602123
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34714.545245 | price=0.09602123 | slippage=0.000% | latency=15.7ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.096021 | stop=0.097462 | target=0.095541
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34714.545245 | price=0.098958264405 | slippage=0.005% | latency=12.5ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-204.93 | duration=3 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34622.156976 | price=0.09643315557142856
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34622.156976 | price=0.09643315557142856 | slippage=0.000% | latency=14.3ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.096433 | stop=0.094833 | target=0.098769
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34622.156976 | price=0.09963171922 | slippage=0.005% | latency=12.8ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$220.47 | duration=3 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33877.697109 | price=0.09853593367857143
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33877.697109 | price=0.09853593367857143 | slippage=0.000% | latency=14.0ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.098536 | stop=0.096917 | target=0.100678
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33877.697109 | price=0.096724763425 | slippage=0.005% | latency=13.1ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-123.71 | duration=1 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35692.955349 | price=0.09325830710714285
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35692.955349 | price=0.09325830710714285 | slippage=0.000% | latency=18.1ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.093258 | stop=0.094790 | target=0.091296
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35692.955349 | price=0.09016057776 | slippage=0.005% | latency=13.2ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$220.15 | duration=2 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37194.688792 | price=0.08945962839285715
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37194.688792 | price=0.08945962839285715 | slippage=0.000% | latency=15.5ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.089460 | stop=0.090963 | target=0.087076
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37194.688792 | price=0.08876739151499999 | slippage=0.004% | latency=18.5ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$50.50 | duration=3 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39107.271716 | price=0.08540014475
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39107.271716 | price=0.08540014475 | slippage=0.000% | latency=15.3ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.085400 | stop=0.083957 | target=0.087868
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39107.271716 | price=0.0878608476 | slippage=0.004% | latency=12.6ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$191.45 | duration=7 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39867.925536 | price=0.08372802117857144
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39867.925536 | price=0.08372802117857144 | slippage=0.000% | latency=14.4ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.083728 | stop=0.082355 | target=0.085507
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39867.925536 | price=0.087726164975 | slippage=0.004% | latency=12.2ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$317.78 | duration=2 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 19:07:53 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40113.844696 | price=0.08323610507142856
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40113.844696 | price=0.08323610507142856 | slippage=0.000% | latency=12.3ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.083236 | stop=0.081850 | target=0.085325
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 19:07:53 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40113.844696 | price=0.08455560105 | slippage=0.004% | latency=12.1ms
+2026-01-19 19:07:53 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | time_exit | PnL=$104.85 | duration=8 candles
+2026-01-19 19:07:53 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39402.081297 | price=0.08474503567857143
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39402.081297 | price=0.08474503567857143 | slippage=0.000% | latency=15.1ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.084745 | stop=0.083329 | target=0.086952
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39402.081297 | price=0.08220527679999999 | slippage=0.004% | latency=13.1ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-201.13 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.73
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38409.081996 | price=0.08665654207142857
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38409.081996 | price=0.08665654207142857 | slippage=0.000% | latency=14.6ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.086657 | stop=0.088087 | target=0.084729
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38409.081996 | price=0.08461640706000001 | slippage=0.004% | latency=12.0ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$155.73 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39142.140495 | price=0.08527087235714285
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39142.140495 | price=0.08527087235714285 | slippage=0.000% | latency=19.5ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.085271 | stop=0.083882 | target=0.086938
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39142.140495 | price=0.08312570635500001 | slippage=0.004% | latency=13.9ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-168.92 | duration=1 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37871.381442 | price=0.08788229953571429
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37871.381442 | price=0.08788229953571429 | slippage=0.000% | latency=14.6ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087882 | stop=0.089337 | target=0.085859
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37871.381442 | price=0.089744359755 | slippage=0.004% | latency=12.7ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-142.04 | duration=1 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35556.807155 | price=0.0936033637857143
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35556.807155 | price=0.0936033637857143 | slippage=0.000% | latency=15.6ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.093603 | stop=0.095153 | target=0.091453
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35556.807155 | price=0.095025038775 | slippage=0.005% | latency=17.9ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | time_exit | PnL=$-102.10 | duration=8 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35279.394103 | price=0.09457720717857143
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35279.394103 | price=0.09457720717857143 | slippage=0.000% | latency=15.0ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.094577 | stop=0.093067 | target=0.095977
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35279.394103 | price=0.096968641425 | slippage=0.005% | latency=13.5ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$167.73 | duration=1 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35712.174870 | price=0.09322251514285715
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35712.174870 | price=0.09322251514285715 | slippage=0.000% | latency=18.7ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.093223 | stop=0.094739 | target=0.091477
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35712.174870 | price=0.093289011195 | slippage=0.005% | latency=14.1ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-5.75 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34712.387046 | price=0.09612822489285713
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34712.387046 | price=0.09612822489285713 | slippage=0.000% | latency=13.3ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.096128 | stop=0.094587 | target=0.097644
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34712.387046 | price=0.09600349424 | slippage=0.005% | latency=14.4ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-9.66 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.59
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35211.604844 | price=0.09456507921428571
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35211.604844 | price=0.09456507921428571 | slippage=0.000% | latency=18.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.094565 | stop=0.096086 | target=0.093055
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35211.604844 | price=0.091151062755 | slippage=0.005% | latency=13.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$239.44 | duration=1 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36510.518845 | price=0.09116137696428572
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36510.518845 | price=0.09116137696428572 | slippage=0.000% | latency=13.4ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.091161 | stop=0.092667 | target=0.089114
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36510.518845 | price=0.088643109405 | slippage=0.004% | latency=23.4ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$182.90 | duration=4 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.73
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36842.675549 | price=0.090344407
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36842.675549 | price=0.090344407 | slippage=0.000% | latency=27.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.090344 | stop=0.091832 | target=0.088389
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36842.675549 | price=0.08738379006 | slippage=0.004% | latency=15.4ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$217.17 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38161.766047 | price=0.08748533075
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38161.766047 | price=0.08748533075 | slippage=0.000% | latency=18.5ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.087485 | stop=0.086037 | target=0.089553
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38161.766047 | price=0.090771601495 | slippage=0.005% | latency=17.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$249.81 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37429.392726 | price=0.08921714278571428
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37429.392726 | price=0.08921714278571428 | slippage=0.000% | latency=16.4ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.089217 | stop=0.087721 | target=0.091626
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37429.392726 | price=0.08638012833 | slippage=0.004% | latency=12.6ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-213.37 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39021.930911 | price=0.08556498028571428
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39021.930911 | price=0.08556498028571428 | slippage=0.000% | latency=14.3ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.085565 | stop=0.084141 | target=0.087709
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39021.930911 | price=0.082390214285 | slippage=0.004% | latency=12.6ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-248.76 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=41575.548655 | price=0.080055155
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41575.548655 | price=0.080055155 | slippage=0.000% | latency=13.0ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.080055 | stop=0.081378 | target=0.078253
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41575.548655 | price=0.077595968595 | slippage=0.004% | latency=15.7ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$203.49 | duration=5 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42549.206349 | price=0.07824064167857143
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42549.206349 | price=0.07824064167857143 | slippage=0.000% | latency=15.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.078241 | stop=0.079516 | target=0.076740
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42549.206349 | price=0.07925717878500001 | slippage=0.004% | latency=18.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-87.51 | duration=3 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42108.027217 | price=0.07926548696428572
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42108.027217 | price=0.07926548696428572 | slippage=0.000% | latency=14.7ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.079265 | stop=0.077974 | target=0.080826
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42108.027217 | price=0.08143672127 | slippage=0.004% | latency=16.9ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$181.84 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=41779.544551 | price=0.07966974992857143
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41779.544551 | price=0.07966974992857143 | slippage=0.000% | latency=22.8ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.079670 | stop=0.080981 | target=0.077958
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41779.544551 | price=0.07895768911500001 | slippage=0.004% | latency=12.7ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$58.50 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:54 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41904.959217 | price=0.07965755764285715
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41904.959217 | price=0.07965755764285715 | slippage=0.000% | latency=14.2ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.079658 | stop=0.078352 | target=0.081345
+2026-01-19 19:07:54 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41904.959217 | price=0.077493643795 | slippage=0.004% | latency=17.9ms
+2026-01-19 19:07:54 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-182.35 | duration=2 candles
+2026-01-19 19:07:54 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42506.071248 | price=0.07855632303571429
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42506.071248 | price=0.07855632303571429 | slippage=0.000% | latency=12.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.078556 | stop=0.077244 | target=0.080599
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42506.071248 | price=0.08066031966500001 | slippage=0.004% | latency=19.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$177.86 | duration=1 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=41095.592046 | price=0.08096566614285713
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41095.592046 | price=0.08096566614285713 | slippage=0.000% | latency=12.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.080966 | stop=0.082328 | target=0.078775
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41095.592046 | price=0.08254435154999999 | slippage=0.004% | latency=11.5ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-130.76 | duration=7 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40676.776961 | price=0.08208406164285716
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40676.776961 | price=0.08208406164285716 | slippage=0.000% | latency=20.3ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.082084 | stop=0.080718 | target=0.084142
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40676.776961 | price=0.084846505525 | slippage=0.004% | latency=14.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$223.72 | duration=4 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.82
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42070.166896 | price=0.07932569739285714
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42070.166896 | price=0.07932569739285714 | slippage=0.000% | latency=11.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.079326 | stop=0.078044 | target=0.080721
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42070.166896 | price=0.077043229115 | slippage=0.004% | latency=12.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-193.04 | duration=7 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.59
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42199.530691 | price=0.07891171057142857
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42199.530691 | price=0.07891171057142857 | slippage=0.000% | latency=12.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.078912 | stop=0.080175 | target=0.077740
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42199.530691 | price=0.07718681412 | slippage=0.004% | latency=14.5ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$144.59 | duration=2 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.71
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=44467.496395 | price=0.07485630550000001
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=44467.496395 | price=0.07485630550000001 | slippage=0.000% | latency=12.5ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.074856 | stop=0.076086 | target=0.073284
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=44467.496395 | price=0.07305393871499999 | slippage=0.004% | latency=13.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$159.30 | duration=2 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=45735.402403 | price=0.07302405178571429
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=45735.402403 | price=0.07302405178571429 | slippage=0.000% | latency=15.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.073024 | stop=0.071790 | target=0.075140
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=45735.402403 | price=0.07640425876 | slippage=0.004% | latency=13.4ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$308.17 | duration=4 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=43570.905876 | price=0.07637284682142857
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=43570.905876 | price=0.07637284682142857 | slippage=0.000% | latency=14.8ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.076373 | stop=0.077651 | target=0.074411
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=43570.905876 | price=0.074103063015 | slippage=0.004% | latency=11.9ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$196.80 | duration=5 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=45325.413352 | price=0.07365904132142857
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=45325.413352 | price=0.07365904132142857 | slippage=0.000% | latency=16.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.073659 | stop=0.072439 | target=0.075411
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=45325.413352 | price=0.07600271962999999 | slippage=0.004% | latency=15.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$211.45 | duration=3 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42431.537563 | price=0.07863234860714285
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42431.537563 | price=0.07863234860714285 | slippage=0.000% | latency=13.2ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.078632 | stop=0.077380 | target=0.079749
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42431.537563 | price=0.07652441865 | slippage=0.004% | latency=17.4ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-179.88 | duration=1 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.67
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42761.116051 | price=0.07805670810714285
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42761.116051 | price=0.07805670810714285 | slippage=0.000% | latency=18.8ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.078057 | stop=0.076783 | target=0.079621
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42761.116051 | price=0.081077730855 | slippage=0.004% | latency=16.8ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$257.35 | duration=3 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.68
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39828.339855 | price=0.08376752414285715
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39828.339855 | price=0.08376752414285715 | slippage=0.000% | latency=15.8ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.083768 | stop=0.082437 | target=0.084893
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39828.339855 | price=0.08602072812 | slippage=0.004% | latency=12.9ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$178.47 | duration=4 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39233.890800 | price=0.08485669696428572
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39233.890800 | price=0.08485669696428572 | slippage=0.000% | latency=25.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.084857 | stop=0.086235 | target=0.083299
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39233.890800 | price=0.08421365578500001 | slippage=0.004% | latency=13.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$49.46 | duration=5 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39601.653306 | price=0.08406511971428572
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39601.653306 | price=0.08406511971428572 | slippage=0.000% | latency=13.9ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.084065 | stop=0.085434 | target=0.082468
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39601.653306 | price=0.08621478585 | slippage=0.004% | latency=13.1ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-171.27 | duration=2 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38138.672595 | price=0.08725855775000001
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38138.672595 | price=0.08725855775000001 | slippage=0.000% | latency=13.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087259 | stop=0.088711 | target=0.085132
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38138.672595 | price=0.09217816605 | slippage=0.005% | latency=20.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-376.27 | duration=1 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34832.179430 | price=0.0955047475
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34832.179430 | price=0.0955047475 | slippage=0.000% | latency=17.9ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.095505 | stop=0.097132 | target=0.092622
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34832.179430 | price=0.09748377753000001 | slippage=0.005% | latency=11.7ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-138.87 | duration=5 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35268.457147 | price=0.09468496546428572
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35268.457147 | price=0.09468496546428572 | slippage=0.000% | latency=26.2ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.094685 | stop=0.093095 | target=0.097262
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35268.457147 | price=0.09863000033000001 | slippage=0.005% | latency=15.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$277.26 | duration=3 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33282.142071 | price=0.10028031582142857
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33282.142071 | price=0.10028031582142857 | slippage=0.000% | latency=19.5ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.100280 | stop=0.098652 | target=0.102178
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33282.142071 | price=0.09721123007 | slippage=0.005% | latency=12.3ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-205.28 | duration=3 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34268.412067 | price=0.0971210805
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34268.412067 | price=0.0971210805 | slippage=0.000% | latency=15.0ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.097121 | stop=0.098730 | target=0.094868
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34268.412067 | price=0.098787369 | slippage=0.005% | latency=20.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-115.21 | duration=2 candles
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.81
+2026-01-19 19:07:55 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34334.818177 | price=0.09723231371428571
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34334.818177 | price=0.09723231371428571 | slippage=0.000% | latency=15.6ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.097232 | stop=0.095627 | target=0.099469
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 19:07:55 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:55 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34334.818177 | price=0.09857118975 | slippage=0.005% | latency=11.8ms
+2026-01-19 19:07:55 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | time_exit | PnL=$90.93 | duration=8 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.65
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33799.598799 | price=0.09877189017857142
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33799.598799 | price=0.09877189017857142 | slippage=0.000% | latency=13.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.098772 | stop=0.097141 | target=0.101043
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33799.598799 | price=0.09919115961 | slippage=0.005% | latency=11.5ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$27.34 | duration=5 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.62
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33588.342749 | price=0.09940449217857143
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33588.342749 | price=0.09940449217857143 | slippage=0.000% | latency=19.6ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.099404 | stop=0.097752 | target=0.101860
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33588.342749 | price=0.09908031506000001 | slippage=0.005% | latency=17.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | time_exit | PnL=$-22.78 | duration=8 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33625.919181 | price=0.09902049521428571
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33625.919181 | price=0.09902049521428571 | slippage=0.000% | latency=12.3ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.099020 | stop=0.100617 | target=0.097380
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=33625.919181 | price=0.097225118265 | slippage=0.005% | latency=12.5ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$119.75 | duration=3 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34612.940790 | price=0.09783903392857143
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34612.940790 | price=0.09783903392857143 | slippage=0.000% | latency=16.8ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.097839 | stop=0.099387 | target=0.096282
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=34612.940790 | price=0.095681306745 | slippage=0.005% | latency=13.3ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$148.36 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35257.251006 | price=0.0946488215
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35257.251006 | price=0.0946488215 | slippage=0.000% | latency=21.6ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.094649 | stop=0.093125 | target=0.096233
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=35257.251006 | price=0.092735678965 | slippage=0.005% | latency=23.3ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-135.90 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36888.078876 | price=0.09048822442857142
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36888.078876 | price=0.09048822442857142 | slippage=0.000% | latency=13.7ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.090488 | stop=0.089008 | target=0.092360
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36888.078876 | price=0.09262997184499999 | slippage=0.005% | latency=14.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$157.00 | duration=1 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38124.809876 | price=0.08730426171428571
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38124.809876 | price=0.08730426171428571 | slippage=0.000% | latency=23.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087304 | stop=0.088744 | target=0.085386
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38124.809876 | price=0.08980632072 | slippage=0.004% | latency=13.8ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-191.79 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38176.241535 | price=0.08744415171428571
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38176.241535 | price=0.08744415171428571 | slippage=0.000% | latency=15.4ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.087444 | stop=0.086005 | target=0.089391
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.57
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38176.241535 | price=0.08716605516999999 | slippage=0.004% | latency=17.3ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-22.23 | duration=7 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.63
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38201.495008 | price=0.08712738096428571
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38201.495008 | price=0.08712738096428571 | slippage=0.000% | latency=16.7ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087127 | stop=0.088565 | target=0.085189
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38201.495008 | price=0.08345377603500001 | slippage=0.004% | latency=24.5ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$279.69 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39316.563325 | price=0.08465776582142857
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39316.563325 | price=0.08465776582142857 | slippage=0.000% | latency=13.4ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.084658 | stop=0.086054 | target=0.082796
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39316.563325 | price=0.08269645756499999 | slippage=0.004% | latency=13.0ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$153.23 | duration=3 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41581.440307 | price=0.08027615539285714
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41581.440307 | price=0.08027615539285714 | slippage=0.000% | latency=17.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.080276 | stop=0.078962 | target=0.081959
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41581.440307 | price=0.08375694058 | slippage=0.004% | latency=13.5ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$288.46 | duration=4 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38306.021906 | price=0.08712802607142857
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38306.021906 | price=0.08712802607142857 | slippage=0.000% | latency=12.1ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.087128 | stop=0.085713 | target=0.088771
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38306.021906 | price=0.088728203705 | slippage=0.004% | latency=12.8ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$121.59 | duration=5 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38253.353413 | price=0.08701685382142857
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38253.353413 | price=0.08701685382142857 | slippage=0.000% | latency=13.2ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087017 | stop=0.088445 | target=0.085195
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38253.353413 | price=0.08735889762 | slippage=0.004% | latency=12.2ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-27.17 | duration=3 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36568.272416 | price=0.09106422371428571
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36568.272416 | price=0.09106422371428571 | slippage=0.000% | latency=23.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.091064 | stop=0.092521 | target=0.089722
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36568.272416 | price=0.089432443875 | slippage=0.004% | latency=25.1ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$118.35 | duration=6 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37850.645064 | price=0.08814861685714286
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37850.645064 | price=0.08814861685714286 | slippage=0.000% | latency=19.9ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.088149 | stop=0.086744 | target=0.089396
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37850.645064 | price=0.09006784355 | slippage=0.005% | latency=14.8ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$144.28 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.68
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36667.534221 | price=0.09102391557142858
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36667.534221 | price=0.09102391557142858 | slippage=0.000% | latency=12.2ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.091024 | stop=0.089543 | target=0.092779
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=36667.534221 | price=0.088895879825 | slippage=0.004% | latency=24.6ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-157.05 | duration=3 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:56 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37919.214933 | price=0.08778147867857143
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37919.214933 | price=0.08778147867857143 | slippage=0.000% | latency=13.8ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.087781 | stop=0.089225 | target=0.085911
+2026-01-19 19:07:56 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37919.214933 | price=0.08936186860499999 | slippage=0.004% | latency=12.2ms
+2026-01-19 19:07:56 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-120.86 | duration=2 candles
+2026-01-19 19:07:56 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37429.594465 | price=0.08914378642857143
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37429.594465 | price=0.08914378642857143 | slippage=0.000% | latency=13.7ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.089144 | stop=0.087720 | target=0.090459
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=37429.594465 | price=0.086732282165 | slippage=0.004% | latency=22.9ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-181.51 | duration=3 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38750.376315 | price=0.08613004599999999
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38750.376315 | price=0.08613004599999999 | slippage=0.000% | latency=12.0ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.086130 | stop=0.084730 | target=0.087771
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=38750.376315 | price=0.08441001388 | slippage=0.004% | latency=11.7ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-134.30 | duration=3 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.52
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39445.094302 | price=0.08436582575
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39445.094302 | price=0.08436582575 | slippage=0.000% | latency=22.8ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.084366 | stop=0.085773 | target=0.082268
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.66
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39445.094302 | price=0.08061882927 | slippage=0.004% | latency=12.4ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$294.62 | duration=7 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=41496.437904 | price=0.08021931928571428
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41496.437904 | price=0.08021931928571428 | slippage=0.000% | latency=13.7ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.080219 | stop=0.081533 | target=0.078586
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41496.437904 | price=0.080462261025 | slippage=0.004% | latency=11.9ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-21.16 | duration=2 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42112.197929 | price=0.07905713646428572
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42112.197929 | price=0.07905713646428572 | slippage=0.000% | latency=14.7ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.079057 | stop=0.080341 | target=0.077610
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=42112.197929 | price=0.08062803387 | slippage=0.004% | latency=12.4ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$-133.31 | duration=4 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40829.548638 | price=0.08175306592857143
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40829.548638 | price=0.08175306592857143 | slippage=0.000% | latency=11.3ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.081753 | stop=0.080416 | target=0.083446
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40829.548638 | price=0.0824157715 | slippage=0.004% | latency=13.4ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$53.11 | duration=4 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.84
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39283.174769 | price=0.08473087439285715
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39283.174769 | price=0.08473087439285715 | slippage=0.000% | latency=11.7ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.084731 | stop=0.086127 | target=0.082884
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39283.174769 | price=0.08287605732 | slippage=0.004% | latency=18.8ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | take_profit | PnL=$144.73 | duration=3 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41322.973168 | price=0.08081079592857142
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41322.973168 | price=0.08081079592857142 | slippage=0.000% | latency=24.0ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.080811 | stop=0.079455 | target=0.082992
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41322.973168 | price=0.07845691192 | slippage=0.004% | latency=18.6ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-195.53 | duration=2 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=43122.833105 | price=0.07716406510714285
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=43122.833105 | price=0.07716406510714285 | slippage=0.000% | latency=15.6ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.077164 | stop=0.078458 | target=0.075146
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=43122.833105 | price=0.07982200105500001 | slippage=0.004% | latency=12.2ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-230.25 | duration=5 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.54
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=41780.460975 | price=0.0796347825
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41780.460975 | price=0.0796347825 | slippage=0.000% | latency=23.6ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.079635 | stop=0.080979 | target=0.077425
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41780.460975 | price=0.081285092235 | slippage=0.004% | latency=13.3ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-138.91 | duration=1 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39886.058295 | price=0.08339932071428571
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39886.058295 | price=0.08339932071428571 | slippage=0.000% | latency=14.8ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | short | entry=0.083399 | stop=0.084825 | target=0.080818
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=39886.058295 | price=0.083334356355 | slippage=0.004% | latency=15.1ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | trailing_stop | PnL=$4.18 | duration=6 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40019.508710 | price=0.0834732635
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40019.508710 | price=0.0834732635 | slippage=0.000% | latency=11.6ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.083473 | stop=0.082043 | target=0.086182
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=40019.508710 | price=0.081005107185 | slippage=0.004% | latency=13.9ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION CLOSE | DOGE-PERP | stop_loss | PnL=$-198.54 | duration=1 candles
+2026-01-19 19:07:57 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 19:07:57 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41871.849196 | price=0.0797454785
+2026-01-19 19:07:57 | INFO     | wick_reversal | FILL | DOGE-PERP | qty=41871.849196 | price=0.0797454785 | slippage=0.000% | latency=23.3ms
+2026-01-19 19:07:57 | INFO     | wick_reversal | POSITION OPEN | DOGE-PERP | long | entry=0.079745 | stop=0.078414 | target=0.081808
+2026-01-19 19:07:57 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
+2026-01-19 19:07:57 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete
+2026-01-19 21:54:22 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-19 21:54:22 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=49306.117960 | price=0.10140729400000001
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33035.930671 | price=0.10090024
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=49019.873127 | price=0.10199944799999999
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=48532.654974 | price=0.103023418
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30526.032405 | price=0.10919641599999999
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=46033.585183 | price=0.10861635
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.73
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32075.895984 | price=0.1040125481
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30648.540213 | price=0.10867185395
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.72
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29764.871682 | price=0.11188936613571428
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.86
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30111.280107 | price=0.11573542407142857
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28761.444092 | price=0.11580624352857143
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34694.621412 | price=0.12193125404285714
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30682.250971 | price=0.11358074453571428
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.59
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29142.125136 | price=0.1142992684857143
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.66
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28860.846959 | price=0.11540342645000001
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30416.345014 | price=0.10969412040714285
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30099.488804 | price=0.11084433232857144
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.72
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28499.953294 | price=0.1168417217
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29057.196657 | price=0.11483404600714286
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.54
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28422.741415 | price=0.11739363884285714
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28102.262898 | price=0.11872188615714287
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=27093.631521 | price=0.12292168428571427
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.71
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30416.146768 | price=0.11948584942857142
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28322.616169 | price=0.11777148738571429
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.54
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32850.080492 | price=0.11821630182857143
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28639.090304 | price=0.11648630519285713
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29234.523650 | price=0.11746010506428572
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.68
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29153.725765 | price=0.11443903122857142
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29387.136310 | price=0.11865149372857144
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=27988.110763 | price=0.11900046435714286
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 21:54:22 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30308.497641 | price=0.11477818003571429
+2026-01-19 21:54:22 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:22 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28930.481471 | price=0.1151215198
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.71
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28972.546980 | price=0.11532391736428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28311.453393 | price=0.11763610175714287
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28127.932566 | price=0.11840015267142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28835.387711 | price=0.11730610655
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37322.345635 | price=0.11809611
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=40384.229405 | price=0.11529485349285715
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37376.492717 | price=0.11607245047857143
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42700.272513 | price=0.11469507307142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28787.602244 | price=0.11572685241428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.71
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31061.718423 | price=0.10739298433571429
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31349.366716 | price=0.10641861645714286
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35548.768111 | price=0.10847934935
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30431.030965 | price=0.10944255650714285
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28012.121114 | price=0.11888605749285715
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28097.710011 | price=0.11852095152142858
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29122.498466 | price=0.1145835746642857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29788.760926 | price=0.11203303064285715
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29514.251730 | price=0.11280812402142858
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30489.534787 | price=0.10944347289285715
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.64
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29658.020660 | price=0.11227810268571428
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29638.587596 | price=0.11234952522857143
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30297.039201 | price=0.11014164222142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29259.922575 | price=0.11380252063571428
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29415.709179 | price=0.11342515913571428
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29710.404202 | price=0.11420841658571429
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30234.142085 | price=0.11034985936428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29346.640885 | price=0.11347835705714285
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.74
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30774.873461 | price=0.10842169343571428
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30552.276889 | price=0.10919983327142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.81
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31062.161287 | price=0.1074204788
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.55
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30989.486879 | price=0.1076714115142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32294.185250 | price=0.10331421705714285
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.59
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34223.094683 | price=0.10693099097142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.74
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37670.432472 | price=0.10719830489285714
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35744.137540 | price=0.10530124127857143
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=43967.037786 | price=0.10299995155714287
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30975.147642 | price=0.10768342677142856
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.64
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31770.578603 | price=0.10499554845
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35595.270385 | price=0.1100687681
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.56
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30265.191110 | price=0.11022370895714285
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=32623.013812 | price=0.10595638496428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34027.380083 | price=0.10726794330714286
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31437.179719 | price=0.10594734797857143
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32328.460678 | price=0.10320008216428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30247.781904 | price=0.11010309734285714
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30981.241218 | price=0.1076903889
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30055.204920 | price=0.11080489356428572
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31084.798865 | price=0.10734015922142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31808.002824 | price=0.10490713037142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30077.112362 | price=0.11070498225714286
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.74
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30789.522106 | price=0.10838342996428571
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.67
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30541.642717 | price=0.10901217843571429
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30783.880107 | price=0.10815242259285714
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30811.442066 | price=0.10806426775
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30850.323455 | price=0.10794001635
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31779.357699 | price=0.10478796442142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32149.103117 | price=0.10379766712857144
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31244.487496 | price=0.10657636972142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31106.574777 | price=0.10705008773571428
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31945.203702 | price=0.10445332437857144
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.65
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30826.096476 | price=0.10803781022142857
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33000.328993 | price=0.10111912793571427
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 21:54:23 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32435.824343 | price=0.10287248670714286
+2026-01-19 21:54:23 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:23 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34488.592799 | price=0.10393408627142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.67
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33588.098388 | price=0.09932901287857142
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.84
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=46203.229791 | price=0.09918448714285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33444.640441 | price=0.09972696977857143
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33561.901968 | price=0.09938195045714286
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34134.077839 | price=0.09758765992857142
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.62
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33649.476219 | price=0.09898456676428571
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33549.273906 | price=0.09944078162857142
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=32854.800535 | price=0.10135611953571429
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33935.790674 | price=0.09831786944285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33245.194339 | price=0.10036611760714285
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33425.718007 | price=0.09982640895
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33939.526538 | price=0.09831920804285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34622.384969 | price=0.09637005980714285
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35101.106491 | price=0.095049967
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34949.231314 | price=0.09528047341428572
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35834.771687 | price=0.09310883568571428
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35758.127733 | price=0.09360120764999999
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33406.973662 | price=0.09968601775
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.69
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33244.591550 | price=0.10016919921428571
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33691.846929 | price=0.09903391027142856
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34329.388173 | price=0.09700620733571429
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36165.494431 | price=0.09207937973571428
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38560.887920 | price=0.08652851799285713
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37624.845823 | price=0.08868113834285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42056.636832 | price=0.08525410450000001
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.73
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38404.541690 | price=0.08673077007142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42279.983122 | price=0.08316646887142858
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.60
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38965.650571 | price=0.08548519741428572
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38415.841341 | price=0.08670326185
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42970.617735 | price=0.08649741882142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.70
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37136.820372 | price=0.08967904702142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40253.598313 | price=0.08289859533571428
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37444.952363 | price=0.08892405490714285
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39592.489393 | price=0.08429267807142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.62
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40014.114739 | price=0.08340720402142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39880.340474 | price=0.08368521192857144
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.72
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38386.825298 | price=0.08672313717857144
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.57
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40071.745094 | price=0.08330208332142856
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.60
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37921.183762 | price=0.0877842488
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38248.805081 | price=0.08704037764285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.63
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40183.269140 | price=0.08306119701428571
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39412.949478 | price=0.0844673412
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.71
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40728.463100 | price=0.08194061597857143
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41836.037774 | price=0.07976827039285714
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40948.892972 | price=0.08149006332857142
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=41659.346078 | price=0.08010232295
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=40112.349235 | price=0.08300427970714286
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40386.305676 | price=0.08260971267857142
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=42876.048867 | price=0.07781699515714285
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.69
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=40887.175160 | price=0.08144206594285715
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42375.545988 | price=0.07858102812142857
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=42055.660498 | price=0.07919220329285713
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=38312.798746 | price=0.08692768633571428
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.55
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39413.267302 | price=0.08464503701428572
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=39616.586152 | price=0.08712871903571429
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.80
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37005.897808 | price=0.09000131290714285
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.62
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=39637.773536 | price=0.08418147669285715
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37657.440014 | price=0.08842709475714286
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:24 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36565.355329 | price=0.09106929975714287
+2026-01-19 21:54:24 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:24 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.72
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35745.883799 | price=0.09314639404285714
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34253.547347 | price=0.09719400292142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34850.305080 | price=0.09552607901428571
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36093.260828 | price=0.0924832719
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36825.154102 | price=0.09064854125
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35825.786309 | price=0.0929153859
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36571.772572 | price=0.09126545576428571
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36343.140682 | price=0.09183768029285715
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35883.950930 | price=0.09301167345714285
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35677.446457 | price=0.09353828052142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34739.565226 | price=0.09584708400714285
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35817.500494 | price=0.09316470043571429
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.60
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35613.938102 | price=0.09369154932142858
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35819.409541 | price=0.09315249408571429
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33910.398107 | price=0.09819756142142856
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=32569.909634 | price=0.10223784297142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34103.897948 | price=0.09783956517142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33859.475727 | price=0.098338862
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33770.766066 | price=0.09861221649285715
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=34493.617925 | price=0.09655125861428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33642.611204 | price=0.09898815975714285
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37331.529474 | price=0.09752834924285714
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.54
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37106.213621 | price=0.09946091467857143
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.60
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37875.154077 | price=0.10224263526428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=33263.203855 | price=0.10029164334285715
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36175.755463 | price=0.10471351208571428
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.71
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31835.394000 | price=0.10461764340714284
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35469.660874 | price=0.10557239125714285
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.86
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35609.019276 | price=0.10643427653571427
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.84
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31481.021509 | price=0.10808681935
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=35173.839668 | price=0.1095472669
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37237.279027 | price=0.11105049864285714
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.84
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=36570.759849 | price=0.11080628555
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.66
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30991.830498 | price=0.10762632700714286
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.67
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30936.551249 | price=0.10783530454285714
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29689.218134 | price=0.11217890597857143
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31410.977051 | price=0.11341673477857143
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.68
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29761.514673 | price=0.11210039707142856
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.72
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28051.607755 | price=0.1187149049357143
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28400.523149 | price=0.11748762306428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28504.951929 | price=0.11704424642142858
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.78
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28466.053052 | price=0.11828468318571429
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.71
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28317.027426 | price=0.11763483756428571
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.77
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35200.195834 | price=0.11763466226428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29047.199167 | price=0.12435668236428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=27590.996585 | price=0.12384646866428571
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.83
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30383.431967 | price=0.12438237882857144
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35730.563173 | price=0.12482351002142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.59
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=26825.875016 | price=0.12433535629285715
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=25725.698810 | price=0.12948352031428573
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32823.730845 | price=0.1267446510142857
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.68
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=27747.026673 | price=0.12023981632142858
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=26409.028216 | price=0.12633303878571428
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.80
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=26001.411606 | price=0.12831161315
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.80
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=26415.021115 | price=0.1260711220357143
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.69
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=27154.477079 | price=0.12287598586428572
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=25604.079742 | price=0.13010272300714287
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=27567.017363 | price=0.12100231482142856
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.73
+2026-01-19 21:54:25 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=26574.427043 | price=0.12533725709285715
+2026-01-19 21:54:25 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:25 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30122.980943 | price=0.12137080022857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28659.462251 | price=0.11742169745
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28868.597460 | price=0.11556809439285715
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29651.473673 | price=0.11232483184285713
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30084.501951 | price=0.11090014927142856
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28295.027864 | price=0.11769629779285715
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=31939.734284 | price=0.11623294597857144
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.59
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=29075.616374 | price=0.115668955
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=33858.070548 | price=0.11737056732142857
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.76
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29290.142558 | price=0.11389383624999999
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28837.733173 | price=0.11549722545
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.68
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28773.022727 | price=0.1157581744
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.71
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28408.530486 | price=0.11724416094285714
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30522.876594 | price=0.1093128035
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=28667.145878 | price=0.11638272126428573
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.77
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=27834.497525 | price=0.11964674862857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28154.877164 | price=0.11828402575714286
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=32395.551535 | price=0.10962322197857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.76
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=28794.328430 | price=0.11568444891428571
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.62
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29445.141813 | price=0.11329514146428571
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.91
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30910.678032 | price=0.12307989999999999
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30658.364732 | price=0.12108424057142858
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.82
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29777.269833 | price=0.11205294406428572
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.70
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30167.125444 | price=0.11177869793571428
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=29561.417119 | price=0.11285435987857144
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.71
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=31580.806124 | price=0.11198868601428573
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.59
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=36674.437456 | price=0.11175411114285715
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.79
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=30602.817731 | price=0.10886046055
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.67
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40691.778842 | price=0.10741642574285713
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.79
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=38071.114994 | price=0.10790213236428571
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.72
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=30531.332505 | price=0.10924595124285714
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.74
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37371.140969 | price=0.10437290907857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.93
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=40093.746051 | price=0.10454213152857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.67
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37455.209589 | price=0.10181691657857143
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.85
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=34664.437842 | price=0.10342125164285715
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.86
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=37030.965134 | price=0.10222253293571429
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.78
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35648.368970 | price=0.10003783787142857
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.74
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=32789.703655 | price=0.1015713953142857
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | lower_wick_long | strength=0.83
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | long | qty=35932.196151 | price=0.09557390637142855
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SIGNAL | DOGE-PERP | upper_wick_short | strength=0.75
+2026-01-19 21:54:26 | INFO     | wick_reversal | ORDER SUBMITTED | DOGE-PERP | short | qty=37531.584168 | price=0.09695118407142857
+2026-01-19 21:54:26 | ERROR    | wick_reversal | ERROR | entry_failed | 
+2026-01-19 21:54:26 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
+2026-01-19 21:54:26 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete
