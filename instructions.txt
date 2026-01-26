@@ -1,0 +1,56 @@
+Running live_monitor.py along with run_paper_trade.py
+
+  Terminal 1 - Live Monitor (detects opportunities):
+  python live_monitor.py --current TAO-PERP AAVE-PERP ZRO-PERP --auto-update --output active_symbols.json --interval 300
+
+  Terminal 2 - Paper Trading Bot (executes trades):
+  python run_paper_trade.py --private-key YOUR_KEY --watch-symbols active_symbols.json
+
+  How It Works
+
+  ┌─────────────────────┐         ┌──────────────────────┐
+  │   LIVE MONITOR      │         │   TRADING BOT        │
+  │                     │         │                      │
+  │  Scans all markets  │         │  Trades symbols      │
+  │  every 5 minutes    │         │  from config         │
+  │         │           │         │         ▲            │
+  │         ▼           │         │         │            │
+  │  Finds better       │  writes │  Watches file        │
+  │  opportunities      │ ──────► │  every 30s           │
+  │         │           │         │         │            │
+  │         ▼           │         │         ▼            │
+  │  active_symbols.json│         │  Auto-switches       │
+  │                     │         │  to new symbols      │
+  └─────────────────────┘         └──────────────────────┘
+
+  What Happens When Symbols Change
+
+  1. Monitor detects kPEPE-PERP has score 65 (better than your worst symbol at 40)
+  2. Monitor writes new symbols to active_symbols.json
+  3. Bot detects file change within 30 seconds
+  4. Bot prints update notification:
+  ============================================================
+  🔄 SYMBOL UPDATE DETECTED
+  ============================================================
+     ➕ Adding: kPEPE-PERP
+     ➖ Removing: ZRO-PERP
+     📊 New symbols: TAO-PERP, AAVE-PERP, kPEPE-PERP
+  ============================================================
+  5. Bot automatically starts streaming new symbol, stops old one
+  6. Existing positions are kept until they close naturally
+
+  Options
+  ┌──────────────────────┬────────────────────────────────────────┐
+  │         Flag         │              Description               │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --watch-symbols FILE │ JSON file to watch for updates         │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --watch-interval 30  │ How often to check (seconds)           │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --auto-update        │ (monitor) Enable writing to file       │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --output FILE        │ (monitor) Where to write symbols       │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --interval 300       │ (monitor) Scan interval (seconds)      │
+  ├──────────────────────┼────────────────────────────────────────┤
+  │ --threshold 20       │ (monitor) Score diff to trigger change │

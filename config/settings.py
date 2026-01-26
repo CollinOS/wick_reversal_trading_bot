@@ -275,11 +275,9 @@ class StrategyConfig:
     
     # Symbols to trade
     symbols: List[SymbolConfig] = field(default_factory=lambda: [
-        SymbolConfig(symbol="DOGE-PERP"),
-        SymbolConfig(symbol="SHIB-PERP"),
-        SymbolConfig(symbol="PEPE-PERP"),
-        SymbolConfig(symbol="FLOKI-PERP"),
-        SymbolConfig(symbol="BONK-PERP"),
+        SymbolConfig(symbol="TAO-PERP"),
+        SymbolConfig(symbol="AAVE-PERP"),
+        SymbolConfig(symbol="ZRO-PERP"),
     ])
     
     # Logging level

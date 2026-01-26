@@ -174,34 +174,34 @@ class WickReversalStrategy:
         """Check and execute position exits."""
         if symbol not in self.active_positions:
             return
-        
+
         position = self.active_positions[symbol]
         if not position.is_open:
             return
-        
+
         exit_triggered = False
         exit_reason = ""
         exit_price = candle.close
-        
+
         if self.risk_manager.check_stop_loss(position, candle.close):
             exit_triggered = True
             effective_stop = (
-                position.trailing_stop_price 
-                if position.trailing_stop_active 
+                position.trailing_stop_price
+                if position.trailing_stop_active
                 else position.stop_loss
             )
             exit_reason = "trailing_stop" if position.trailing_stop_active else "stop_loss"
             exit_price = effective_stop
-        
+
         elif self.risk_manager.check_take_profit(position, candle.close):
             exit_triggered = True
             exit_reason = "take_profit"
             exit_price = position.take_profit
-        
+
         elif self.risk_manager.check_time_exit(position):
             exit_triggered = True
             exit_reason = "time_exit"
-        
+
         if exit_triggered:
             await self._close_position(position, exit_price, exit_reason)
     

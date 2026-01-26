@@ -2,7 +2,7 @@
 """
 Fetch historical candles from Hyperliquid and save to JSON for backtesting.
 
-python fetch_hyperliquid_history.py --symbols DOGE-PERP kSHIB-PERP kPEPE-PERP --timeframe 5m --days 90 --out
+python fetch_hyperliquid_history.py --symbols AXS-PERP MEGA-PERP LIT-PERP --timeframe 5m --days 90 --out
   historical_data.json
 """
 
@@ -131,8 +131,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--symbols",
         nargs="+",
-        default=["DOGE-PERP", "kSHIB-PERP", "kPEPE-PERP"],
-        help="Symbols to fetch (e.g., DOGE-PERP kSHIB-PERP)",
+        default=["AXS-PERP", "MEGA-PERP", "LIT-PERP"],
+        help="Symbols to fetch (e.g., TAO-PERP AAVE-PERP)",
     )
     parser.add_argument("--timeframe", default="5m", help="Candle timeframe (e.g., 5m)")
     parser.add_argument("--days", type=int, default=90, help="Number of days of history")
