@@ -14,6 +14,7 @@ from backtest.engine import (
     analyze_trades_by_dimension,
     print_trade_analysis,
     export_trades_to_csv,
+    print_trade_details,
 )
 from config.settings import StrategyConfig, SymbolConfig, TimeFrame
 from core.types import Candle
@@ -71,6 +72,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--no-monte", action="store_true", help="Skip Monte Carlo analysis")
     parser.add_argument("--analyze", action="store_true", help="Run detailed trade analysis")
     parser.add_argument("--export-csv", type=str, help="Export trades to CSV file (e.g., trades.csv)")
+    parser.add_argument("--trade-details", nargs="?", const=True, default=False,
+                        metavar="FILE", help="Print individual trade logs (optionally to FILE)")
     return parser.parse_args()
 
 
@@ -180,6 +183,14 @@ def main() -> None:
     if args.export_csv and engine.trades:
         export_trades_to_csv(engine.trades, args.export_csv)
         print(f"\nTrades exported to: {args.export_csv}")
+
+    # Print individual trade details
+    if args.trade_details and engine.trades:
+        if isinstance(args.trade_details, str):
+            print_trade_details(engine.trades, args.trade_details)
+            print(f"\nTrade details exported to: {args.trade_details}")
+        else:
+            print_trade_details(engine.trades)
 
 
 if __name__ == "__main__":

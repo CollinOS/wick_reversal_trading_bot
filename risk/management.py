@@ -85,12 +85,14 @@ class PositionSizer:
             if 'min_position_size' in symbol_config:
                 if position_size < symbol_config['min_position_size']:
                     return 0.0, 0.0
-            if 'max_position_usd' in symbol_config:
-                max_size = symbol_config['max_position_usd'] / entry_price
-                if position_size > max_size:
-                    position_size = max_size
+            # Cap at base_position_usd (baseline for normal confidence trades)
+            # The leverage multiplier will scale this up for confident trades
+            if 'base_position_usd' in symbol_config:
+                base_size = symbol_config['base_position_usd'] / entry_price
+                if position_size > base_size:
+                    position_size = base_size
                     risk_amount = position_size * risk_per_unit
-        
+
         return position_size, risk_amount
     
     def calculate_leverage(
@@ -317,7 +319,19 @@ class RiskManager:
         # Apply dynamic leverage multiplier to position size
         position_size *= leverage_multiplier
         risk_amount *= leverage_multiplier
-        
+
+        # Cap at max_position_usd (absolute maximum for highest confidence trades)
+        if symbol_config and 'max_position_usd' in symbol_config:
+            max_size = symbol_config['max_position_usd'] / entry_price
+            if position_size > max_size:
+                position_size = max_size
+                # Recalculate risk amount based on capped position
+                if signal.side == Side.LONG:
+                    risk_per_unit = entry_price - stop_loss
+                else:
+                    risk_per_unit = stop_loss - entry_price
+                risk_amount = position_size * risk_per_unit
+
         if position_size <= 0:
             assessment.reason = "Position size calculation failed"
             return assessment

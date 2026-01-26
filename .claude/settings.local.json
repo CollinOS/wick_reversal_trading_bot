@@ -1,7 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(python run_real_data.py:*)"
+      "Bash(python run_real_data.py:*)",
+      "Bash(python -c:*)"
     ]
   }
 }

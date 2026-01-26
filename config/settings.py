@@ -45,7 +45,7 @@ class SignalConfig:
     vwap_distance_atr: float = 1.0
     
     # Minimum wick size in absolute terms (as % of price)
-    min_wick_pct: float = 0.006  # 1.2%
+    min_wick_pct: float = 0.006  # 0.006 = 0.6%
     
     # Body confirmation: close must be at least this % away from wick extreme
     rejection_threshold_pct: float = 0.35  # 50% of wick
@@ -236,18 +236,21 @@ class SymbolConfig:
     """Per-symbol configuration overrides."""
     symbol: str
     enabled: bool = True
-    
+
     # Override risk parameters
     risk_multiplier: float = 1.0
-    
+
     # Override signal parameters
     wick_atr_multiplier_override: Optional[float] = None
-    
+
     # Minimum position size (in base currency)
     min_position_size: float = 0.001
-    
-    # Maximum position size (in USD)
-    max_position_usd: float = 100
+
+    # Base position size (in USD) - used for normal confidence trades (1 signal)
+    base_position_usd: float = 100
+
+    # Maximum position size (in USD) - used for highest confidence trades
+    max_position_usd: float = 250
 
 
 @dataclass

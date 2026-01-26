@@ -802,6 +802,110 @@ def print_trade_analysis(analysis: dict):
     print("\n" + "=" * 60)
 
 
+def print_trade_details(trades: List[TradeResult], output_file: Optional[str] = None):
+    """Print detailed information for each individual trade.
+
+    Args:
+        trades: List of TradeResult objects
+        output_file: Optional file path to write output (prints to console if None)
+    """
+    import sys
+
+    if not trades:
+        print("\nNo trades to display.")
+        return
+
+    # Use file or stdout
+    if output_file:
+        f = open(output_file, 'w', encoding='utf-8')
+    else:
+        f = sys.stdout
+
+    def out(text=""):
+        print(text, file=f)
+
+    out("=" * 80)
+    out("INDIVIDUAL TRADE DETAILS")
+    out("=" * 80)
+
+    day_names = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
+    for i, trade in enumerate(trades, 1):
+        result = "WIN" if trade.is_winner else "LOSS"
+
+        out(f"\n{'-' * 80}")
+        out(f"Trade #{i} | {trade.symbol} | {trade.side.value.upper()} | [{result}]")
+        out(f"{'-' * 80}")
+
+        # Timing
+        entry_time = trade.entry_time.strftime("%Y-%m-%d %H:%M") if trade.entry_time else "N/A"
+        exit_time = trade.exit_time.strftime("%Y-%m-%d %H:%M") if trade.exit_time else "N/A"
+        day_name = day_names[trade.entry_day_of_week]
+        out(f"  Entry: {entry_time} ({day_name}, Hour {trade.entry_hour:02d})")
+        out(f"  Exit:  {exit_time} ({trade.exit_reason})")
+        out(f"  Duration: {trade.candles_held} candles ({trade.duration_seconds // 60} minutes)")
+
+        # Price levels
+        out(f"\n  Prices:")
+        out(f"    Entry:       ${trade.entry_price:.6f}")
+        out(f"    Exit:        ${trade.exit_price:.6f}")
+        pct_move = ((trade.exit_price - trade.entry_price) / trade.entry_price) * 100
+        if trade.side == Side.SHORT:
+            pct_move = -pct_move
+        out(f"    Move:        {pct_move:+.3f}%")
+
+        # P&L
+        out(f"\n  P&L:")
+        out(f"    Gross:       ${trade.gross_pnl:+.2f}")
+        out(f"    Commission:  ${trade.commission:.2f}")
+        out(f"    Net:         ${trade.net_pnl:+.2f} ({trade.pnl_pct*100:+.2f}%)")
+        out(f"    Position:    {trade.quantity:.6f} units")
+
+        # Risk metrics
+        out(f"\n  Risk Metrics:")
+        out(f"    Risk Amount: ${trade.risk_amount:.2f}")
+        out(f"    R:R Ratio:   {trade.reward_risk_ratio:.2f}")
+        r_multiple = trade.net_pnl / trade.risk_amount if trade.risk_amount > 0 else 0
+        out(f"    R-Multiple:  {r_multiple:+.2f}R")
+
+        # Signal details
+        out(f"\n  Signal Details:")
+        out(f"    Strength:    {trade.signal_strength:.3f}")
+        out(f"    Leverage:    {trade.leverage_multiplier:.2f}x")
+        out(f"    Criteria ({trade.num_criteria_met}):")
+        for criterion in trade.signal_criteria:
+            out(f"      - {criterion}")
+
+        # Criteria flags
+        criteria_flags = []
+        if trade.has_wtb_ratio:
+            criteria_flags.append("WTB")
+        if trade.has_atr_ratio:
+            criteria_flags.append("ATR")
+        if trade.has_vwap_dist:
+            criteria_flags.append("VWAP")
+        out(f"    Flags:       [{', '.join(criteria_flags) if criteria_flags else 'None'}]")
+
+        # Market context
+        out(f"\n  Market Context at Entry:")
+        out(f"    ATR:         {trade.atr_at_entry:.6f}")
+        out(f"    ATR Ratio:   {trade.atr_ratio_at_entry:.2f}x (vs baseline)")
+        out(f"    VWAP:        ${trade.vwap_at_entry:.6f}")
+        out(f"    Price/VWAP:  {trade.price_vs_vwap_pct:+.2f}%")
+        out(f"    Vol Ratio:   {trade.volume_ratio_at_entry:.2f}x")
+        out(f"    Wick Size:   {trade.wick_size_pct:.3f}%")
+
+    # Summary footer
+    out(f"\n{'=' * 80}")
+    total_pnl = sum(t.net_pnl for t in trades)
+    wins = sum(1 for t in trades if t.is_winner)
+    out(f"Total: {len(trades)} trades | {wins} wins ({wins/len(trades)*100:.1f}%) | Net P&L: ${total_pnl:+.2f}")
+    out("=" * 80)
+
+    if output_file:
+        f.close()
+
+
 def run_monte_carlo_analysis(
     trades: List[TradeResult],
     initial_capital: float,
