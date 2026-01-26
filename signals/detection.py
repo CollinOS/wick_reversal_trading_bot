@@ -4,6 +4,7 @@ Identifies exaggerated wick patterns for mean-reversion entries.
 """
 
 import logging
+import math
 from typing import Optional, List, Tuple
 from datetime import datetime
 
@@ -281,11 +282,14 @@ class WickAnalyzer:
             signal_valid = conditions_met >= 1  # At least one condition met
 
         # Calculate strength (0-1 scale)
-        # Weighted average without artificial /2 compression
-        # Components typically range 0.5-2.0 after weighting, normalize to 0-1
+        # Use weighted sum (not average) to reward multiple high-quality criteria
+        # Then normalize using a sigmoid-like curve for better distribution
         if signal_valid and strength_components:
-            raw_strength = sum(strength_components) / len(strength_components)
-            strength = min(raw_strength / 1.5, 1.0)
+            raw_sum = sum(strength_components)
+            # Expected range: 1.5 (min 2 criteria) to 6.0 (all criteria at high values)
+            # Use sigmoid-like normalization: 1 - exp(-x/k) spreads values nicely
+            # k=2.5 gives: sum=1.5->0.45, sum=2.5->0.63, sum=3.5->0.75, sum=5.0->0.86
+            strength = 1.0 - math.exp(-raw_sum / 2.5)
         else:
             strength = 0.0
 

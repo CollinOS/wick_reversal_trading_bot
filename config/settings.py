@@ -255,7 +255,7 @@ class StrategyConfig:
     """Master configuration combining all components."""
     # Strategy identification
     strategy_name: str = "WickReversal_v1"
-    strategy_version: str = "1.9.0"
+    strategy_version: str = "1.9.1"
     
     # Primary timeframe
     timeframe: TimeFrame = TimeFrame.M5
