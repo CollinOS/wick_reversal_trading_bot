@@ -127,7 +127,7 @@ class RiskConfig:
     allow_averaging: bool = False
     
     # Maximum leverage
-    max_leverage: float = 10.0
+    max_leverage: float = 5.0
 
 
 @dataclass
@@ -247,10 +247,10 @@ class SymbolConfig:
     min_position_size: float = 0.001
 
     # Base position size (in USD) - used for normal confidence trades (1 signal)
-    base_position_usd: float = 100
+    base_position_usd: float = 200
 
     # Maximum position size (in USD) - used for highest confidence trades
-    max_position_usd: float = 250
+    max_position_usd: float = 500
 
 
 @dataclass
