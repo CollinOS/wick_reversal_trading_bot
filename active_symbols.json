@@ -1,0 +1,72 @@
+{
+  "updated_at": "2026-01-30T02:49:37.147063",
+  "symbols": [
+    "SKR-PERP",
+    "IP-PERP",
+    "HYPE-PERP",
+    "ZRO-PERP",
+    "CC-PERP"
+  ],
+  "snapshots": {
+    "SKR-PERP": {
+      "symbol": "SKR-PERP",
+      "timestamp": "2026-01-30T02:49:37.138477",
+      "current_price": 0.016989,
+      "volume_24h": 3027290.152294,
+      "atr_pct": 0.01134669328548684,
+      "recent_wick_count": 8,
+      "avg_wick_size_pct": 0.003372844133946851,
+      "opportunity_score": 53.01995456985321,
+      "score_change": -1.902350849327732,
+      "is_spiking": false
+    },
+    "IP-PERP": {
+      "symbol": "IP-PERP",
+      "timestamp": "2026-01-30T02:49:37.137410",
+      "current_price": 1.8922,
+      "volume_24h": 3594069.6670600004,
+      "atr_pct": 0.0072368570069537164,
+      "recent_wick_count": 9,
+      "avg_wick_size_pct": 0.004666318767089428,
+      "opportunity_score": 52.09864767236482,
+      "score_change": -1.7086081699075493,
+      "is_spiking": false
+    },
+    "HYPE-PERP": {
+      "symbol": "HYPE-PERP",
+      "timestamp": "2026-01-30T02:49:37.143886",
+      "current_price": 28.302,
+      "volume_24h": 863188380.4431727,
+      "atr_pct": 0.01288974573790515,
+      "recent_wick_count": 6,
+      "avg_wick_size_pct": 0.0036038670025998363,
+      "opportunity_score": 48.27481307519039,
+      "score_change": 2.82388177585824,
+      "is_spiking": false
+    },
+    "ZRO-PERP": {
+      "symbol": "ZRO-PERP",
+      "timestamp": "2026-01-30T02:49:37.134992",
+      "current_price": 2.06555,
+      "volume_24h": 23699865.654900003,
+      "atr_pct": 0.009462729912875086,
+      "recent_wick_count": 7,
+      "avg_wick_size_pct": 0.004444634253212112,
+      "opportunity_score": 48.00256154650066,
+      "score_change": -1.2162637795251854,
+      "is_spiking": false
+    },
+    "CC-PERP": {
+      "symbol": "CC-PERP",
+      "timestamp": "2026-01-30T02:49:37.140593",
+      "current_price": 0.1741,
+      "volume_24h": 4711757.85904,
+      "atr_pct": 0.012763614247908324,
+      "recent_wick_count": 5,
+      "avg_wick_size_pct": 0.003417270395516167,
+      "opportunity_score": 44.91438551963117,
+      "score_change": -0.7314856705039645,
+      "is_spiking": false
+    }
+  }
+}

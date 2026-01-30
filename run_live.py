@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 """
-Run paper trading on Hyperliquid testnet.
+Run LIVE trading on Hyperliquid MAINNET.
+
+WARNING: This uses REAL money. Make sure you understand the risks.
 
 Usage:
-    python run_paper_trade.py --private-key YOUR_PRIVATE_KEY
+    python run_live.py --private-key YOUR_PRIVATE_KEY --capital 200
 
     Or set environment variable:
     export HL_PRIVATE_KEY=your_private_key
-    python run_paper_trade.py
-
-    With auto-updating symbols from live monitor:
-    python run_paper_trade.py --watch-symbols active_symbols.json
+    python run_live.py --capital 200
 """
 
 import argparse
@@ -31,7 +30,7 @@ from execution.orders import HyperliquidExecutor
 from core.types import Candle
 
 
-# Configure logging - quiet mode for trading (only warnings/errors to console)
+# Configure logging - quiet mode for live trading (only warnings/errors to console)
 # All INFO logs still go to file via StructuredLogger
 logging.basicConfig(
     level=logging.WARNING,
@@ -107,9 +106,9 @@ class SymbolWatcher:
                     removed = old_symbols - new_symbols
 
                     if added:
-                        logger.info(f"📈 New symbols detected: {added}")
+                        logger.info(f"New symbols detected: {added}")
                     if removed:
-                        logger.info(f"📉 Symbols removed: {removed}")
+                        logger.info(f"Symbols removed: {removed}")
 
                     return new_symbols
 
@@ -132,28 +131,23 @@ class SymbolWatcher:
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Paper trade on Hyperliquid testnet")
+    parser = argparse.ArgumentParser(description="LIVE trading on Hyperliquid MAINNET")
     parser.add_argument(
         "--private-key",
         default=os.environ.get("HL_PRIVATE_KEY"),
         help="Ethereum private key (or set HL_PRIVATE_KEY env var)"
     )
     parser.add_argument(
-        "--mainnet",
-        action="store_true",
-        help="Use mainnet instead of testnet (CAUTION: real money!)"
-    )
-    parser.add_argument(
         "--capital",
         type=float,
-        default=1000.0,
-        help="Initial capital for position sizing (default: 1000)"
+        default=200.0,
+        help="Trading capital in USD (default: 200)"
     )
     parser.add_argument(
         "--symbols",
         nargs="+",
         default=None,
-        help="Override symbols to trade (e.g., TAO-PERP AAVE-PERP)"
+        help="Symbols to trade (e.g., TAO-PERP AAVE-PERP)"
     )
     parser.add_argument(
         "--watch-symbols",
@@ -167,11 +161,16 @@ def parse_args() -> argparse.Namespace:
         default=30,
         help="How often to check for symbol updates in seconds (default: 30)"
     )
+    parser.add_argument(
+        "--skip-confirmation",
+        action="store_true",
+        help="Skip the confirmation prompt (use with caution!)"
+    )
     return parser.parse_args()
 
 
-class DynamicTradingManager:
-    """Manages trading with dynamic symbol updates."""
+class LiveTradingManager:
+    """Manages live trading with dynamic symbol updates."""
 
     # Maximum age (in minutes) for candle data before symbol is considered "not ready"
     MAX_DATA_AGE_MINUTES = 30  # 30 minutes - cache should be fresh from live_monitor
@@ -200,8 +199,16 @@ class DynamicTradingManager:
         self.symbol_tasks: dict = {}
         self.is_running = False
 
+        # Track pre-existing positions to ignore (manual trades)
+        self.pre_existing_positions: Set[str] = set()
+
         # Track symbols that don't have fresh enough data
         self.symbols_not_ready: Set[str] = set()
+
+        # Session P&L tracking
+        self.session_trades: list = []
+        self.session_pnl: float = 0.0
+        self.session_start_time: Optional[datetime] = None
 
     def load_candle_cache(self) -> bool:
         """Load candles from cache file written by live_monitor.
@@ -296,18 +303,35 @@ class DynamicTradingManager:
     async def start(self, symbols: list):
         """Start trading with initial symbols."""
         self.current_symbols = set(symbols)
+        self.session_start_time = datetime.utcnow()
 
-        # Create strategy
+        # Record pre-existing positions to ignore
+        existing_positions = await self.executor.get_all_positions()
+        for pos in existing_positions:
+            self.pre_existing_positions.add(pos["symbol"])
+            logger.info(f"Ignoring pre-existing position: {pos['symbol']} "
+                       f"({'LONG' if pos['size'] > 0 else 'SHORT'} {abs(pos['size']):.4f})")
+
+        # Create strategy with trade callbacks
         self.strategy = WickReversalStrategy(
             config=self.config,
             data_provider=self.data_provider,
             executor=self.executor
         )
 
+        # Set up trade callbacks for logging
+        self.strategy.on_trade_entry = self._on_trade_entry
+        self.strategy.on_trade_exit = self._on_trade_exit
+
+        # Pass ignored positions to strategy
+        self.strategy.ignored_positions = self.pre_existing_positions
+
         await self.strategy.initialize(initial_capital=self.initial_capital)
         self.is_running = True
 
-        logger.info(f"Started trading: {', '.join(symbols)}")
+        logger.info(f"Started LIVE trading: {', '.join(symbols)}")
+        if self.pre_existing_positions:
+            logger.info(f"Ignoring {len(self.pre_existing_positions)} pre-existing position(s)")
 
         # Start streaming for each symbol
         for symbol in symbols:
@@ -315,6 +339,73 @@ class DynamicTradingManager:
 
         # Also stream BTC for correlation
         await self._start_btc_stream()
+
+    def _on_trade_entry(self, symbol: str, side: str, quantity: float, price: float,
+                        stop_loss: float = None, take_profit: float = None,
+                        leverage: float = None, risk_amount: float = None,
+                        criteria_met: list = None, signal_strength: float = None,
+                        leverage_breakdown: dict = None,
+                        base_position_size: float = None, dynamic_multiplier: float = None):
+        """Callback when a trade is entered."""
+        timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+
+        # Calculate USD values
+        position_value = quantity * price  # Total position value on exchange
+        base_usd = (base_position_size * price) if base_position_size else position_value
+        multiplier = dynamic_multiplier if dynamic_multiplier else 1.0
+
+        print(f"\n{'='*60}")
+        print(f"TRADE ENTRY - {timestamp}")
+        print(f"{'='*60}")
+        print(f"  Symbol: {symbol}")
+        print(f"  Side: {side.upper()}")
+        print(f"  Entry: ${price:.4f}  |  Stop: ${stop_loss:.4f}  |  Target: ${take_profit:.4f}")
+        print(f"{'─'*60}")
+        print(f"  Base Position:     ${base_usd:.2f}")
+        print(f"  Dynamic Multiplier: {multiplier:.2f}x")
+        print(f"  Position Value:    ${position_value:.2f}")
+        print(f"  Hyperliquid Leverage: {leverage:.2f}x")
+        print(f"  Risk Amount:       ${risk_amount:.2f}")
+        print(f"{'='*60}\n")
+
+    def _on_trade_exit(self, symbol: str, side: str, quantity: float,
+                       entry_price: float, exit_price: float, pnl: float, reason: str):
+        """Callback when a trade is exited."""
+        timestamp = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
+
+        # Update session P&L
+        self.session_pnl += pnl
+        self.session_trades.append({
+            "symbol": symbol,
+            "side": side,
+            "entry_price": entry_price,
+            "exit_price": exit_price,
+            "pnl": pnl,
+            "reason": reason,
+            "timestamp": timestamp
+        })
+
+        # Calculate win/loss
+        result = "WIN" if pnl > 0 else "LOSS"
+        pnl_pct = (pnl / (entry_price * quantity)) * 100 if entry_price > 0 else 0
+
+        print(f"\n{'='*60}")
+        print(f"TRADE EXIT - {result} - {timestamp}")
+        print(f"{'='*60}")
+        print(f"  Symbol: {symbol}")
+        print(f"  Side: {side}")
+        print(f"  Entry Price: ${entry_price:.4f}")
+        print(f"  Exit Price: ${exit_price:.4f}")
+        print(f"  Exit Reason: {reason}")
+        print(f"  Trade P&L: ${pnl:+.2f} ({pnl_pct:+.2f}%)")
+        print(f"{'='*60}")
+        print(f"  SESSION STATS:")
+        print(f"  Total Trades: {len(self.session_trades)}")
+        wins = len([t for t in self.session_trades if t['pnl'] > 0])
+        losses = len([t for t in self.session_trades if t['pnl'] <= 0])
+        print(f"  Wins/Losses: {wins}/{losses}")
+        print(f"  SESSION P&L: ${self.session_pnl:+.2f}")
+        print(f"{'='*60}\n")
 
     async def _start_symbol_stream(self, symbol: str):
         """Start candle stream for a symbol."""
@@ -442,7 +533,7 @@ class DynamicTradingManager:
             pass
 
         del self.symbol_tasks[symbol]
-        logger.info(f"🛑 Stopped stream: {symbol}")
+        logger.debug(f"Stopped stream: {symbol}")
 
     async def update_symbols(self, new_symbols: Set[str]):
         """Update trading symbols dynamically."""
@@ -453,17 +544,17 @@ class DynamicTradingManager:
         removed = self.current_symbols - new_symbols
 
         # Log the change
-        print(f"\n{'='*60}")
-        print("🔄 SYMBOL UPDATE DETECTED")
-        print(f"{'='*60}")
-        if added:
-            print(f"   ➕ Adding: {', '.join(added)}")
-        if removed:
-            print(f"   ➖ Removing: {', '.join(removed)}")
-        print(f"   📊 New symbols: {', '.join(new_symbols)}")
-        print(f"{'='*60}\n")
+        # print(f"\n{'='*60}")
+        # print("SYMBOL UPDATE DETECTED")
+        # print(f"{'='*60}")
+        # if added:
+        #     print(f"   Adding: {', '.join(added)}")
+        # if removed:
+        #     print(f"   Removing: {', '.join(removed)}")
+        # print(f"   New symbols: {', '.join(new_symbols)}")
+        # print(f"{'='*60}\n")
 
-        # Stop removed symbols (but don't close positions immediately)
+        # Stop removed symbols
         for symbol in removed:
             await self._stop_symbol_stream(symbol)
 
@@ -495,9 +586,24 @@ class DynamicTradingManager:
 
     def get_status(self) -> dict:
         """Get current trading status."""
+        status = {}
         if self.strategy:
-            return self.strategy.get_status()
-        return {}
+            status = self.strategy.get_status()
+
+        # Add session-specific stats
+        status["session_trades"] = len(self.session_trades)
+        status["session_pnl"] = self.session_pnl
+        status["session_start"] = self.session_start_time.isoformat() if self.session_start_time else None
+        status["ignored_positions"] = list(self.pre_existing_positions)
+
+        # Calculate session win rate
+        if self.session_trades:
+            wins = len([t for t in self.session_trades if t['pnl'] > 0])
+            status["session_win_rate"] = wins / len(self.session_trades)
+        else:
+            status["session_win_rate"] = 0
+
+        return status
 
 
 async def main():
@@ -506,28 +612,29 @@ async def main():
     if not args.private_key:
         print("Error: Private key required.")
         print("Either pass --private-key or set HL_PRIVATE_KEY environment variable")
-        print("\nTo generate a new wallet:")
-        print('  python -c "from eth_account import Account; a = Account.create(); print(f\'Address: {a.address}\\nPrivate Key: {a.key.hex()}\')"')
-        print("\nThen get testnet funds from: https://app.hyperliquid-testnet.xyz")
         sys.exit(1)
 
-    testnet = not args.mainnet
+    # Load config first so we can show actual values
+    config = DEFAULT_CONFIG
 
-    if not testnet:
-        print("\n" + "="*60)
-        print("WARNING: MAINNET MODE - REAL MONEY AT RISK!")
-        print("="*60)
-        confirm = input("Type 'YES' to confirm mainnet trading: ")
+    # Safety confirmation
+    print("\n" + "="*70)
+    print(" WARNING: LIVE TRADING ON MAINNET - REAL MONEY AT RISK!")
+    print("="*70)
+    print(f"\n  Capital: ${args.capital:,.2f}")
+    print(f"  Base position: ${config.symbols[0].base_position_usd}")
+    print(f"  Max position: ${config.symbols[0].max_position_usd}")
+    print(f"  Symbols: {args.symbols or 'from watch file'}")
+    print("\n" + "="*70)
+
+    if not args.skip_confirmation:
+        confirm = input("\nType 'YES' to confirm LIVE trading: ")
         if confirm != "YES":
             print("Aborted.")
             sys.exit(0)
 
-    # Load config
-    config = DEFAULT_CONFIG
-
     # Determine initial symbols
     if args.watch_symbols and Path(args.watch_symbols).exists():
-        # Load from watch file
         with open(args.watch_symbols, 'r') as f:
             data = json.load(f)
         symbols = data.get("symbols", [])
@@ -543,11 +650,11 @@ async def main():
     config.symbols = [SymbolConfig(symbol=s) for s in symbols]
 
     print(f"\n{'='*60}")
-    print(f"WICK REVERSAL STRATEGY - {'TESTNET' if testnet else 'MAINNET'} PAPER TRADING")
+    print(f"WICK REVERSAL STRATEGY - LIVE MAINNET TRADING")
     print(f"{'='*60}")
     print(f"Symbols: {', '.join(symbols)}")
     print(f"Timeframe: {config.timeframe.value}")
-    print(f"Initial Capital: ${args.capital:,.2f}")
+    print(f"Capital: ${args.capital:,.2f}")
     print(f"Base Position: ${config.symbols[0].base_position_usd}")
     print(f"Max Position: ${config.symbols[0].max_position_usd}")
     print(f"Max Leverage: {config.risk.max_leverage}x")
@@ -555,17 +662,17 @@ async def main():
         print(f"Watching: {args.watch_symbols} (every {args.watch_interval}s)")
     print(f"{'='*60}\n")
 
-    # Initialize data provider
-    data_provider = HyperliquidProvider(testnet=testnet)
+    # Initialize data provider (uses mainnet for data)
+    data_provider = HyperliquidProvider(testnet=False, use_mainnet_data=True)
 
-    # Initialize executor
+    # Initialize executor (MAINNET - real money!)
     executor = HyperliquidExecutor(
         private_key=args.private_key,
-        testnet=testnet
+        testnet=False  # MAINNET
     )
 
-    # Create dynamic trading manager
-    manager = DynamicTradingManager(
+    # Create trading manager
+    manager = LiveTradingManager(
         config=config,
         data_provider=data_provider,
         executor=executor,
@@ -605,13 +712,34 @@ async def main():
         await asyncio.sleep(1)  # Small delay between API clients
         await executor.connect()
 
+        # Verify connection and authentication before trading
+        print("\nVerifying exchange connection...")
+        if not await executor.verify_connection():
+            print("ERROR: Failed to verify exchange connection!")
+            print("Please check your private key and try again.")
+            sys.exit(1)
+
+        # Check for any existing positions
+        existing_positions = await executor.get_all_positions()
+        if existing_positions:
+            print(f"\nWARNING: Found {len(existing_positions)} existing position(s):")
+            for pos in existing_positions:
+                side = "LONG" if pos["size"] > 0 else "SHORT"
+                print(f"  {pos['symbol']}: {side} {abs(pos['size']):.4f} @ ${pos['entry_price']:.2f} "
+                      f"(PnL: ${pos['unrealized_pnl']:.2f})")
+            print()
+
         # Start trading
         await manager.start(symbols)
 
         # Now quiet console logging - file logging continues
         quiet_console_logging()
 
-        print("Strategy initialized. Press Ctrl+C to stop\n")
+        print(f"\n{'='*60}")
+        print("LIVE TRADING ACTIVE")
+        print(f"{'='*60}")
+        print(f"Wallet: {executor.wallet_address}")
+        print("Press Ctrl+C to stop\n")
 
         # Create tasks
         tasks = [asyncio.create_task(shutdown_event.wait())]
@@ -646,12 +774,16 @@ async def main():
         print(f"\n{'='*60}")
         print("SESSION SUMMARY")
         print(f"{'='*60}")
+        print(f"Session Start: {status.get('session_start', 'N/A')}")
         print(f"Candles Processed: {status.get('candle_count', 0)}")
-        print(f"Active Positions: {status.get('active_positions', 0)}")
-        if status.get('portfolio'):
-            portfolio = status['portfolio']
-            print(f"Total Trades: {portfolio.get('total_trades', 0)}")
-            print(f"Win Rate: {portfolio.get('win_rate', 0)*100:.1f}%")
+        print(f"Active Positions (bot): {status.get('active_positions', 0)}")
+        if status.get('ignored_positions'):
+            print(f"Ignored Positions (manual): {', '.join(status['ignored_positions'])}")
+        print(f"{'='*60}")
+        print("BOT TRADING RESULTS (this session only):")
+        print(f"  Trades Executed: {status.get('session_trades', 0)}")
+        print(f"  Win Rate: {status.get('session_win_rate', 0)*100:.1f}%")
+        print(f"  Session P&L: ${status.get('session_pnl', 0):+.2f}")
         print(f"{'='*60}\n")
 
 

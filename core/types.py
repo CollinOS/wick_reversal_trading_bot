@@ -331,7 +331,11 @@ class Position:
     signal_id: Optional[str] = None
     entry_order_ids: List[str] = field(default_factory=list)
     exit_order_ids: List[str] = field(default_factory=list)
-    
+
+    # Exchange-based stop/TP order IDs (for real-time protection)
+    stop_order_id: Optional[str] = None
+    take_profit_order_id: Optional[str] = None
+
     # Commission tracking
     total_commission: float = 0.0
     

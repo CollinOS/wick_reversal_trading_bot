@@ -72,8 +72,8 @@ class EntryConfig:
     # Maximum time to wait for retrace entry (in candles)
     max_retrace_wait_candles: int = 2
     
-    # Use limit orders for entry
-    use_limit_orders: bool = True
+    # Use limit orders for entry (False = market orders for reliable fills)
+    use_limit_orders: bool = False
     
     # Limit order offset from target price (as % of ATR)
     limit_order_offset_atr: float = 0.03
@@ -173,14 +173,14 @@ class FilterConfig:
     btc_move_threshold_pct: float = 0.03  # 3%
     btc_lookback_candles: int = 5
     
-    # Minimum volume filter (in USD)
-    min_volume_usd: float = 150000
-    
+    # Minimum volume filter (in USD per candle)
+    min_volume_usd: float = 1000  # Lowered for altcoins on 5m timeframe
+
     # Spread filter (as % of price)
-    max_spread_pct: float = 0.001  # 0.1%
+    max_spread_pct: float = 0.01  # 1% - more realistic for altcoins
     
     # Order book depth filter (minimum depth in USD at X% from mid)
-    min_orderbook_depth_usd: float = 50000
+    min_orderbook_depth_usd: float = 2500
     orderbook_depth_pct: float = 0.005  # 0.5% from mid
     
     # Time-of-day filters (UTC hours to avoid)

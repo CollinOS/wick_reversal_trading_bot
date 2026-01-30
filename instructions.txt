@@ -1,5 +1,8 @@
 Running live_monitor.py along with run_paper_trade.py
 
+  Before beginning a live trading session, run: 
+  python verify_live_setup.py --private-key (insert private key here)
+
   Terminal 1 - Live Monitor (detects opportunities):
   python live_monitor.py --current TAO-PERP AAVE-PERP ZRO-PERP --auto-update --output active_symbols.json --interval 300
 

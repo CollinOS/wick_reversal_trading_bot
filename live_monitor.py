@@ -37,6 +37,7 @@ import time
 
 from config.settings import StrategyConfig
 from core.types import Candle
+from data.candle_cache import CandleCache
 
 
 logging.basicConfig(
@@ -99,7 +100,7 @@ class LiveMarketMonitor:
         self,
         current_symbols: List[str],
         config: StrategyConfig,
-        check_interval: int = 300,  # 5 minutes
+        check_interval: int = 300,  # 5 minutes - now uses cached data, not API
         lookback_candles: int = 50,
         alert_threshold: float = 20.0,  # Score difference to trigger alert
     ):
@@ -110,6 +111,9 @@ class LiveMarketMonitor:
         self.alert_threshold = alert_threshold
 
         self._session: Optional[aiohttp.ClientSession] = None
+
+        # Candle cache - owns WebSocket streams for all symbols
+        self.candle_cache: Optional[CandleCache] = None
 
         # State tracking
         self.market_snapshots: Dict[str, MarketSnapshot] = {}
@@ -125,27 +129,39 @@ class LiveMarketMonitor:
         self.output_file: Optional[str] = None
         self.min_symbols = 3
         self.max_symbols = 5
+        self.pinned_symbols: Set[str] = set()  # Symbols that are always included
 
     async def connect(self):
-        """Initialize HTTP session."""
+        """Initialize HTTP session and start candle cache."""
         self._session = aiohttp.ClientSession()
+
+        # Initialize candle cache - this owns WebSocket streams for all symbols
+        self.candle_cache = CandleCache(
+            cache_dir="data",
+            timeframe="5m",
+            testnet=False
+        )
+
+        print("Starting candle cache (WebSocket streams for all symbols)...")
+        await self.candle_cache.start()
+        print(f"Candle cache active - streaming {len(self.candle_cache.subscribed_symbols)} symbols")
+
         logger.info("Live monitor connected to Hyperliquid")
 
     async def disconnect(self):
-        """Close HTTP session."""
+        """Close HTTP session and stop candle cache."""
+        if self.candle_cache:
+            await self.candle_cache.stop()
+            print("Candle cache stopped and saved to disk")
+
         if self._session:
             await self._session.close()
 
-    async def get_all_markets(self) -> List[str]:
-        """Get list of all perpetual markets."""
-        payload = {"type": "meta"}
-        async with self._session.post(f"{self.BASE_URL}/info", json=payload) as resp:
-            data = await resp.json()
-
-        symbols = []
-        for asset in data.get("universe", []):
-            symbols.append(f"{asset['name']}-PERP")
-        return symbols
+    def get_all_markets(self) -> List[str]:
+        """Get list of all perpetual markets from candle cache."""
+        if self.candle_cache:
+            return list(self.candle_cache.subscribed_symbols)
+        return []
 
     async def get_market_stats(self) -> Dict[str, Dict]:
         """Get current stats for all markets."""
@@ -178,47 +194,17 @@ class LiveMarketMonitor:
 
         return stats
 
-    async def get_recent_candles(self, symbol: str, count: int = 50) -> List[Candle]:
-        """Fetch recent candles for volatility analysis."""
-        coin = symbol.replace("-PERP", "")
-        end_time = datetime.utcnow()
-        start_time = end_time - timedelta(hours=count * 5 / 60 + 1)  # 5m candles
-
-        payload = {
-            "type": "candleSnapshot",
-            "req": {
-                "coin": coin,
-                "interval": "5m",
-                "startTime": int(start_time.timestamp() * 1000),
-                "endTime": int(end_time.timestamp() * 1000)
-            }
-        }
-
-        try:
-            async with self._session.post(f"{self.BASE_URL}/info", json=payload) as resp:
-                data = await resp.json()
-
-            if not isinstance(data, list):
-                return []
-
-            candles = []
-            for c in data[-count:]:
-                candles.append(Candle(
-                    timestamp=datetime.fromtimestamp(c['t'] / 1000),
-                    open=float(c['o']),
-                    high=float(c['h']),
-                    low=float(c['l']),
-                    close=float(c['c']),
-                    volume=float(c['v'])
-                ))
-            return candles
-        except Exception as e:
-            logger.debug(f"Failed to get candles for {symbol}: {e}")
+    def get_recent_candles(self, symbol: str, count: int = 50) -> List[Candle]:
+        """Get recent candles from cache (real-time WebSocket data)."""
+        if not self.candle_cache:
             return []
+
+        candles = self.candle_cache.get_candles(symbol, count)
+        return candles
 
     def calculate_atr(self, candles: List[Candle], period: int = 14) -> float:
         """Calculate ATR from candles."""
-        if len(candles) < period + 1:
+        if len(candles) < 2:
             return 0.0
 
         true_ranges = []
@@ -230,7 +216,9 @@ class LiveMarketMonitor:
             )
             true_ranges.append(tr)
 
-        return sum(true_ranges[-period:]) / period
+        # Use available candles if less than period
+        use_period = min(period, len(true_ranges))
+        return sum(true_ranges[-use_period:]) / use_period if use_period > 0 else 0.0
 
     def count_wick_signals(self, candles: List[Candle]) -> tuple:
         """Count potential wick signals and average wick size."""
@@ -288,17 +276,17 @@ class LiveMarketMonitor:
 
         return score
 
-    async def scan_market(self, symbol: str, stats: Dict) -> Optional[MarketSnapshot]:
+    def scan_market(self, symbol: str, stats: Dict) -> Optional[MarketSnapshot]:
         """Scan a single market and create snapshot."""
         market_stats = stats.get(symbol, {})
 
         if market_stats.get("mid_price", 0) == 0:
             return None
 
-        # Get recent candles
-        candles = await self.get_recent_candles(symbol, self.lookback_candles)
+        # Get recent candles from cache (real-time data)
+        candles = self.get_recent_candles(symbol, self.lookback_candles)
 
-        if len(candles) < 20:
+        if len(candles) < 10:  # Need at least 10 candles
             return None
 
         # Calculate metrics
@@ -330,8 +318,19 @@ class LiveMarketMonitor:
         return snapshot
 
     async def run_scan(self) -> List[MarketSnapshot]:
-        """Run a full market scan."""
-        all_symbols = await self.get_all_markets()
+        """Run a full market scan using cached candle data."""
+        all_symbols = self.get_all_markets()
+
+        # Check cache health
+        cache_stats = self.candle_cache.get_cache_stats() if self.candle_cache else {}
+        symbols_with_data = len(cache_stats.get("symbols_with_data", {}))
+
+        if symbols_with_data == 0:
+            logger.warning("Candle cache is empty - waiting for WebSocket data...")
+            return []
+
+        logger.info(f"Scanning {symbols_with_data} symbols with cached data")
+
         stats = await self.get_market_stats()
 
         # Filter out stables and low volume
@@ -339,20 +338,17 @@ class LiveMarketMonitor:
         filtered = [
             s for s in all_symbols
             if s.replace("-PERP", "") not in stables
-            and stats.get(s, {}).get("volume_24h", 0) >= 10000
+            and stats.get(s, {}).get("volume_24h", 0) >= 1000
         ]
 
-        # Scan markets concurrently (with limit)
-        semaphore = asyncio.Semaphore(10)
+        # Scan markets (no longer async - just reading from cache)
+        snapshots = []
+        for symbol in filtered:
+            result = self.scan_market(symbol, stats)
+            if result is not None:
+                snapshots.append(result)
 
-        async def scan_with_limit(symbol):
-            async with semaphore:
-                return await self.scan_market(symbol, stats)
-
-        tasks = [scan_with_limit(s) for s in filtered]
-        results = await asyncio.gather(*tasks)
-
-        snapshots = [r for r in results if r is not None]
+        logger.info(f"Got {len(snapshots)} valid snapshots")
 
         # Update state
         for snap in snapshots:
@@ -416,11 +412,24 @@ class LiveMarketMonitor:
 
     def get_recommended_symbols(self, snapshots: List[MarketSnapshot], count: int = 3) -> List[str]:
         """Get recommended symbols based on current scan."""
-        # Filter for minimum quality
-        viable = [s for s in snapshots if s.opportunity_score >= 30 and s.recent_wick_count >= 3]
+        # Start with pinned symbols (always included)
+        result = list(self.pinned_symbols)
 
-        # Return top N
-        return [s.symbol for s in viable[:count]]
+        # Filter for minimum quality (lowered thresholds)
+        viable = [s for s in snapshots if s.opportunity_score >= 15 and s.recent_wick_count >= 1]
+
+        # If still nothing, just return top by score
+        if not viable and snapshots:
+            viable = snapshots
+
+        # Add top recommendations that aren't already pinned
+        for snap in viable:
+            if snap.symbol not in self.pinned_symbols:
+                result.append(snap.symbol)
+            if len(result) >= count:
+                break
+
+        return result[:count]
 
     async def update_symbol_file(self, symbols: List[str]):
         """Write current recommended symbols to file for bot to read."""
@@ -480,18 +489,38 @@ class LiveMarketMonitor:
         """Print current market status to console."""
         now = datetime.utcnow().strftime("%H:%M:%S")
 
+        # Get cache stats
+        cache_stats = self.candle_cache.get_cache_stats() if self.candle_cache else {}
+        total_candles = cache_stats.get("total_candles", 0)
+        symbols_with_data = len(cache_stats.get("symbols_with_data", {}))
+
+        # Get freshness report
+        freshness = self.candle_cache.get_freshness_report() if self.candle_cache else {}
+        fresh = freshness.get("fresh", 0)
+        stale = freshness.get("stale", 0)
+        very_stale = freshness.get("very_stale", 0)
+        received = freshness.get("candles_received", 0)
+
         print(f"\n{'='*80}")
         print(f"LIVE MARKET MONITOR - {now} UTC")
+        print(f"Cache: {total_candles} candles | Fresh: {fresh} | Stale: {stale} | Old: {very_stale} | WS received: {received}")
         print(f"{'='*80}")
+
+        # Show pinned symbols if any
+        if self.pinned_symbols:
+            print(f"\n📌 PINNED (always active): {', '.join(self.pinned_symbols)}")
 
         # Current symbols status
         print(f"\n📊 CURRENTLY TRADING:")
         for sym in self.current_symbols:
             snap = self.market_snapshots.get(sym)
+            pinned = "📌" if sym in self.pinned_symbols else "  "
             if snap:
                 trend = "📈" if snap.score_change > 0 else "📉" if snap.score_change < 0 else "➡️"
-                print(f"   {sym:<15} Score: {snap.opportunity_score:>5.1f} {trend} ({snap.score_change:+.1f})  "
+                print(f" {pinned} {sym:<15} Score: {snap.opportunity_score:>5.1f} {trend} ({snap.score_change:+.1f})  "
                       f"Wicks: {snap.recent_wick_count}  ATR: {snap.atr_pct*100:.2f}%")
+            else:
+                print(f" {pinned} {sym:<15} (no data yet)")
 
         # Top opportunities
         print(f"\n🔥 TOP OPPORTUNITIES:")
@@ -520,6 +549,16 @@ class LiveMarketMonitor:
 
         if self.auto_update:
             logger.info(f"Auto-update enabled. Writing to: {self.output_file}")
+
+        # Wait for WebSocket to collect some fresh candles before first scan
+        print("\nWaiting 30 seconds for WebSocket to collect fresh candles...")
+        await asyncio.sleep(30)
+
+        # Check if we have fresh data
+        if self.candle_cache:
+            freshness = self.candle_cache.get_freshness_report()
+            received = freshness.get("candles_received", 0)
+            print(f"WebSocket has received {received} candle updates. Starting scans.\n")
 
         while True:
             try:
@@ -585,7 +624,7 @@ async def main():
         "--interval",
         type=int,
         default=300,
-        help="Check interval in seconds (default: 300 = 5 min)"
+        help="Check interval in seconds (default: 300 = 5 min, uses cached WebSocket data)"
     )
     parser.add_argument(
         "--threshold",
@@ -614,6 +653,18 @@ async def main():
         action="store_true",
         help="Disable console output"
     )
+    parser.add_argument(
+        "--pinned",
+        nargs="+",
+        default=[],
+        help="Symbols to always include (cannot be removed by auto-update)"
+    )
+    parser.add_argument(
+        "--max-symbols",
+        type=int,
+        default=5,
+        help="Maximum number of symbols to track (default: 5)"
+    )
     args = parser.parse_args()
 
     config = StrategyConfig()
@@ -627,20 +678,39 @@ async def main():
 
     monitor.auto_update = args.auto_update
     monitor.output_file = args.output
+    monitor.pinned_symbols = set(args.pinned)
+    monitor.max_symbols = args.max_symbols
+
+    # Ensure pinned symbols are always in current symbols
+    if args.pinned:
+        monitor.current_symbols.update(args.pinned)
 
     try:
         await monitor.connect()
 
+        # Format interval nicely
+        if args.interval >= 3600:
+            interval_str = f"{args.interval / 3600:.1f} hours"
+        elif args.interval >= 60:
+            interval_str = f"{args.interval / 60:.0f} minutes"
+        else:
+            interval_str = f"{args.interval}s"
+
         print(f"\n{'='*60}")
         print("WICK REVERSAL - LIVE MARKET MONITOR")
         print(f"{'='*60}")
+        print(f"Data source: Real-time WebSocket (CandleCache)")
         print(f"Currently trading: {', '.join(args.current)}")
-        print(f"Check interval: {args.interval}s")
+        print(f"Scan interval: {interval_str}")
         print(f"Alert threshold: {args.threshold} points")
+        print(f"Max symbols: {args.max_symbols}")
+        if args.pinned:
+            print(f"Pinned symbols: {', '.join(args.pinned)}")
         if args.discord_webhook:
             print(f"Discord alerts: Enabled")
         if args.auto_update:
             print(f"Auto-update: Enabled -> {args.output}")
+        print(f"Cache file: data/candle_cache.json")
         print(f"{'='*60}")
         print("\nPress Ctrl+C to stop\n")
 

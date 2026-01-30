@@ -5,6 +5,9 @@ Handles order creation, submission, and management.
 
 import asyncio
 import logging
+import math
+import time
+import json
 from abc import ABC, abstractmethod
 from datetime import datetime
 from typing import Optional, Dict, List, Callable, Any
@@ -16,8 +19,111 @@ from core.types import (
 )
 from config.settings import StrategyConfig, ExecutionConfig
 
+# Import official Hyperliquid SDK
+try:
+    from hyperliquid.info import Info
+    from hyperliquid.exchange import Exchange
+    from hyperliquid.utils import constants
+    from eth_account import Account
+    HYPERLIQUID_SDK_AVAILABLE = True
+except ImportError:
+    HYPERLIQUID_SDK_AVAILABLE = False
 
 logger = logging.getLogger(__name__)
+
+
+# Hyperliquid asset index mapping (mainnet)
+# This maps symbol names to their numeric asset indices
+# Updated list - fetch dynamically in production
+HYPERLIQUID_ASSET_INDEX = {
+    "BTC-PERP": 0,
+    "ETH-PERP": 1,
+    "ATOM-PERP": 2,
+    "MATIC-PERP": 3,
+    "DYDX-PERP": 4,
+    "SOL-PERP": 5,
+    "AVAX-PERP": 6,
+    "BNB-PERP": 7,
+    "APE-PERP": 8,
+    "OP-PERP": 9,
+    "LTC-PERP": 10,
+    "ARB-PERP": 11,
+    "DOGE-PERP": 12,
+    "INJ-PERP": 13,
+    "SUI-PERP": 14,
+    "kPEPE-PERP": 15,
+    "LINK-PERP": 16,
+    "CRV-PERP": 17,
+    "LDO-PERP": 18,
+    "AAVE-PERP": 19,
+    "MKR-PERP": 20,
+    "GMX-PERP": 21,
+    "FTM-PERP": 22,
+    "TIA-PERP": 23,
+    "BLUR-PERP": 24,
+    "SEI-PERP": 25,
+    "RUNE-PERP": 26,
+    "ORDI-PERP": 27,
+    "SATS-PERP": 28,
+    "WLD-PERP": 29,
+    "NEAR-PERP": 30,
+    "TAO-PERP": 31,
+    "DOT-PERP": 32,
+    "XRP-PERP": 33,
+    "MEME-PERP": 34,
+    "PYTH-PERP": 35,
+    "JTO-PERP": 36,
+    "STX-PERP": 37,
+    "WIF-PERP": 38,
+    "kSHIB-PERP": 39,
+    "JUP-PERP": 40,
+    "STRK-PERP": 41,
+    "DYM-PERP": 42,
+    "MANTA-PERP": 43,
+    "ALT-PERP": 44,
+    "PIXEL-PERP": 45,
+    "PENDLE-PERP": 46,
+    "ONDO-PERP": 47,
+    "ENA-PERP": 48,
+    "W-PERP": 49,
+    "ETHFI-PERP": 50,
+    "ZRO-PERP": 51,
+    "BOME-PERP": 52,
+    "TON-PERP": 53,
+    "TNSR-PERP": 54,
+    "SAGA-PERP": 55,
+    "REZ-PERP": 56,
+    "IO-PERP": 57,
+    "ZK-PERP": 58,
+    "BRETT-PERP": 59,
+    "BLAST-PERP": 60,
+    "LISTA-PERP": 61,
+    "NOT-PERP": 62,
+    "RENDER-PERP": 63,
+    "MEW-PERP": 64,
+    "POPCAT-PERP": 65,
+    "PEOPLE-PERP": 66,
+    "TURBO-PERP": 67,
+    "NEIRO-PERP": 68,
+    "DOGS-PERP": 69,
+    "POL-PERP": 70,
+    "EIGEN-PERP": 71,
+    "SCR-PERP": 72,
+    "APT-PERP": 73,
+    "kBONK-PERP": 74,
+    "GOAT-PERP": 75,
+    "GRASS-PERP": 76,
+    "MOODENG-PERP": 77,
+    "HYPE-PERP": 78,
+    "PNUT-PERP": 79,
+    "VIRTUAL-PERP": 80,
+    "AI16Z-PERP": 81,
+    "FARTCOIN-PERP": 82,
+    "TRUMP-PERP": 83,
+    "MELANIA-PERP": 84,
+    "ANIME-PERP": 85,
+    "VINE-PERP": 86,
+}
 
 
 @dataclass
@@ -69,93 +175,272 @@ class ExecutionHandler(ABC):
 class HyperliquidExecutor(ExecutionHandler):
     """
     Execution handler for Hyperliquid DEX.
-    
-    Uses Hyperliquid's REST API for order management.
+
+    Uses the official Hyperliquid Python SDK for order management.
     Requires wallet private key for signing transactions.
     """
-    
+
     def __init__(
         self,
         private_key: str,
         testnet: bool = True,
         vault_address: Optional[str] = None
     ):
+        if not HYPERLIQUID_SDK_AVAILABLE:
+            raise ImportError(
+                "hyperliquid-python-sdk is required for live trading. "
+                "Install with: pip install hyperliquid-python-sdk"
+            )
+
+        # Normalize private key format
+        if not private_key.startswith("0x"):
+            private_key = "0x" + private_key
+
         self.private_key = private_key
         self.testnet = testnet
+
+        # Derive wallet address from private key
+        self.account = Account.from_key(private_key)
+        self.wallet_address = self.account.address
+
+        # Vault address (for sub-accounts, usually same as wallet)
         self.vault_address = vault_address
-        self.base_url = (
-            "https://api.hyperliquid-testnet.xyz" if testnet
-            else "https://api.hyperliquid.xyz"
-        )
-        self._session = None
-    
-    async def connect(self):
-        """Initialize session and verify connection."""
-        import aiohttp
-        self._session = aiohttp.ClientSession()
-        logger.info(f"Hyperliquid executor connected ({'testnet' if self.testnet else 'mainnet'})")
-    
+
+        # SDK instances (initialized in connect())
+        self.info: Optional[Info] = None
+        self.exchange: Optional[Exchange] = None
+
+        # Set base URL based on network
+        self.base_url = constants.TESTNET_API_URL if testnet else constants.MAINNET_API_URL
+
+        # Asset metadata cache
+        self._asset_meta: Dict[str, dict] = {}
+        self._coin_to_asset: Dict[str, int] = {}
+
+        logger.info(f"Hyperliquid executor initialized for wallet: {self.wallet_address}")
+
+    async def connect(self, max_retries: int = 5):
+        """Initialize SDK and fetch asset metadata with retry logic for rate limits."""
+        for attempt in range(max_retries):
+            try:
+                # Initialize Info API (read-only, no auth needed)
+                self.info = Info(self.base_url, skip_ws=True)
+
+                # Initialize Exchange API (requires wallet for signing)
+                self.exchange = Exchange(
+                    self.account,
+                    self.base_url,
+                    vault_address=self.vault_address
+                )
+
+                # Fetch asset metadata
+                await self._fetch_asset_metadata()
+
+                logger.info(f"Hyperliquid executor connected ({'testnet' if self.testnet else 'mainnet'})")
+                logger.info(f"Wallet address: {self.wallet_address}")
+                return
+
+            except Exception as e:
+                error_str = str(e)
+                # Check for rate limit error (429)
+                if "429" in error_str or "rate" in error_str.lower():
+                    wait_time = (2 ** attempt) * 2  # 2, 4, 8, 16, 32 seconds
+                    logger.warning(f"Rate limited by Hyperliquid API, waiting {wait_time}s before retry ({attempt + 1}/{max_retries})")
+                    print(f"  Rate limited by API, waiting {wait_time}s before retry...")
+                    await asyncio.sleep(wait_time)
+                else:
+                    # Non-rate-limit error, raise immediately
+                    raise
+
+        raise Exception(f"Failed to connect to Hyperliquid after {max_retries} retries due to rate limiting")
+
     async def disconnect(self):
-        if self._session:
-            await self._session.close()
-    
-    def _sign_order(self, order_data: dict) -> dict:
-        """Sign order with private key (simplified - actual impl needs eth-account)."""
-        # In production, use eth-account library to sign
-        # This is a placeholder showing the structure
-        return {
-            "action": order_data,
-            "nonce": int(datetime.utcnow().timestamp() * 1000),
-            "signature": "0x..."  # Would be actual signature
-        }
-    
-    async def submit_order(self, order: Order) -> ExecutionResult:
-        """Submit order to Hyperliquid."""
-        start_time = datetime.utcnow()
-        
+        """Cleanup resources."""
+        # SDK doesn't require explicit disconnect
+        pass
+
+    async def _fetch_asset_metadata(self):
+        """Fetch asset metadata from Hyperliquid API."""
         try:
-            # Prepare order payload
-            is_buy = order.side == Side.LONG
-            
-            order_data = {
-                "type": "order",
-                "orders": [{
-                    "a": 0,  # Asset index (would need mapping)
-                    "b": is_buy,
-                    "p": str(order.price) if order.price else "0",
-                    "s": str(order.quantity),
-                    "r": order.order_type == OrderType.LIMIT,
-                    "t": {
-                        "limit": {"tif": "Gtc"} if order.order_type == OrderType.LIMIT
-                        else {"trigger": {"triggerPx": str(order.stop_price), "isMarket": True}}
+            # Get metadata (this is sync in the SDK)
+            meta = self.info.meta()
+
+            # Build lookup maps
+            if "universe" in meta:
+                for idx, asset in enumerate(meta["universe"]):
+                    coin = asset["name"]
+                    symbol = f"{coin}-PERP"
+                    self._coin_to_asset[coin] = idx
+                    self._asset_meta[symbol] = {
+                        "index": idx,
+                        "coin": coin,
+                        "szDecimals": asset.get("szDecimals", 4),
                     }
-                }],
-                "grouping": "na"
-            }
-            
-            signed = self._sign_order(order_data)
-            
-            async with self._session.post(
-                f"{self.base_url}/exchange",
-                json=signed
-            ) as response:
-                data = await response.json()
-            
+                logger.info(f"Loaded {len(self._asset_meta)} asset indices from exchange")
+
+            # Also fetch asset contexts for tick sizes
+            try:
+                # meta_and_asset_ctxs returns both meta and asset contexts
+                meta_and_ctxs = self.info.meta_and_asset_ctxs()
+                if len(meta_and_ctxs) > 1:
+                    asset_ctxs = meta_and_ctxs[1]
+                    universe = meta_and_ctxs[0].get("universe", [])
+                    tick_sizes_loaded = 0
+                    for idx, ctx in enumerate(asset_ctxs):
+                        if idx < len(universe):
+                            coin = universe[idx]["name"]
+                            symbol = f"{coin}-PERP"
+                            if symbol in self._asset_meta:
+                                # Store tick size (minimum price increment)
+                                tick_size = float(ctx.get("tickSize", 0.0001))
+                                self._asset_meta[symbol]["tickSize"] = tick_size
+                                tick_sizes_loaded += 1
+                    logger.info(f"Loaded tick sizes for {tick_sizes_loaded} assets")
+            except Exception as e:
+                logger.warning(f"Failed to fetch tick sizes: {e}")
+
+        except Exception as e:
+            logger.warning(f"Failed to fetch asset metadata: {e}")
+
+    def _get_coin(self, symbol: str) -> str:
+        """Convert symbol to coin name (e.g., 'TAO-PERP' -> 'TAO')."""
+        return symbol.replace("-PERP", "")
+
+    def _round_size(self, size: float, symbol: str) -> float:
+        """Round size to appropriate decimals for the asset."""
+        # Get size decimals from metadata if available
+        if symbol in self._asset_meta:
+            sz_decimals = self._asset_meta[symbol].get("szDecimals", 4)
+        else:
+            # Default based on size magnitude
+            if size >= 1000:
+                sz_decimals = 1
+            elif size >= 100:
+                sz_decimals = 2
+            elif size >= 1:
+                sz_decimals = 3
+            else:
+                sz_decimals = 4
+
+        return round(size, sz_decimals)
+
+    def _round_price(self, price: float, symbol: str) -> float:
+        """Round price to tick size for the asset."""
+        # Get tick size from metadata if available
+        tick_size = 0.0001  # default
+        if symbol in self._asset_meta:
+            tick_size = self._asset_meta[symbol].get("tickSize", 0.0001)
+
+        if tick_size > 0:
+            # Round to nearest tick
+            rounded = round(price / tick_size) * tick_size
+        else:
+            # Fallback: round based on magnitude
+            if price >= 10000:
+                rounded = round(price, 1)
+            elif price >= 1000:
+                rounded = round(price, 2)
+            elif price >= 100:
+                rounded = round(price, 3)
+            elif price >= 10:
+                rounded = round(price, 4)
+            elif price >= 1:
+                rounded = round(price, 5)
+            else:
+                rounded = round(price, 6)
+
+        # Hyperliquid requires max 5 significant figures
+        rounded = self._round_to_sig_figs(rounded, 5)
+        return rounded
+
+    def _round_to_sig_figs(self, value: float, sig_figs: int = 5) -> float:
+        """Round value to specified number of significant figures."""
+        if value == 0:
+            return 0
+        magnitude = math.floor(math.log10(abs(value)))
+        factor = 10 ** (sig_figs - 1 - magnitude)
+        return round(value * factor) / factor
+
+    async def submit_order(self, order: Order) -> ExecutionResult:
+        """Submit order to Hyperliquid using official SDK."""
+        start_time = datetime.utcnow()
+
+        try:
+            # SDK uses 'name' parameter (coin name without -PERP)
+            name = self._get_coin(order.symbol)
+            is_buy = order.side == Side.LONG
+
+            # Round size to avoid precision errors
+            rounded_size = self._round_size(order.quantity, order.symbol)
+
+            # Determine order type and parameters
+            if order.order_type == OrderType.MARKET:
+                # Market order - use market_open from SDK
+                result = self.exchange.market_open(
+                    name=name,
+                    is_buy=is_buy,
+                    sz=rounded_size,
+                    slippage=0.01  # 1% slippage tolerance
+                )
+            elif order.order_type == OrderType.LIMIT:
+                # Round price too
+                rounded_price = self._round_price(order.price, order.symbol)
+                # Limit order
+                result = self.exchange.order(
+                    name=name,
+                    is_buy=is_buy,
+                    sz=rounded_size,
+                    limit_px=rounded_price,
+                    order_type={"limit": {"tif": "Gtc"}}
+                )
+            else:
+                return ExecutionResult(
+                    success=False,
+                    order=order,
+                    error=f"Unsupported order type: {order.order_type}",
+                    latency_ms=0
+                )
+
             latency = (datetime.utcnow() - start_time).total_seconds() * 1000
-            
-            if data.get("status") == "ok":
-                order.status = OrderStatus.OPEN
-                order.exchange_order_id = data.get("response", {}).get("data", {}).get("statuses", [{}])[0].get("oid")
+
+            logger.debug(f"Order response: {result}")
+
+            # Parse result
+            if result.get("status") == "ok":
+                response_data = result.get("response", {})
+                if response_data.get("type") == "order":
+                    statuses = response_data.get("data", {}).get("statuses", [])
+                    if statuses:
+                        status_info = statuses[0]
+                        if "resting" in status_info:
+                            order.exchange_order_id = str(status_info["resting"]["oid"])
+                            order.status = OrderStatus.OPEN
+                        elif "filled" in status_info:
+                            order.exchange_order_id = str(status_info["filled"]["oid"])
+                            order.status = OrderStatus.FILLED
+                            order.filled_quantity = order.quantity
+                            order.average_fill_price = float(status_info["filled"].get("avgPx", order.price or 0))
+                            order.filled_at = datetime.utcnow()
+                        elif "error" in status_info:
+                            order.status = OrderStatus.REJECTED
+                            return ExecutionResult(
+                                success=False,
+                                order=order,
+                                error=status_info["error"],
+                                latency_ms=latency
+                            )
+
                 order.updated_at = datetime.utcnow()
-                
-                logger.info(f"Order submitted: {order.id} -> {order.exchange_order_id}")
+                logger.info(f"Order submitted: {order.symbol} {order.side.value} {order.quantity} @ {order.price or 'MARKET'} -> {order.exchange_order_id}")
                 return ExecutionResult(success=True, order=order, latency_ms=latency)
             else:
-                error = data.get("response", {}).get("error", "Unknown error")
+                error = result.get("response", str(result))
+                if isinstance(error, dict):
+                    error = error.get("error", str(error))
                 logger.error(f"Order failed: {error}")
                 order.status = OrderStatus.REJECTED
-                return ExecutionResult(success=False, order=order, error=error, latency_ms=latency)
-        
+                return ExecutionResult(success=False, order=order, error=str(error), latency_ms=latency)
+
         except Exception as e:
             latency = (datetime.utcnow() - start_time).total_seconds() * 1000
             logger.exception(f"Order submission error: {e}")
@@ -163,107 +448,469 @@ class HyperliquidExecutor(ExecutionHandler):
             return ExecutionResult(success=False, order=order, error=str(e), latency_ms=latency)
     
     async def cancel_order(self, order_id: str, symbol: str) -> bool:
-        """Cancel an open order."""
+        """Cancel an open order using official SDK."""
         try:
-            cancel_data = {
-                "type": "cancel",
-                "cancels": [{"a": 0, "o": int(order_id)}]  # Simplified
-            }
-            
-            signed = self._sign_order(cancel_data)
-            
-            async with self._session.post(
-                f"{self.base_url}/exchange",
-                json=signed
-            ) as response:
-                data = await response.json()
-            
-            return data.get("status") == "ok"
+            name = self._get_coin(symbol)
+
+            # Parse order ID
+            try:
+                oid = int(order_id)
+            except ValueError:
+                logger.error(f"Invalid order ID format: {order_id}")
+                return False
+
+            # Use SDK to cancel
+            result = self.exchange.cancel(name=name, oid=oid)
+
+            if result.get("status") == "ok":
+                logger.info(f"Order cancelled: {order_id}")
+                return True
+            else:
+                error = result.get("response", str(result))
+                logger.error(f"Cancel failed: {error}")
+                return False
+
         except Exception as e:
             logger.exception(f"Cancel order error: {e}")
             return False
     
     async def get_order_status(self, order_id: str, symbol: str) -> Optional[Order]:
-        """Get order status from exchange."""
+        """Get order status from exchange using SDK."""
         try:
-            payload = {
-                "type": "orderStatus",
-                "user": self.vault_address or "0x...",  # Would need actual address
-                "oid": int(order_id)
-            }
-            
-            async with self._session.post(
-                f"{self.base_url}/info",
-                json=payload
-            ) as response:
-                data = await response.json()
-            
-            if data:
-                order = Order(
-                    id=order_id,
-                    symbol=symbol,
-                    exchange_order_id=order_id
-                )
-                # Map status
-                status_map = {
-                    "open": OrderStatus.OPEN,
-                    "filled": OrderStatus.FILLED,
-                    "canceled": OrderStatus.CANCELLED,
-                    "triggered": OrderStatus.OPEN
-                }
-                order.status = status_map.get(data.get("status"), OrderStatus.PENDING)
-                order.filled_quantity = float(data.get("filled", 0))
-                order.average_fill_price = float(data.get("avgPrice", 0)) or None
-                return order
+            # Get open orders
+            open_orders = self.info.open_orders(self.wallet_address)
+
+            # Find the order in open orders
+            for open_order in open_orders:
+                if str(open_order.get("oid")) == str(order_id):
+                    order = Order(
+                        id=order_id,
+                        symbol=symbol,
+                        exchange_order_id=str(open_order.get("oid"))
+                    )
+                    order.status = OrderStatus.OPEN
+                    order.filled_quantity = float(open_order.get("filled", 0))
+                    order.price = float(open_order.get("limitPx", 0)) or None
+                    return order
+
+            # If not in open orders, check fills history
+            fills = self.info.user_fills(self.wallet_address)
+
+            for fill in fills:
+                if str(fill.get("oid")) == str(order_id):
+                    order = Order(
+                        id=order_id,
+                        symbol=symbol,
+                        exchange_order_id=str(fill.get("oid"))
+                    )
+                    order.status = OrderStatus.FILLED
+                    order.filled_quantity = float(fill.get("sz", 0))
+                    order.average_fill_price = float(fill.get("px", 0))
+                    return order
+
+            # Order not found - may have been cancelled
             return None
+
         except Exception as e:
             logger.exception(f"Get order status error: {e}")
             return None
-    
+
     async def get_position(self, symbol: str) -> Optional[Dict]:
-        """Get current position."""
+        """Get current position using SDK."""
         try:
-            payload = {
-                "type": "clearinghouseState",
-                "user": self.vault_address or "0x..."
-            }
-            
-            async with self._session.post(
-                f"{self.base_url}/info",
-                json=payload
-            ) as response:
-                data = await response.json()
-            
-            coin = symbol.replace("-PERP", "")
-            for pos in data.get("assetPositions", []):
-                if pos.get("coin") == coin:
+            # Get user state from SDK
+            user_state = self.info.user_state(self.wallet_address)
+            coin = self._get_coin(symbol)
+
+            # Check assetPositions
+            asset_positions = user_state.get("assetPositions", [])
+            for pos in asset_positions:
+                position_data = pos.get("position", pos)
+                if position_data.get("coin") == coin:
+                    size = float(position_data.get("szi", 0))
+                    if abs(size) < 1e-10:
+                        return None
+
                     return {
                         "symbol": symbol,
-                        "size": float(pos.get("szi", 0)),
-                        "entry_price": float(pos.get("entryPx", 0)),
-                        "unrealized_pnl": float(pos.get("unrealizedPnl", 0)),
-                        "liquidation_price": float(pos.get("liquidationPx", 0))
+                        "size": size,
+                        "entry_price": float(position_data.get("entryPx", 0)),
+                        "unrealized_pnl": float(position_data.get("unrealizedPnl", 0)),
+                        "liquidation_price": float(position_data.get("liquidationPx") or 0),
+                        "margin_used": float(position_data.get("marginUsed", 0)),
                     }
             return None
+
         except Exception as e:
             logger.exception(f"Get position error: {e}")
+            return None
+
+    async def get_account_balance(self) -> Optional[Dict]:
+        """Get account balance and margin info using SDK."""
+        try:
+            # Get user state from SDK
+            user_state = self.info.user_state(self.wallet_address)
+            margin_summary = user_state.get("marginSummary", {})
+
+            return {
+                "account_value": float(margin_summary.get("accountValue", 0)),
+                "total_margin_used": float(margin_summary.get("totalMarginUsed", 0)),
+                "total_ntl_pos": float(margin_summary.get("totalNtlPos", 0)),
+                "withdrawable": float(margin_summary.get("withdrawable", 0)),
+            }
+
+        except Exception as e:
+            logger.exception(f"Get account balance error: {e}")
             return None
     
     async def close_position(self, symbol: str, side: Side) -> ExecutionResult:
         """Close position with market order."""
         position = await self.get_position(symbol)
-        if not position or position["size"] == 0:
+        if not position or abs(position["size"]) < 1e-10:
             return ExecutionResult(success=False, error="No position to close")
-        
-        close_side = Side.SHORT if side == Side.LONG else Side.LONG
+
+        # Determine close side based on current position
+        # If we're long (positive size), we need to sell (SHORT)
+        # If we're short (negative size), we need to buy (LONG)
+        if position["size"] > 0:
+            close_side = Side.SHORT
+        else:
+            close_side = Side.LONG
+
         order = Order(
             symbol=symbol,
             side=close_side,
             order_type=OrderType.MARKET,
             quantity=abs(position["size"])
         )
-        
+
         return await self.submit_order(order)
+
+    async def verify_connection(self) -> bool:
+        """Verify that we can connect and authenticate with the exchange."""
+        try:
+            # Check if we can fetch account state
+            balance = await self.get_account_balance()
+            if balance is None:
+                logger.error("Failed to fetch account balance")
+                return False
+
+            logger.info(f"Connection verified. Account value: ${balance['account_value']:,.2f}")
+            logger.info(f"Withdrawable: ${balance['withdrawable']:,.2f}")
+            return True
+
+        except Exception as e:
+            logger.exception(f"Connection verification failed: {e}")
+            return False
+
+    async def get_all_positions(self) -> List[Dict]:
+        """Get all open positions using SDK."""
+        try:
+            # Get user state from SDK
+            user_state = self.info.user_state(self.wallet_address)
+
+            positions = []
+            for pos in user_state.get("assetPositions", []):
+                position_data = pos.get("position", pos)
+                size = float(position_data.get("szi", 0))
+                if abs(size) > 1e-10:
+                    positions.append({
+                        "symbol": f"{position_data.get('coin')}-PERP",
+                        "size": size,
+                        "entry_price": float(position_data.get("entryPx", 0)),
+                        "unrealized_pnl": float(position_data.get("unrealizedPnl", 0)),
+                        "liquidation_price": float(position_data.get("liquidationPx") or 0),
+                    })
+
+            return positions
+
+        except Exception as e:
+            logger.exception(f"Get all positions error: {e}")
+            return []
+
+    async def cancel_all_orders(self, symbol: Optional[str] = None) -> int:
+        """Cancel all open orders using SDK."""
+        try:
+            # Get all open orders from SDK
+            orders = self.info.open_orders(self.wallet_address)
+
+            cancelled = 0
+            for order in orders:
+                order_symbol = f"{order.get('coin')}-PERP"
+
+                # Filter by symbol if specified
+                if symbol and order_symbol != symbol:
+                    continue
+
+                oid = str(order.get("oid"))
+                if await self.cancel_order(oid, order_symbol):
+                    cancelled += 1
+
+            logger.info(f"Cancelled {cancelled} orders")
+            return cancelled
+
+        except Exception as e:
+            logger.exception(f"Cancel all orders error: {e}")
+            return 0
+
+    async def get_recent_fills(self, symbol: str, limit: int = 10) -> List[Dict]:
+        """Get recent fills for a symbol to determine actual exit price and fees."""
+        try:
+            fills = self.info.user_fills(self.wallet_address)
+            coin = self._get_coin(symbol)
+
+            # Filter by symbol and get most recent
+            symbol_fills = [
+                {
+                    "price": float(f.get("px", 0)),
+                    "size": float(f.get("sz", 0)),
+                    "side": f.get("side", ""),
+                    "fee": float(f.get("fee", 0)),
+                    "timestamp": f.get("time", 0),
+                    "oid": f.get("oid"),
+                    "closed_pnl": float(f.get("closedPnl", 0))
+                }
+                for f in fills
+                if f.get("coin") == coin
+            ]
+
+            # Sort by timestamp descending and limit
+            symbol_fills.sort(key=lambda x: x["timestamp"], reverse=True)
+            return symbol_fills[:limit]
+
+        except Exception as e:
+            logger.warning(f"Failed to get recent fills for {symbol}: {e}")
+            return []
+
+    async def submit_stop_loss_order(
+        self,
+        symbol: str,
+        side: Side,
+        quantity: float,
+        trigger_price: float
+    ) -> ExecutionResult:
+        """
+        Submit a stop-loss trigger order to Hyperliquid.
+
+        This places an order on the exchange that will trigger when price hits the stop.
+        The exchange monitors price in real-time, providing instant execution even if
+        the bot is offline or slow.
+
+        Args:
+            symbol: Trading pair (e.g., 'TAO-PERP')
+            side: Side of the CLOSING order (SHORT to close a long, LONG to close a short)
+            quantity: Size to close
+            trigger_price: Price at which to trigger the stop
+        """
+        start_time = datetime.utcnow()
+
+        try:
+            name = self._get_coin(symbol)
+            is_buy = side == Side.LONG  # If closing a short, we buy
+            rounded_size = self._round_size(quantity, symbol)
+            rounded_trigger = self._round_price(trigger_price, symbol)
+
+            # Log the tick size and rounding for debugging
+            meta = self._asset_meta.get(symbol, {})
+            tick_size = meta.get("tickSize", "unknown")
+            if symbol not in self._asset_meta:
+                logger.warning(f"No metadata for {symbol}, using default tick size")
+            logger.info(f"Stop loss {symbol}: trigger={trigger_price:.6f} -> rounded={rounded_trigger:.6f}, tick={tick_size}, is_buy={is_buy}")
+
+            # Use trigger order type for stop loss
+            # tpsl: "sl" indicates this is a stop loss order
+            result = self.exchange.order(
+                name=name,
+                is_buy=is_buy,
+                sz=rounded_size,
+                limit_px=rounded_trigger,  # For market stops, this is ignored but required
+                order_type={
+                    "trigger": {
+                        "triggerPx": rounded_trigger,
+                        "isMarket": True,  # Execute as market order when triggered
+                        "tpsl": "sl"  # Mark as stop loss
+                    }
+                },
+                reduce_only=True  # Stop loss should only reduce position
+            )
+
+            latency = (datetime.utcnow() - start_time).total_seconds() * 1000
+            logger.debug(f"Stop loss order response: {result}")
+
+            if result.get("status") == "ok":
+                response_data = result.get("response", {})
+                if response_data.get("type") == "order":
+                    statuses = response_data.get("data", {}).get("statuses", [])
+                    if statuses:
+                        status_info = statuses[0]
+                        if "resting" in status_info:
+                            oid = status_info["resting"]["oid"]
+                            logger.info(f"Stop loss placed: {symbol} @ ${rounded_trigger:.2f} (oid: {oid})")
+
+                            # Create order object for tracking
+                            order = Order(
+                                symbol=symbol,
+                                side=side,
+                                order_type=OrderType.STOP_MARKET,
+                                quantity=rounded_size,
+                                stop_price=rounded_trigger
+                            )
+                            order.exchange_order_id = str(oid)
+                            order.status = OrderStatus.OPEN
+
+                            return ExecutionResult(success=True, order=order, latency_ms=latency)
+                        elif "error" in status_info:
+                            return ExecutionResult(
+                                success=False,
+                                error=f"Stop loss rejected: {status_info['error']}",
+                                latency_ms=latency
+                            )
+                        else:
+                            # Unknown status - log it for debugging
+                            logger.warning(f"Stop loss unknown status: {status_info}")
+                            return ExecutionResult(
+                                success=False,
+                                error=f"Unknown order status: {status_info}",
+                                latency_ms=latency
+                            )
+                    else:
+                        # No statuses returned
+                        logger.warning(f"Stop loss order returned no statuses: {response_data}")
+                        return ExecutionResult(
+                            success=False,
+                            error=f"No order status returned: {response_data}",
+                            latency_ms=latency
+                        )
+                else:
+                    # Unexpected response type
+                    logger.warning(f"Stop loss unexpected response type: {response_data}")
+                    return ExecutionResult(
+                        success=False,
+                        error=f"Unexpected response type: {response_data.get('type')}",
+                        latency_ms=latency
+                    )
+            else:
+                error = result.get("response", str(result))
+                if isinstance(error, dict):
+                    error = error.get("error", str(error))
+                return ExecutionResult(success=False, error=str(error), latency_ms=latency)
+
+        except Exception as e:
+            latency = (datetime.utcnow() - start_time).total_seconds() * 1000
+            logger.exception(f"Stop loss order error: {e}")
+            return ExecutionResult(success=False, error=str(e), latency_ms=latency)
+
+    async def submit_take_profit_order(
+        self,
+        symbol: str,
+        side: Side,
+        quantity: float,
+        trigger_price: float
+    ) -> ExecutionResult:
+        """
+        Submit a take-profit trigger order to Hyperliquid.
+
+        Args:
+            symbol: Trading pair (e.g., 'TAO-PERP')
+            side: Side of the CLOSING order (SHORT to close a long, LONG to close a short)
+            quantity: Size to close
+            trigger_price: Price at which to trigger the take profit
+        """
+        start_time = datetime.utcnow()
+
+        try:
+            name = self._get_coin(symbol)
+            is_buy = side == Side.LONG
+            rounded_size = self._round_size(quantity, symbol)
+            rounded_trigger = self._round_price(trigger_price, symbol)
+
+            # Log the tick size and rounding for debugging
+            meta = self._asset_meta.get(symbol, {})
+            tick_size = meta.get("tickSize", "unknown")
+            if symbol not in self._asset_meta:
+                logger.warning(f"No metadata for {symbol}, using default tick size")
+            logger.info(f"Take profit {symbol}: trigger={trigger_price:.6f} -> rounded={rounded_trigger:.6f}, tick={tick_size}, is_buy={is_buy}")
+
+            # Use trigger order type for take profit
+            result = self.exchange.order(
+                name=name,
+                is_buy=is_buy,
+                sz=rounded_size,
+                limit_px=rounded_trigger,
+                order_type={
+                    "trigger": {
+                        "triggerPx": rounded_trigger,
+                        "isMarket": True,
+                        "tpsl": "tp"  # Mark as take profit
+                    }
+                },
+                reduce_only=True
+            )
+
+            latency = (datetime.utcnow() - start_time).total_seconds() * 1000
+            logger.debug(f"Take profit order response: {result}")
+
+            if result.get("status") == "ok":
+                response_data = result.get("response", {})
+                if response_data.get("type") == "order":
+                    statuses = response_data.get("data", {}).get("statuses", [])
+                    if statuses:
+                        status_info = statuses[0]
+                        if "resting" in status_info:
+                            oid = status_info["resting"]["oid"]
+                            logger.info(f"Take profit placed: {symbol} @ ${rounded_trigger:.2f} (oid: {oid})")
+
+                            order = Order(
+                                symbol=symbol,
+                                side=side,
+                                order_type=OrderType.LIMIT,
+                                quantity=rounded_size,
+                                price=rounded_trigger
+                            )
+                            order.exchange_order_id = str(oid)
+                            order.status = OrderStatus.OPEN
+
+                            return ExecutionResult(success=True, order=order, latency_ms=latency)
+                        elif "error" in status_info:
+                            return ExecutionResult(
+                                success=False,
+                                error=f"Take profit rejected: {status_info['error']}",
+                                latency_ms=latency
+                            )
+                        else:
+                            # Unknown status - log it for debugging
+                            logger.warning(f"Take profit unknown status: {status_info}")
+                            return ExecutionResult(
+                                success=False,
+                                error=f"Unknown order status: {status_info}",
+                                latency_ms=latency
+                            )
+                    else:
+                        # No statuses returned
+                        logger.warning(f"Take profit order returned no statuses: {response_data}")
+                        return ExecutionResult(
+                            success=False,
+                            error=f"No order status returned: {response_data}",
+                            latency_ms=latency
+                        )
+                else:
+                    # Unexpected response type
+                    logger.warning(f"Take profit unexpected response type: {response_data}")
+                    return ExecutionResult(
+                        success=False,
+                        error=f"Unexpected response type: {response_data.get('type')}",
+                        latency_ms=latency
+                    )
+            else:
+                error = result.get("response", str(result))
+                if isinstance(error, dict):
+                    error = error.get("error", str(error))
+                return ExecutionResult(success=False, error=str(error), latency_ms=latency)
+
+        except Exception as e:
+            latency = (datetime.utcnow() - start_time).total_seconds() * 1000
+            logger.exception(f"Take profit order error: {e}")
+            return ExecutionResult(success=False, error=str(e), latency_ms=latency)
 
 
 class SimulatedExecutor(ExecutionHandler):

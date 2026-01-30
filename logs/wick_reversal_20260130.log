@@ -1,0 +1,45 @@
+2026-01-29 19:27:16 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-29 19:27:16 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-29 19:50:03 | INFO     | wick_reversal | SIGNAL | IP-PERP | upper_wick_short | strength=0.63
+2026-01-29 20:05:03 | INFO     | wick_reversal | SIGNAL | ZRO-PERP | upper_wick_short | strength=0.68
+2026-01-29 20:25:11 | INFO     | wick_reversal | SIGNAL | IP-PERP | lower_wick_long | strength=0.85
+2026-01-29 20:45:03 | INFO     | wick_reversal | SIGNAL | LIT-PERP | lower_wick_long | strength=0.62
+2026-01-29 20:45:03 | INFO     | wick_reversal | SIGNAL | IP-PERP | lower_wick_long | strength=0.78
+2026-01-29 20:45:07 | INFO     | wick_reversal | ORDER SUBMITTED | IP-PERP | long | qty=191.137587 | price=None
+2026-01-29 20:45:07 | INFO     | wick_reversal | FILL | IP-PERP | qty=191.137587 | price=1.8937 | slippage=0.000% | latency=4085.2ms
+2026-01-29 20:45:07 | INFO     | wick_reversal | POSITION OPEN | IP-PERP | long | entry=1.893700 | stop=1.861637 | target=1.916349
+2026-01-29 20:45:12 | INFO     | wick_reversal | SIGNAL | ZRO-PERP | lower_wick_long | strength=0.92
+2026-01-29 20:45:14 | INFO     | wick_reversal | ORDER SUBMITTED | ZRO-PERP | long | qty=232.785733 | price=None
+2026-01-29 20:45:14 | INFO     | wick_reversal | FILL | ZRO-PERP | qty=232.785733 | price=2.12772 | slippage=0.000% | latency=2162.8ms
+2026-01-29 20:45:14 | INFO     | wick_reversal | POSITION OPEN | ZRO-PERP | long | entry=2.127720 | stop=2.072634 | target=2.138359
+2026-01-29 20:45:17 | INFO     | wick_reversal | SIGNAL | SKR-PERP | lower_wick_long | strength=0.88
+2026-01-29 20:45:17 | WARNING  | wick_reversal | RISK | trade_rejected | {"symbol": "SKR-PERP", "reason": "Max positions (2) reached"}
+2026-01-29 20:50:07 | INFO     | wick_reversal | SIGNAL | SKR-PERP | lower_wick_long | strength=0.78
+2026-01-29 20:50:07 | WARNING  | wick_reversal | RISK | trade_rejected | {"symbol": "SKR-PERP", "reason": "Max positions (2) reached"}
+2026-01-29 20:55:22 | INFO     | wick_reversal | POSITION CLOSE | IP-PERP | trailing_stop | PnL=$6.81 | duration=13 candles
+2026-01-29 21:00:12 | INFO     | wick_reversal | FILL | ZRO-PERP | qty=232.800000 | price=2.1124 | slippage=0.000% | latency=3777.6ms
+2026-01-29 21:00:12 | INFO     | wick_reversal | POSITION CLOSE | ZRO-PERP | time_exit | PnL=$-6.39 | duration=13 candles
+2026-01-29 21:08:54 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
+2026-01-29 21:08:54 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete
+2026-01-29 21:09:15 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-29 21:09:15 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-29 21:14:24 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
+2026-01-29 21:14:24 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete
+2026-01-29 21:20:30 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-29 21:20:30 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-29 21:25:02 | INFO     | wick_reversal | SIGNAL | PUMP-PERP | upper_wick_short | strength=0.75
+2026-01-29 21:25:05 | INFO     | wick_reversal | ORDER SUBMITTED | PUMP-PERP | short | qty=134028.294862 | price=None
+2026-01-29 21:25:05 | INFO     | wick_reversal | FILL | PUMP-PERP | qty=134028.294862 | price=0.002673 | slippage=0.000% | latency=2649.9ms
+2026-01-29 21:25:05 | INFO     | wick_reversal | POSITION OPEN | PUMP-PERP | short | entry=0.002673 | stop=0.002711 | target=0.002647
+2026-01-29 21:25:09 | INFO     | wick_reversal | SIGNAL | HYPE-PERP | upper_wick_short | strength=0.63
+2026-01-29 21:25:10 | INFO     | wick_reversal | ORDER SUBMITTED | HYPE-PERP | short | qty=10.817526 | price=None
+2026-01-29 21:25:10 | INFO     | wick_reversal | FILL | HYPE-PERP | qty=10.817526 | price=28.5039 | slippage=0.000% | latency=1749.8ms
+2026-01-29 21:25:10 | INFO     | wick_reversal | POSITION OPEN | HYPE-PERP | short | entry=28.503900 | stop=28.889629 | target=28.271314
+2026-01-29 21:25:18 | INFO     | wick_reversal | SIGNAL | SKR-PERP | lower_wick_long | strength=0.86
+2026-01-29 21:25:18 | WARNING  | wick_reversal | RISK | trade_rejected | {"symbol": "SKR-PERP", "reason": "Max positions (2) reached"}
+2026-01-29 21:30:04 | INFO     | wick_reversal | SIGNAL | CC-PERP | lower_wick_long | strength=0.86
+2026-01-29 21:30:04 | WARNING  | wick_reversal | RISK | trade_rejected | {"symbol": "CC-PERP", "reason": "Max positions (2) reached"}
+2026-01-29 21:35:17 | INFO     | wick_reversal | FILL | PUMP-PERP | qty=134028.000000 | price=0.00269 | slippage=0.000% | latency=2094.8ms
+2026-01-29 21:35:17 | INFO     | wick_reversal | POSITION CLOSE | PUMP-PERP | time_exit | PnL=$-4.15 | duration=13 candles
+2026-01-29 21:39:42 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
+2026-01-29 21:39:42 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete

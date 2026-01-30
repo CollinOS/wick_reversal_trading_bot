@@ -25,14 +25,18 @@ class RiskAssessment:
     position_size: float = 0.0
     risk_amount: float = 0.0
     leverage_used: float = 0.0
-    
+    base_position_size: float = 0.0  # Position size before dynamic multiplier
+    dynamic_multiplier: float = 1.0  # The dynamic leverage multiplier applied
+
     def to_dict(self) -> dict:
         return {
             "approved": self.approved,
             "reason": self.reason,
             "position_size": self.position_size,
             "risk_amount": self.risk_amount,
-            "leverage_used": self.leverage_used
+            "leverage_used": self.leverage_used,
+            "base_position_size": self.base_position_size,
+            "dynamic_multiplier": self.dynamic_multiplier
         }
 
 
@@ -210,22 +214,36 @@ class RiskManager:
         self.recent_trades: Dict[str, datetime] = {}
         self.account_state = AccountState()
 
-    def calculate_leverage_multiplier(self, signal: Signal) -> float:
+    def calculate_leverage_multiplier(self, signal: Signal) -> Tuple[float, dict]:
         """
         Calculate dynamic leverage multiplier based on signal quality.
 
         Higher confidence signals (more criteria met, higher strength) get more leverage.
         ATR ratio criterion gets extra bonus due to 81% historical win rate.
+
+        Returns: (multiplier, breakdown_dict)
         """
         dl_config = self.config.dynamic_leverage
 
+        breakdown = {
+            "base": dl_config.base_multiplier,
+            "criteria_bonus": 0.0,
+            "strength_bonus": 0.0,
+            "atr_ratio_bonus": 0.0,
+            "criteria_met": signal.criteria_met,
+            "signal_strength": signal.strength,
+            "num_criteria": len(signal.criteria_met),
+        }
+
         if not dl_config.enabled:
-            return 1.0
+            breakdown["final"] = 1.0
+            return 1.0, breakdown
 
         multiplier = dl_config.base_multiplier
 
         # Check if ATR ratio criterion is met (high-value signal)
         has_atr_ratio = any('atr_ratio' in c for c in signal.criteria_met)
+        breakdown["has_atr_ratio"] = has_atr_ratio
 
         # Only apply bonuses if signal meets minimum strength threshold
         if signal.strength >= dl_config.min_strength_for_bonus:
@@ -235,25 +253,25 @@ class RiskManager:
             if num_criteria > 1:
                 criteria_bonus = (num_criteria - 1) * dl_config.per_criteria_bonus
                 multiplier += criteria_bonus
+                breakdown["criteria_bonus"] = criteria_bonus
 
             # Bonus for high-strength signals
             if signal.strength > 0.6:
                 multiplier += dl_config.high_strength_bonus
+                breakdown["strength_bonus"] = dl_config.high_strength_bonus
 
             # Bonus for ATR ratio criterion (historically 81% win rate)
             if has_atr_ratio:
                 multiplier += dl_config.atr_ratio_bonus
+                breakdown["atr_ratio_bonus"] = dl_config.atr_ratio_bonus
 
         # Clamp to min/max bounds
+        pre_clamp = multiplier
         multiplier = max(dl_config.min_multiplier, min(multiplier, dl_config.max_multiplier))
+        breakdown["pre_clamp"] = pre_clamp
+        breakdown["final"] = multiplier
 
-        logger.debug(
-            f"Dynamic leverage: strength={signal.strength:.2f} "
-            f"criteria={len(signal.criteria_met)} atr_ratio={has_atr_ratio} "
-            f"multiplier={multiplier:.2f}"
-        )
-
-        return multiplier
+        return multiplier, breakdown
     
     def initialize(self, initial_equity: float):
         self.account_state.total_equity = initial_equity
@@ -310,20 +328,26 @@ class RiskManager:
             return assessment
 
         # Calculate dynamic leverage multiplier based on signal quality
-        leverage_multiplier = self.calculate_leverage_multiplier(signal)
+        leverage_multiplier, leverage_breakdown = self.calculate_leverage_multiplier(signal)
 
-        position_size, risk_amount = self.position_sizer.calculate_position_size(
+        base_position_size, base_risk_amount = self.position_sizer.calculate_position_size(
             self.account_state.total_equity, entry_price, stop_loss, signal.side, symbol_config
         )
 
         # Apply dynamic leverage multiplier to position size
-        position_size *= leverage_multiplier
-        risk_amount *= leverage_multiplier
+        position_size = base_position_size * leverage_multiplier
+        risk_amount = base_risk_amount * leverage_multiplier
+
+        # Track if position was capped
+        was_capped = False
+        cap_reason = ""
 
         # Cap at max_position_usd (absolute maximum for highest confidence trades)
         if symbol_config and 'max_position_usd' in symbol_config:
             max_size = symbol_config['max_position_usd'] / entry_price
             if position_size > max_size:
+                was_capped = True
+                cap_reason = f"max_position_usd (${symbol_config['max_position_usd']})"
                 position_size = max_size
                 # Recalculate risk amount based on capped position
                 if signal.side == Side.LONG:
@@ -335,24 +359,35 @@ class RiskManager:
         if position_size <= 0:
             assessment.reason = "Position size calculation failed"
             return assessment
-        
+
         leverage = self.position_sizer.calculate_leverage(
             position_size, entry_price, self.account_state.total_equity
         )
-        
+
         if leverage > self.config.risk.max_leverage:
             assessment.reason = f"Leverage {leverage:.1f}x exceeds max"
             return assessment
-        
+
         assessment.approved = True
         assessment.position_size = position_size
         assessment.risk_amount = risk_amount
         assessment.leverage_used = leverage
-        
+        assessment.base_position_size = base_position_size
+        assessment.dynamic_multiplier = leverage_multiplier
+
+        # Store breakdown for external logging
+        assessment.leverage_breakdown = leverage_breakdown
+        assessment.was_capped = was_capped
+        assessment.cap_reason = cap_reason
+
+        # Log to file (concise format)
+        position_value = position_size * entry_price
+        base_value = base_position_size * entry_price
         logger.info(
-            f"Trade approved: {signal.symbol} {signal.side.value} "
-            f"size={position_size:.6f} risk=${risk_amount:.2f} leverage={leverage:.2f}x "
-            f"(dynamic_mult={leverage_multiplier:.2f})"
+            f"Trade approved: {signal.symbol} {signal.side.value.upper()} | "
+            f"base=${base_value:.2f} x{leverage_multiplier:.2f} = ${position_value:.2f} | "
+            f"leverage={leverage:.2f}x | risk=${risk_amount:.2f} | "
+            f"criteria={','.join(leverage_breakdown['criteria_met'])}"
         )
         return assessment
     

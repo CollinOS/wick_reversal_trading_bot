@@ -8573,5 +8573,383 @@
       "net_pnl": -101.38758570071774
     },
     "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-28T23:10:05.657788",
+    "trade": {
+      "id": "ef2b7aed-144",
+      "symbol": "WLD-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 196.29890198246187,
+      "entry_price": 0.63373,
+      "stop_loss": 0.64123,
+      "take_profit": 0.63360008,
+      "unrealized_pnl": 2.8561490238448326,
+      "realized_pnl": 2.430180406542889,
+      "net_pnl": 5.286329430387722,
+      "candles_held": 3,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "take_profit",
+      "net_pnl": 2.430180406542889
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T00:15:08.717711",
+    "trade": {
+      "id": "dace2890-258",
+      "symbol": "WLD-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 881.094530870028,
+      "entry_price": 0.57135,
+      "stop_loss": 0.56429,
+      "take_profit": 0.5703133799999999,
+      "unrealized_pnl": -7.480492567086536,
+      "realized_pnl": -6.872537340786245,
+      "net_pnl": -14.35302990787278,
+      "candles_held": 8,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "stop_loss",
+      "net_pnl": -6.872537340786245
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T00:20:09.123789",
+    "trade": {
+      "id": "5e9dfdd3-f8e",
+      "symbol": "JTO-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 1142.3558118494284,
+      "entry_price": 0.42797,
+      "stop_loss": 0.44542,
+      "take_profit": 0.43550353999999997,
+      "unrealized_pnl": 12.360289884210811,
+      "realized_pnl": 11.046580700583986,
+      "net_pnl": 23.406870584794795,
+      "candles_held": 6,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "take_profit",
+      "net_pnl": 11.046580700583986
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T00:25:05.580830",
+    "trade": {
+      "id": "97f7ea36-2a9",
+      "symbol": "WLD-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 891.1194599103177,
+      "entry_price": 0.56603,
+      "stop_loss": 0.55715,
+      "take_profit": 0.56389746,
+      "unrealized_pnl": 6.3625929437596005,
+      "realized_pnl": 6.416060111354273,
+      "net_pnl": 12.778653055113875,
+      "candles_held": 5,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "take_profit",
+      "net_pnl": 6.416060111354273
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T00:30:09.442554",
+    "trade": {
+      "id": "74b44fe7-13f",
+      "symbol": "IP-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 246.72351176377705,
+      "entry_price": 2.03293,
+      "stop_loss": 2.0133,
+      "take_profit": 2.0366927999999995,
+      "unrealized_pnl": 3.7181233222801544,
+      "realized_pnl": 2.5585228169903655,
+      "net_pnl": 6.27664613927052,
+      "candles_held": 4,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "take_profit",
+      "net_pnl": 2.5585228169903655
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T00:30:57.824472",
+    "trade": {
+      "id": "11ae45ce-5af",
+      "symbol": "JTO-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 1191.366879047669,
+      "entry_price": 0.4179,
+      "stop_loss": 0.4219,
+      "take_profit": 0.41758757,
+      "unrealized_pnl": -4.0506473887620915,
+      "realized_pnl": -3.5741006371430104,
+      "net_pnl": -7.624748025905102,
+      "candles_held": 7,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "stop_loss",
+      "net_pnl": -3.5741006371430104
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T01:00:10.561363",
+    "trade": {
+      "id": "273ea724-803",
+      "symbol": "WLD-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 899.1350320991207,
+      "entry_price": 0.55433,
+      "stop_loss": 0.55813,
+      "take_profit": 0.5533095499999999,
+      "unrealized_pnl": -6.141092269236997,
+      "realized_pnl": -6.410832778866704,
+      "net_pnl": -12.551925048103701,
+      "candles_held": 3,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "stop_loss",
+      "net_pnl": -6.410832778866704
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T01:25:49.507474",
+    "trade": {
+      "id": "b17e4154-cc5",
+      "symbol": "JTO-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 1146.147568791777,
+      "entry_price": 0.43422,
+      "stop_loss": 0.43382,
+      "take_profit": 0.43842521999999995,
+      "unrealized_pnl": -3.4499041820632637,
+      "realized_pnl": -4.168538707695695,
+      "net_pnl": -7.618442889758958,
+      "candles_held": 8,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "stop_loss",
+      "net_pnl": -4.168538707695695
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T22:45:04.624918",
+    "trade": {
+      "id": "a4af9a18-71c",
+      "symbol": "HYPE-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 10.014213722703193,
+      "entry_price": 31.11,
+      "stop_loss": 30.743,
+      "take_profit": 31.110779999999995,
+      "unrealized_pnl": -4.796808373174821,
+      "realized_pnl": -3.6752164362320805,
+      "net_pnl": -8.472024809406902,
+      "candles_held": 5,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "stop_loss",
+      "net_pnl": -3.6752164362320805
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-29T22:45:10.205117",
+    "trade": {
+      "id": "74ed5f89-1ed",
+      "symbol": "LIT-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 197.3441299670244,
+      "entry_price": 1.5794,
+      "stop_loss": 1.5603,
+      "take_profit": 1.5787143,
+      "unrealized_pnl": 0.09867206498354515,
+      "realized_pnl": -0.13531886991839087,
+      "net_pnl": -0.03664680493484572,
+      "candles_held": 5,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "take_profit",
+      "net_pnl": -0.13531886991839087
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-30T01:55:22.135338",
+    "trade": {
+      "id": "9cccb6c6-2b6",
+      "symbol": "IP-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 191.13758720652413,
+      "entry_price": 1.8937,
+      "stop_loss": 1.861637142857143,
+      "take_profit": 1.9163485714285715,
+      "unrealized_pnl": 4.778439680163129,
+      "realized_pnl": 2.02769674656523,
+      "net_pnl": 6.806136426728359,
+      "candles_held": 13,
+      "trailing_stop_active": true,
+      "trailing_stop_price": 1.9043085714285715
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "trailing_stop",
+      "net_pnl": 2.02769674656523
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-30T02:00:12.388977",
+    "trade": {
+      "id": "b5b2d014-551",
+      "symbol": "ZRO-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 232.78573260995557,
+      "entry_price": 2.12772,
+      "stop_loss": 2.072634285714286,
+      "take_profit": 2.1383585999999997,
+      "unrealized_pnl": -2.8213630792326403,
+      "realized_pnl": -3.5662774235845194,
+      "net_pnl": -6.38764050281716,
+      "candles_held": 13,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "time_exit",
+      "net_pnl": -3.5662774235845194
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-30T02:35:17.921279",
+    "trade": {
+      "id": "28011fe0-2e7",
+      "symbol": "PUMP-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 134028.2948622487,
+      "entry_price": 0.002673,
+      "stop_loss": 0.002710885714285714,
+      "take_profit": 0.002647342857142857,
+      "unrealized_pnl": -1.8763961280714985,
+      "realized_pnl": -2.2784810126582395,
+      "net_pnl": -4.154877140729738,
+      "candles_held": 13,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "time_exit",
+      "net_pnl": -2.278476,
+      "fees": 0.16224
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-30T03:00:11.553143",
+    "trade": {
+      "id": "6dbf8145-0ac",
+      "symbol": "ZRO-PERP",
+      "side": "long",
+      "status": "closed",
+      "quantity": 175.9100903982409,
+      "entry_price": 2.0565,
+      "stop_loss": 2.0299657142857144,
+      "take_profit": 2.072702857142857,
+      "unrealized_pnl": -0.9147324700709082,
+      "realized_pnl": -0.6508673344735368,
+      "net_pnl": -1.565599804544445,
+      "candles_held": 16,
+      "trailing_stop_active": false,
+      "trailing_stop_price": null
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "time_exit",
+      "net_pnl": -0.65083,
+      "fees": 0.162489
+    },
+    "notes": ""
+  },
+  {
+    "recorded_at": "2026-01-30T03:05:20.761807",
+    "trade": {
+      "id": "729ac8de-c7f",
+      "symbol": "IP-PERP",
+      "side": "short",
+      "status": "closed",
+      "quantity": 160.03964853228155,
+      "entry_price": 1.9297,
+      "stop_loss": 1.9564228571428572,
+      "take_profit": 1.9162514285714285,
+      "unrealized_pnl": 4.961229104500714,
+      "realized_pnl": 2.448606622543887,
+      "net_pnl": 7.409835727044602,
+      "candles_held": 11,
+      "trailing_stop_active": true,
+      "trailing_stop_price": 1.909662857142857
+    },
+    "signal_details": {},
+    "market_context": {
+      "exit_reason": "trailing_stop",
+      "net_pnl": 2.448,
+      "fees": 0.137836
+    },
+    "notes": ""
   }
 ]

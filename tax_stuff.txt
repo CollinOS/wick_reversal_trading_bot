@@ -1,0 +1,150 @@
+CRYPTO TRADING BOT TAX TRACKING (UNITED STATES)
+Hyperliquid Perpetual Futures – Personal Trading
+
+BASIC SETUP
+
+Country: United States
+Exchange: Hyperliquid
+Trading Instrument: Perpetual futures
+Trading Method: Automated trading bot
+Account Type: Personal (not an LLC or business)
+
+Purpose:
+Track and report all taxable crypto trading activity accurately and in
+compliance with IRS requirements.
+
+US TAX TREATMENT SUMMARY
+
+Perpetual Futures Trades
+
+Each position open to close is a taxable event.
+Gains and losses are treated as capital gains.
+Almost all trades will be short-term.
+Short-term capital gains are taxed at ordinary income rates.
+
+Funding Payments
+
+Positive funding payments are ordinary income.
+Negative funding payments are ordinary expenses.
+Funding payments should NOT be included in capital gains calculations.
+
+Tax Reporting Responsibility
+
+Hyperliquid does not issue Form 1099.
+All activity must be self-reported.
+
+RECOMMENDED TAX SOFTWARE
+
+Primary Recommendation: Koinly
+
+Reasons:
+Handles high trade volume.
+Supports perpetual futures.
+Supports funding payments.
+Allows custom CSV imports.
+Generates Form 8949 and Schedule D.
+Supports FIFO and HIFO accounting.
+
+Alternative Tools (less ideal for this setup):
+CoinLedger
+CoinTracker
+TaxBit
+
+DATA YOU MUST COLLECT FROM HYPERLIQUID
+
+Required transaction data:
+Trade history (opens and closes)
+Funding payments
+Deposits
+Withdrawals
+Trading fees
+
+Data handling best practices:
+Export data as CSV files.
+Import data quarterly, not just at year end.
+Reconcile balances after each import.
+Save original CSV files permanently.
+
+Record retention:
+Keep all records for at least 7 years.
+
+ACCOUNTING METHOD
+
+Allowed accounting methods in the United States:
+FIFO
+HIFO
+Specific Identification
+
+Recommended:
+Use FIFO or HIFO.
+Choose one method and apply it consistently every year.
+
+TRANSACTION CATEGORIZATION RULES
+
+Perpetual futures trades:
+Report as capital gains or losses.
+
+Funding payments:
+Report as ordinary income or ordinary expense.
+
+Wallet transfers:
+Transfers between your wallet and Hyperliquid are non-taxable.
+Incorrectly labeling transfers can create false taxable gains.
+
+ACCOUNT SEPARATION AND HYGIENE
+
+Recommended practices:
+Use one wallet exclusively for Hyperliquid trading.
+Do not mix bot trading with:
+Long-term investments
+NFTs
+Airdrops
+Personal spending
+
+Reason:
+Clean separation prevents reporting errors and audit issues.
+
+TRADER VS INVESTOR STATUS
+
+Default classification:
+Investor (most crypto traders).
+
+Trader tax status:
+Very high IRS threshold.
+Requires continuous daily trading.
+Must be primary income source.
+Requires business-like operations.
+
+Recommendation:
+Do not claim trader tax status without professional advice.
+
+IRS FORMS EXPECTED
+
+Form 8949
+Individual reporting of each closed trade.
+
+Schedule D
+Summary of total capital gains and losses.
+
+Schedule 1
+Reporting of funding payments as other income, if applicable.
+
+YEAR-END PROCESS
+
+Import all Hyperliquid data into tax software.
+
+Verify trade count, funding totals, and ending balances.
+
+Generate Form 8949 and Schedule D.
+
+Save all reports and raw CSV files.
+
+Have a crypto-aware CPA review the results.
+
+COMMON ERRORS TO AVOID
+
+Using spreadsheets for thousands of trades.
+Mixing bot trading with personal wallets.
+Misclassifying funding payments.
+Changing accounting methods year to year.
+Waiting until tax season to reconcile data.

@@ -227,7 +227,8 @@ class WickAnalyzer:
         # Check rejection confirmation (required)
         rejection_met, rejection_val = self.check_rejection_confirmation(candle, wick_type)
         if not rejection_met:
-            return False, 0.0, []
+            logger.debug(f"Wick {wick_type} failed rejection: {rejection_val:.2f} < {self.config.rejection_threshold_pct}")
+            return False, 0.0, [f"rejection_failed:{rejection_val:.2f}"]
 
         criteria_met.append(f"rejection:{rejection_val:.2f}")
         # Apply weight to rejection component
@@ -280,6 +281,11 @@ class WickAnalyzer:
             signal_valid = conditions_met == total_conditions
         else:
             signal_valid = conditions_met >= 1  # At least one condition met
+
+        # Log why signal failed if wick was significant but no optional criteria met
+        if not signal_valid and conditions_met == 0:
+            logger.info(f"⚠️ Wick {wick_type} passed min size & rejection but no optional criteria met "
+                       f"(need 1 of: wtb_ratio≥2.2, wick≥1.5×ATR, VWAP dist≥1.0×ATR)")
 
         # Calculate strength (0-1 scale)
         # Use weighted sum (not average) to reward multiple high-quality criteria
@@ -578,11 +584,20 @@ class SignalGenerator:
             signal.filter_details = "In cooldown period"
             return signal
         
+        # Check for minimum ATR (need enough candle history)
+        min_atr_pct = 0.001  # 0.1% of price minimum
+        min_atr = market_data.candle.close * min_atr_pct
+        if market_data.atr < min_atr:
+            signal.signal_type = SignalType.NO_SIGNAL
+            signal.filter_result = FilterResult.LOW_VOLUME  # Reuse filter result
+            signal.filter_details = f"ATR too low ({market_data.atr:.6f} < {min_atr:.6f}) - need more candle history"
+            return signal
+
         # Run market filters
         filter_result, filter_detail = self.market_filter.run_all_filters(
             market_data, btc_price
         )
-        
+
         if filter_result != FilterResult.PASSED:
             signal.signal_type = SignalType.NO_SIGNAL
             signal.filter_result = filter_result

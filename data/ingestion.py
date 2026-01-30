@@ -67,7 +67,7 @@ class DataProvider(ABC):
 class HyperliquidProvider(DataProvider):
     """
     Data provider for Hyperliquid DEX.
-    
+
     Hyperliquid is recommended for this strategy due to:
     - Low latency perpetual futures
     - Good liquidity on alt-perps
@@ -75,17 +75,20 @@ class HyperliquidProvider(DataProvider):
     - Transparent on-chain order book
     - Low fees (0.02% maker, 0.05% taker)
     """
-    
-    def __init__(self, testnet: bool = True):
+
+    def __init__(self, testnet: bool = True, use_mainnet_data: bool = True):
         self.testnet = testnet
+        self._use_mainnet_data = use_mainnet_data
+
+        # Execution URL (testnet for paper trading)
         self.base_url = (
             "https://api.hyperliquid-testnet.xyz" if testnet
             else "https://api.hyperliquid.xyz"
         )
-        self.ws_url = (
-            "wss://api.hyperliquid-testnet.xyz/ws" if testnet
-            else "wss://api.hyperliquid.xyz/ws"
-        )
+
+        # Data URL - use mainnet for market data (more reliable candle data)
+        self.data_url = "https://api.hyperliquid.xyz" if use_mainnet_data else self.base_url
+
         self._session = None
         self._ws = None
     
@@ -93,7 +96,8 @@ class HyperliquidProvider(DataProvider):
         """Initialize HTTP session and WebSocket connection."""
         import aiohttp
         self._session = aiohttp.ClientSession()
-        logger.info(f"Connected to Hyperliquid ({'testnet' if self.testnet else 'mainnet'})")
+        data_source = "mainnet" if self._use_mainnet_data else ("testnet" if self.testnet else "mainnet")
+        logger.info(f"Connected to Hyperliquid (execution: {'testnet' if self.testnet else 'mainnet'}, data: {data_source})")
     
     async def disconnect(self):
         """Close connections."""
@@ -131,7 +135,7 @@ class HyperliquidProvider(DataProvider):
         }
         
         async with self._session.post(
-            f"{self.base_url}/info",
+            f"{self.data_url}/info",
             json=payload
         ) as response:
             data = await response.json()
@@ -162,48 +166,88 @@ class HyperliquidProvider(DataProvider):
         symbol: str,
         timeframe: str
     ) -> AsyncGenerator[Candle, None]:
-        """Subscribe to real-time candle updates via WebSocket."""
+        """Subscribe to real-time candle updates via WebSocket with auto-reconnect."""
         import aiohttp
-        
-        async with aiohttp.ClientSession() as session:
-            async with session.ws_connect(self.ws_url) as ws:
-                # Subscribe to candles
-                await ws.send_json({
-                    "method": "subscribe",
-                    "subscription": {
-                        "type": "candle",
-                        "coin": symbol.replace("-PERP", ""),
-                        "interval": timeframe
-                    }
-                })
-                
-                async for msg in ws:
-                    if msg.type == aiohttp.WSMsgType.TEXT:
-                        data = msg.json()
-                        if data.get('channel') == 'candle':
-                            c = data['data']
-                            yield Candle(
-                                timestamp=datetime.fromtimestamp(c['t'] / 1000),
-                                open=float(c['o']),
-                                high=float(c['h']),
-                                low=float(c['l']),
-                                close=float(c['c']),
-                                volume=float(c['v'])
-                            )
+
+        coin = symbol.replace("-PERP", "")
+        ws_url = "wss://api.hyperliquid.xyz/ws"  # Always use mainnet for data
+
+        # Track last candle timestamp to only yield completed candles
+        last_candle_time = None
+        pending_candle = None
+
+        while True:
+            try:
+                logger.debug(f"📡 Connecting WebSocket for {symbol}...")
+
+                async with aiohttp.ClientSession() as session:
+                    async with session.ws_connect(ws_url, heartbeat=30) as ws:
+                        # Subscribe to candles
+                        await ws.send_json({
+                            "method": "subscribe",
+                            "subscription": {
+                                "type": "candle",
+                                "coin": coin,
+                                "interval": timeframe
+                            }
+                        })
+
+                        async for msg in ws:
+                            if msg.type == aiohttp.WSMsgType.TEXT:
+                                data = msg.json()
+                                channel = data.get('channel')
+
+                                if channel == 'subscriptionResponse':
+                                    logger.debug(f"✓ {symbol} subscribed - waiting for candle close...")
+                                elif channel == 'candle':
+                                    c = data['data']
+                                    candle_time = datetime.fromtimestamp(c['t'] / 1000)
+
+                                    # When we see a NEW candle timestamp, the previous candle is complete
+                                    if last_candle_time is not None and candle_time > last_candle_time:
+                                        if pending_candle is not None:
+                                            logger.debug(f"📊 Candle closed: {symbol} @ {pending_candle.timestamp}")
+                                            yield pending_candle
+
+                                    # Update pending candle with latest data
+                                    pending_candle = Candle(
+                                        timestamp=candle_time,
+                                        open=float(c['o']),
+                                        high=float(c['h']),
+                                        low=float(c['l']),
+                                        close=float(c['c']),
+                                        volume=float(c['v'])
+                                    )
+                                    last_candle_time = candle_time
+
+                            elif msg.type == aiohttp.WSMsgType.ERROR:
+                                logger.warning(f"WebSocket error for {symbol}: {msg.data}")
+                                break
+                            elif msg.type in (aiohttp.WSMsgType.CLOSED, aiohttp.WSMsgType.CLOSE):
+                                logger.warning(f"WebSocket closed for {symbol}")
+                                break
+
+            except asyncio.CancelledError:
+                logger.info(f"Stopped {symbol} stream")
+                break
+            except Exception as e:
+                logger.warning(f"WebSocket error for {symbol}: {e}, reconnecting in 5s...")
+                await asyncio.sleep(5)
     
     async def get_orderbook_snapshot(
         self,
         symbol: str,
         depth: int = 20
     ) -> Dict:
-        """Get order book snapshot."""
+        """Get order book snapshot from mainnet (more liquid than testnet)."""
         payload = {
             "type": "l2Book",
             "coin": symbol.replace("-PERP", "")
         }
-        
+
+        # Use mainnet for orderbook data (testnet has almost no liquidity)
         async with self._session.post(
-            f"{self.base_url}/info",
+            f"{self.data_url}/info",
             json=payload
         ) as response:
             data = await response.json()
@@ -578,8 +622,11 @@ class DataAggregator:
                 bid_price = orderbook['bids'][0][0]
             if orderbook.get('asks'):
                 ask_price = orderbook['asks'][0][0]
-            if bid_price and ask_price:
+            if bid_price and ask_price and bid_price > 0:
                 spread = (ask_price - bid_price) / ((ask_price + bid_price) / 2)
+                # Sanity check - if spread > 10%, orderbook data is probably bad
+                if spread > 0.10:
+                    spread = None  # Ignore bad data
             
             # Calculate depth at configured distance from mid
             mid = (bid_price + ask_price) / 2 if bid_price and ask_price else candle.close
