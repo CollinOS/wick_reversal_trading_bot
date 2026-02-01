@@ -43,3 +43,20 @@
 2026-01-29 21:35:17 | INFO     | wick_reversal | POSITION CLOSE | PUMP-PERP | time_exit | PnL=$-4.15 | duration=13 candles
 2026-01-29 21:39:42 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_initiated
 2026-01-29 21:39:42 | INFO     | wick_reversal | SYSTEM | strategy_shutdown_complete
+2026-01-29 21:39:54 | INFO     | wick_reversal | SYSTEM | strategy_init
+2026-01-29 21:39:54 | INFO     | wick_reversal | SYSTEM | strategy_ready
+2026-01-29 21:45:04 | INFO     | wick_reversal | SIGNAL | ZRO-PERP | lower_wick_long | strength=0.86
+2026-01-29 21:45:06 | INFO     | wick_reversal | ORDER SUBMITTED | ZRO-PERP | long | qty=175.910090 | price=None
+2026-01-29 21:45:06 | INFO     | wick_reversal | FILL | ZRO-PERP | qty=175.910090 | price=2.0565 | slippage=0.000% | latency=2409.7ms
+2026-01-29 21:45:06 | INFO     | wick_reversal | POSITION OPEN | ZRO-PERP | long | entry=2.056500 | stop=2.029966 | target=2.072703
+2026-01-29 21:55:03 | INFO     | wick_reversal | SIGNAL | IP-PERP | upper_wick_short | strength=0.70
+2026-01-29 21:55:06 | INFO     | wick_reversal | ORDER SUBMITTED | IP-PERP | short | qty=160.039649 | price=None
+2026-01-29 21:55:06 | INFO     | wick_reversal | FILL | IP-PERP | qty=160.039649 | price=1.9297 | slippage=0.000% | latency=3294.6ms
+2026-01-29 21:55:06 | INFO     | wick_reversal | POSITION OPEN | IP-PERP | short | entry=1.929700 | stop=1.956423 | target=1.916251
+2026-01-29 22:00:10 | INFO     | wick_reversal | FILL | ZRO-PERP | qty=175.900000 | price=2.0528 | slippage=0.000% | latency=2389.5ms
+2026-01-29 22:00:11 | INFO     | wick_reversal | POSITION CLOSE | ZRO-PERP | time_exit | PnL=$-1.57 | duration=16 candles
+2026-01-29 22:05:20 | INFO     | wick_reversal | POSITION CLOSE | IP-PERP | trailing_stop | PnL=$7.41 | duration=11 candles
+2026-01-29 22:10:02 | INFO     | wick_reversal | SIGNAL | HYPE-PERP | lower_wick_long | strength=0.81
+2026-01-29 22:10:05 | INFO     | wick_reversal | ORDER SUBMITTED | HYPE-PERP | long | qty=12.558344 | price=None
+2026-01-29 22:10:05 | INFO     | wick_reversal | FILL | HYPE-PERP | qty=12.558344 | price=28.7536 | slippage=0.000% | latency=2979.2ms
+2026-01-29 22:10:05 | INFO     | wick_reversal | POSITION OPEN | HYPE-PERP | long | entry=28.753600 | stop=28.423971 | target=29.047286
