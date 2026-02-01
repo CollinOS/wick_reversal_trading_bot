@@ -217,7 +217,14 @@ class HyperliquidExecutor(ExecutionHandler):
         self._asset_meta: Dict[str, dict] = {}
         self._coin_to_asset: Dict[str, int] = {}
 
+        # Execution config (set via set_execution_config)
+        self._execution_config: Optional[ExecutionConfig] = None
+
         logger.info(f"Hyperliquid executor initialized for wallet: {self.wallet_address}")
+
+    def set_execution_config(self, config: ExecutionConfig):
+        """Set execution config for dynamic leverage settings."""
+        self._execution_config = config
 
     async def connect(self, max_retries: int = 5):
         """Initialize SDK and fetch asset metadata with retry logic for rate limits."""
@@ -361,11 +368,83 @@ class HyperliquidExecutor(ExecutionHandler):
         factor = 10 ** (sig_figs - 1 - magnitude)
         return round(value * factor) / factor
 
-    async def submit_order(self, order: Order) -> ExecutionResult:
-        """Submit order to Hyperliquid using official SDK."""
+    def calculate_leverage_from_confidence(self, dynamic_multiplier: float) -> int:
+        """
+        Calculate leverage based on trade confidence (dynamic multiplier).
+
+        Maps the dynamic multiplier range to leverage range:
+        - Low confidence (multiplier ~1.0) -> min_leverage (3x)
+        - High confidence (multiplier ~2.5) -> max_leverage (5x)
+        """
+        if not self._execution_config or not self._execution_config.dynamic_leverage_enabled:
+            return 3  # Default to conservative leverage
+
+        min_lev = self._execution_config.min_leverage
+        max_lev = self._execution_config.max_leverage
+
+        # Dynamic multiplier typically ranges from 0.5 to 2.5
+        # Map this to leverage range
+        min_mult = 0.5
+        max_mult = 2.5
+
+        # Normalize multiplier to 0-1 range
+        normalized = (dynamic_multiplier - min_mult) / (max_mult - min_mult)
+        normalized = max(0.0, min(1.0, normalized))  # Clamp to 0-1
+
+        # Map to leverage range
+        leverage = min_lev + normalized * (max_lev - min_lev)
+        return int(round(leverage))
+
+    async def set_leverage(self, symbol: str, leverage: int) -> bool:
+        """
+        Set leverage for a symbol on Hyperliquid.
+
+        Args:
+            symbol: Trading pair (e.g., 'ZRO-PERP')
+            leverage: Leverage to set (e.g., 3, 5)
+
+        Returns:
+            True if successful, False otherwise
+        """
+        try:
+            name = self._get_coin(symbol)
+
+            # Get max leverage for this asset to avoid exceeding it
+            meta = self._asset_meta.get(symbol, {})
+            max_leverage = meta.get("maxLeverage", 50)
+            leverage = min(leverage, max_leverage)
+
+            result = self.exchange.update_leverage(leverage, name, is_cross=True)
+            logger.debug(f"Set leverage response for {symbol}: {result}")
+
+            if result.get("status") == "ok":
+                logger.info(f"Set {symbol} leverage to {leverage}x")
+                return True
+            else:
+                error = result.get("response", str(result))
+                logger.warning(f"Failed to set leverage for {symbol}: {error}")
+                return False
+
+        except Exception as e:
+            logger.warning(f"Error setting leverage for {symbol}: {e}")
+            return False
+
+    async def submit_order(self, order: Order, dynamic_multiplier: float = None) -> ExecutionResult:
+        """Submit order to Hyperliquid using official SDK.
+
+        Args:
+            order: The order to submit
+            dynamic_multiplier: Optional confidence multiplier to set leverage (only for entries)
+        """
         start_time = datetime.utcnow()
 
         try:
+            # Set leverage based on confidence for entry orders (not reduce-only)
+            if dynamic_multiplier is not None and self._execution_config:
+                if self._execution_config.dynamic_leverage_enabled:
+                    leverage = self.calculate_leverage_from_confidence(dynamic_multiplier)
+                    await self.set_leverage(order.symbol, leverage)
+
             # SDK uses 'name' parameter (coin name without -PERP)
             name = self._get_coin(order.symbol)
             is_buy = order.side == Side.LONG
@@ -1153,12 +1232,17 @@ class OrderManager:
         
         return order
     
-    async def submit_order(self, order: Order) -> ExecutionResult:
-        """Submit order through executor."""
+    async def submit_order(self, order: Order, dynamic_multiplier: float = None) -> ExecutionResult:
+        """Submit order through executor.
+
+        Args:
+            order: The order to submit
+            dynamic_multiplier: Optional confidence multiplier for setting leverage (entries only)
+        """
         self.total_orders += 1
         self.pending_orders[order.id] = order
-        
-        result = await self.executor.submit_order(order)
+
+        result = await self.executor.submit_order(order, dynamic_multiplier=dynamic_multiplier)
         
         if result.success:
             self.total_latency += result.latency_ms

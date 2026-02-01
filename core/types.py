@@ -336,6 +336,13 @@ class Position:
     stop_order_id: Optional[str] = None
     take_profit_order_id: Optional[str] = None
 
+    # Partial take profit tracking
+    partial_tp_order_id: Optional[str] = None
+    partial_tp_price: Optional[float] = None
+    partial_tp_quantity: float = 0.0
+    partial_tp_taken: bool = False
+    original_quantity: float = 0.0  # Store original size before partial exit
+
     # Commission tracking
     total_commission: float = 0.0
     

@@ -279,13 +279,18 @@ class WickAnalyzer:
         # Determine if signal is valid
         if self.config.require_all_conditions:
             signal_valid = conditions_met == total_conditions
+            required_conditions = total_conditions
         else:
             signal_valid = conditions_met >= 1  # At least one condition met
+            required_conditions = 1
 
-        # Log why signal failed if wick was significant but no optional criteria met
-        if not signal_valid and conditions_met == 0:
-            logger.info(f"⚠️ Wick {wick_type} passed min size & rejection but no optional criteria met "
-                       f"(need 1 of: wtb_ratio≥2.2, wick≥1.5×ATR, VWAP dist≥1.0×ATR)")
+        # Log detailed criteria evaluation for debugging
+        if not signal_valid:
+            logger.info(f"⚠️ Wick {wick_type} rejected: {conditions_met}/{required_conditions} criteria met "
+                       f"(require_all={self.config.require_all_conditions}) | "
+                       f"wtb={wtb_met}({wtb_val:.2f} vs {self.config.wick_to_body_ratio}), "
+                       f"atr={atr_met}({atr_val:.2f} vs {self.config.wick_atr_multiplier}), "
+                       f"vwap={vwap_met}({vwap_val:.2f} vs {self.config.vwap_distance_atr})")
 
         # Calculate strength (0-1 scale)
         # Use weighted sum (not average) to reward multiple high-quality criteria

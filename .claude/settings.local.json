@@ -3,7 +3,8 @@
     "allow": [
       "Bash(python run_real_data.py:*)",
       "Bash(python -c:*)",
-      "Bash(python -m py_compile:*)"
+      "Bash(python -m py_compile:*)",
+      "Bash(python test_configs.py:*)"
     ]
   }
 }

@@ -334,7 +334,7 @@ class BacktestEngine:
         self.current_equity -= commission
 
         # Store position metadata for analysis
-        leverage_mult = self.risk_manager.calculate_leverage_multiplier(signal)
+        leverage_mult, _ = self.risk_manager.calculate_leverage_multiplier(signal)
 
         # Parse criteria to identify which were met
         criteria_list = signal.criteria_met

@@ -564,6 +564,9 @@ async def main():
         testnet=testnet
     )
 
+    # Set execution config for dynamic leverage
+    executor.set_execution_config(config.execution)
+
     # Create dynamic trading manager
     manager = DynamicTradingManager(
         config=config,

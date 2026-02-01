@@ -128,7 +128,7 @@ class LiveMarketMonitor:
         self.auto_update = False
         self.output_file: Optional[str] = None
         self.min_symbols = 3
-        self.max_symbols = 5
+        self.max_symbols = 10
         self.pinned_symbols: Set[str] = set()  # Symbols that are always included
 
     async def connect(self):
@@ -662,8 +662,8 @@ async def main():
     parser.add_argument(
         "--max-symbols",
         type=int,
-        default=5,
-        help="Maximum number of symbols to track (default: 5)"
+        default=10,
+        help="Maximum number of symbols to track (default: 10)"
     )
     args = parser.parse_args()
 

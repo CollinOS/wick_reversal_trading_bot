@@ -312,7 +312,9 @@ class WickReversalStrategy:
         # Execute entry order if we have an order manager
         if self.order_manager:
             order = await self.order_manager.create_entry_order(signal, position_size)
-            result = await self.order_manager.submit_order(order)
+            result = await self.order_manager.submit_order(
+                order, dynamic_multiplier=assessment.dynamic_multiplier
+            )
 
             self.logger.log_order(order, "submitted")
 
@@ -398,6 +400,10 @@ class WickReversalStrategy:
 
         This ensures exits execute even if the bot is offline or slow to react.
         The exchange monitors price continuously and triggers orders instantly.
+
+        If partial_tp_enabled, places two TP orders:
+        - Partial TP at closer target (50% of position)
+        - Full TP at original target (remaining 50%)
         """
         if not self.executor:
             print(f"  WARNING: No executor - SL/TP orders NOT placed for {position.symbol}")
@@ -410,7 +416,10 @@ class WickReversalStrategy:
 
         close_side = Side.SHORT if position.side == Side.LONG else Side.LONG
 
-        # Place stop loss order on exchange
+        # Store original quantity for partial TP tracking
+        position.original_quantity = position.quantity
+
+        # Place stop loss order on exchange (full position size)
         try:
             sl_result = await self.executor.submit_stop_loss_order(
                 symbol=position.symbol,
@@ -422,30 +431,88 @@ class WickReversalStrategy:
                 position.stop_order_id = sl_result.order.exchange_order_id
                 print(f"  Stop Loss: ${position.stop_loss:.4f} (order #{sl_result.order.exchange_order_id})")
             else:
-                # Use print to ensure visibility even with quiet logging
                 print(f"  WARNING: Stop loss order FAILED: {sl_result.error}")
                 logger.error(f"Failed to place exchange stop loss for {position.symbol}: {sl_result.error}")
         except Exception as e:
             print(f"  WARNING: Stop loss order ERROR: {e}")
             logger.exception(f"Error placing exchange stop loss: {e}")
 
-        # Place take profit order on exchange
-        try:
-            tp_result = await self.executor.submit_take_profit_order(
-                symbol=position.symbol,
-                side=close_side,
-                quantity=position.quantity,
-                trigger_price=position.take_profit
-            )
-            if tp_result.success and tp_result.order:
-                position.take_profit_order_id = tp_result.order.exchange_order_id
-                print(f"  Take Profit: ${position.take_profit:.4f} (order #{tp_result.order.exchange_order_id})")
+        # Check if partial take profit is enabled
+        partial_tp_enabled = self.config.exit.partial_tp_enabled if hasattr(self.config.exit, 'partial_tp_enabled') else False
+
+        if partial_tp_enabled:
+            # Calculate partial TP price (closer target)
+            partial_tp_mult = self.config.exit.partial_tp_atr_multiplier
+            partial_tp_pct = self.config.exit.partial_tp_percent
+            atr = self.data_aggregator.calculate_atr(position.symbol)
+
+            if atr > 0:
+                if position.side == Side.LONG:
+                    partial_tp_price = position.entry_price + (atr * partial_tp_mult)
+                else:
+                    partial_tp_price = position.entry_price - (atr * partial_tp_mult)
+
+                partial_quantity = position.quantity * partial_tp_pct
+                remaining_quantity = position.quantity - partial_quantity
+
+                position.partial_tp_price = partial_tp_price
+                position.partial_tp_quantity = partial_quantity
+
+                # Place partial take profit order
+                try:
+                    partial_result = await self.executor.submit_take_profit_order(
+                        symbol=position.symbol,
+                        side=close_side,
+                        quantity=partial_quantity,
+                        trigger_price=partial_tp_price
+                    )
+                    if partial_result.success and partial_result.order:
+                        position.partial_tp_order_id = partial_result.order.exchange_order_id
+                        print(f"  Partial TP (50%): ${partial_tp_price:.4f} (order #{partial_result.order.exchange_order_id})")
+                    else:
+                        print(f"  WARNING: Partial TP order FAILED: {partial_result.error}")
+                except Exception as e:
+                    print(f"  WARNING: Partial TP order ERROR: {e}")
+                    logger.exception(f"Error placing partial take profit: {e}")
+
+                # Place full take profit order for remaining quantity
+                try:
+                    tp_result = await self.executor.submit_take_profit_order(
+                        symbol=position.symbol,
+                        side=close_side,
+                        quantity=remaining_quantity,
+                        trigger_price=position.take_profit
+                    )
+                    if tp_result.success and tp_result.order:
+                        position.take_profit_order_id = tp_result.order.exchange_order_id
+                        print(f"  Full TP (50%): ${position.take_profit:.4f} (order #{tp_result.order.exchange_order_id})")
+                    else:
+                        print(f"  WARNING: Full TP order FAILED: {tp_result.error}")
+                except Exception as e:
+                    print(f"  WARNING: Full TP order ERROR: {e}")
+                    logger.exception(f"Error placing full take profit: {e}")
             else:
-                print(f"  WARNING: Take profit order FAILED: {tp_result.error}")
-                logger.error(f"Failed to place exchange take profit for {position.symbol}: {tp_result.error}")
-        except Exception as e:
-            print(f"  WARNING: Take profit order ERROR: {e}")
-            logger.exception(f"Error placing exchange take profit: {e}")
+                # No ATR available, fall back to single TP
+                partial_tp_enabled = False
+
+        if not partial_tp_enabled:
+            # Place single take profit order for full position
+            try:
+                tp_result = await self.executor.submit_take_profit_order(
+                    symbol=position.symbol,
+                    side=close_side,
+                    quantity=position.quantity,
+                    trigger_price=position.take_profit
+                )
+                if tp_result.success and tp_result.order:
+                    position.take_profit_order_id = tp_result.order.exchange_order_id
+                    print(f"  Take Profit: ${position.take_profit:.4f} (order #{tp_result.order.exchange_order_id})")
+                else:
+                    print(f"  WARNING: Take profit order FAILED: {tp_result.error}")
+                    logger.error(f"Failed to place exchange take profit for {position.symbol}: {tp_result.error}")
+            except Exception as e:
+                print(f"  WARNING: Take profit order ERROR: {e}")
+                logger.exception(f"Error placing exchange take profit: {e}")
 
     async def _cancel_exchange_exit_orders(self, position: Position):
         """Cancel any exchange-based stop loss and take profit orders for a position."""
@@ -459,6 +526,14 @@ class WickReversalStrategy:
                 logger.debug(f"Cancelled exchange stop loss order: {position.stop_order_id}")
             except Exception as e:
                 logger.warning(f"Error cancelling stop loss order: {e}")
+
+        # Cancel partial take profit order if it exists
+        if hasattr(position, 'partial_tp_order_id') and position.partial_tp_order_id:
+            try:
+                await self.executor.cancel_order(position.partial_tp_order_id, position.symbol)
+                logger.debug(f"Cancelled exchange partial TP order: {position.partial_tp_order_id}")
+            except Exception as e:
+                logger.warning(f"Error cancelling partial TP order: {e}")
 
         # Cancel take profit order if it exists
         if position.take_profit_order_id:
@@ -475,33 +550,38 @@ class WickReversalStrategy:
         reason: str
     ):
         """Close an existing position."""
-        # Cancel any exchange-based stop/TP orders first to avoid duplicate closes
-        await self._cancel_exchange_exit_orders(position)
-
         actual_exit_price = exit_price
         total_fees = 0.0
         actual_pnl = None
+        actual_reason = reason  # Will be updated based on exchange data
 
         # Execute exit order if we have an executor
         if self.executor:
             # First check if position actually exists on exchange
-            # (it may have been closed by exchange stop loss already)
+            # (it may have been closed by exchange stop loss/take profit already)
             exchange_position = await self.executor.get_position(position.symbol)
+            position_already_closed = not exchange_position or abs(exchange_position.get("size", 0)) < 1e-10
 
-            if exchange_position and abs(exchange_position.get("size", 0)) > 1e-10:
-                # Position exists on exchange - close it
+            if not position_already_closed:
+                # Position still exists - cancel TP/SL orders and close manually
+                await self._cancel_exchange_exit_orders(position)
                 result = await self.executor.close_position(position.symbol, position.side)
 
                 if result.success and result.order and result.order.is_filled:
                     actual_exit_price = result.order.average_fill_price
                     position.total_commission += result.order.commission or 0
                     self.logger.log_fill(result.order, result.latency_ms)
+            else:
+                # Position was already closed by exchange (TP/SL triggered)
+                # Cancel remaining orders to clean up
+                await self._cancel_exchange_exit_orders(position)
 
-            # Fetch actual fill data from exchange to get real price and fees
+            # ALWAYS fetch actual fill data to get real price, fees, and determine true exit reason
             if hasattr(self.executor, 'get_recent_fills'):
                 try:
-                    fills = await self.executor.get_recent_fills(position.symbol, limit=5)
+                    fills = await self.executor.get_recent_fills(position.symbol, limit=10)
                     if fills:
+                        logger.debug(f"Found {len(fills)} recent fills for {position.symbol}")
                         # Get the most recent closing fill
                         for fill in fills:
                             # Check if this fill is closing our position (opposite side)
@@ -514,9 +594,34 @@ class WickReversalStrategy:
                                 total_fees = abs(fill["fee"])
                                 if fill["closed_pnl"] != 0:
                                     actual_pnl = fill["closed_pnl"]
+
+                                # Determine actual exit reason based on fill price
+                                # Compare to TP/SL levels to figure out what really triggered
+                                if position.side == Side.LONG:
+                                    if actual_exit_price >= position.take_profit * 0.998:  # Within 0.2% of TP
+                                        actual_reason = "take_profit"
+                                    elif actual_exit_price <= position.stop_loss * 1.002:  # Within 0.2% of SL
+                                        actual_reason = "stop_loss"
+                                    else:
+                                        actual_reason = reason  # Keep original (time_exit, etc.)
+                                else:  # SHORT
+                                    if actual_exit_price <= position.take_profit * 1.002:  # Within 0.2% of TP
+                                        actual_reason = "take_profit"
+                                    elif actual_exit_price >= position.stop_loss * 0.998:  # Within 0.2% of SL
+                                        actual_reason = "stop_loss"
+                                    else:
+                                        actual_reason = reason
+
+                                logger.info(f"Exit fill {position.symbol}: price=${actual_exit_price:.4f}, "
+                                          f"pnl=${actual_pnl if actual_pnl else 'N/A'}, reason={actual_reason} "
+                                          f"(TP=${position.take_profit:.4f}, SL=${position.stop_loss:.4f})")
                                 break
+                        else:
+                            logger.warning(f"No closing fill found for {position.symbol} - using estimated data")
+                    else:
+                        logger.warning(f"No fills returned for {position.symbol}")
                 except Exception as e:
-                    logger.debug(f"Could not fetch actual fill data: {e}")
+                    logger.warning(f"Could not fetch actual fill data for {position.symbol}: {e}")
 
         # Update position
         position.status = PositionStatus.CLOSED
@@ -527,7 +632,7 @@ class WickReversalStrategy:
             net_pnl = actual_pnl  # Exchange P&L already includes fees
             gross_pnl = net_pnl + total_fees
         else:
-            # Calculate P&L
+            # Calculate P&L (fallback if fill data unavailable)
             if position.side == Side.LONG:
                 gross_pnl = (actual_exit_price - position.entry_price) * position.quantity
             else:
@@ -541,7 +646,7 @@ class WickReversalStrategy:
         # Update risk manager
         self.risk_manager.close_position(position, actual_exit_price, datetime.utcnow())
 
-        self.logger.log_position_close(position, reason)
+        self.logger.log_position_close(position, actual_reason)
 
         # Call trade exit callback if set
         if self.on_trade_exit:
@@ -553,7 +658,7 @@ class WickReversalStrategy:
                     entry_price=position.entry_price,
                     exit_price=actual_exit_price,
                     pnl=net_pnl,
-                    reason=reason
+                    reason=actual_reason
                 )
             except Exception as e:
                 logger.warning(f"Trade exit callback error: {e}")
@@ -561,7 +666,7 @@ class WickReversalStrategy:
         # Record to journal
         self.trade_journal.record_trade(
             position,
-            market_context={"exit_reason": reason, "net_pnl": net_pnl, "fees": total_fees}
+            market_context={"exit_reason": actual_reason, "net_pnl": net_pnl, "fees": total_fees}
         )
     
     async def run_live(self, symbols: List[str]):

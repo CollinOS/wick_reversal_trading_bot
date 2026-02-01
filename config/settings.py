@@ -36,26 +36,26 @@ class EntryMode(Enum):
 class SignalConfig:
     """Configuration for wick signal detection."""
     # Wick-to-body ratio threshold (e.g., 2.0 means wick >= 2x body)
-    wick_to_body_ratio: float = 2.2
-    
+    wick_to_body_ratio: float = 2.3  # Middle ground (was 2.2 -> tested up to 2.5)
+
     # Wick size relative to ATR (e.g., 1.5 means wick > 1.5 * ATR)
     wick_atr_multiplier: float = 1.5
-    
+
     # Distance from VWAP threshold (in ATR units)
     vwap_distance_atr: float = 1.0
-    
+
     # Minimum wick size in absolute terms (as % of price)
-    min_wick_pct: float = 0.006  # 0.006 = 0.6%
-    
+    min_wick_pct: float = 0.008  # 0.8% - filters out small noise wicks
+
     # Body confirmation: close must be at least this % away from wick extreme
-    rejection_threshold_pct: float = 0.35  # 50% of wick
-    
+    rejection_threshold_pct: float = 0.42  # Middle ground (was 0.35)
+
     # Use all conditions (AND) or any condition (OR)
-    require_all_conditions: bool = False
-    
+    require_all_conditions: bool = False  # OR logic - allows more trades
+
     # ATR period for calculations
     atr_period: int = 14
-    
+
     # VWAP type: 'session' or 'rolling'
     vwap_type: str = "rolling"
     vwap_rolling_period: int = 20
@@ -84,45 +84,50 @@ class ExitConfig:
     """Configuration for trade exits."""
     # Primary take-profit target
     primary_target: ExitTarget = ExitTarget.ATR_BASED
-    
+
     # Stop loss buffer beyond wick extreme (as % of ATR)
     stop_loss_buffer_atr: float = 0.4
-    
+
     # Maximum stop loss as % of entry price
     max_stop_loss_pct: float = 0.025  # 2.5%
-    
+
     # For ATR-based targets: multiplier
-    atr_target_multiplier: float = 1.2
-    
+    atr_target_multiplier: float = 0.9  # Middle ground (was 1.2)
+
     # Time-based exit: max candles to hold position
     max_hold_candles: int = 12
-    
+
     # Trailing stop activation (% of target reached)
-    trailing_stop_activation: float = 0.90
-    trailing_stop_distance_atr: float = 0.6
+    trailing_stop_activation: float = 0.75  # Middle ground (was 0.90)
+    trailing_stop_distance_atr: float = 0.5  # Tighter trailing stop
+
+    # Partial take profit settings
+    partial_tp_enabled: bool = True
+    partial_tp_percent: float = 0.50  # Take 50% of position at first target
+    partial_tp_atr_multiplier: float = 0.5  # First target at 0.5x ATR (closer than full TP)
 
 
 @dataclass
 class RiskConfig:
     """Risk management configuration."""
     # Fixed fractional risk per trade (as % of account)
-    risk_per_trade_pct: float = 0.02  # 2%
-    
+    risk_per_trade_pct: float = 0.02  # 1.5% per trade (reduced for more positions)
+
     # Maximum simultaneous positions
-    max_positions: int = 2
-    
+    max_positions: int = 10  # Increased to capitalize on high volatility periods
+
     # Maximum positions per symbol
     max_positions_per_symbol: int = 1
-    
+
     # Cooldown period after trade (in candles)
-    cooldown_candles: int = 3
-    
+    cooldown_candles: int = 0
+
     # Daily loss limit (as % of starting daily equity)
-    daily_loss_limit_pct: float = 0.010  # 2%
-    
+    daily_loss_limit_pct: float = 0.05  # 5% daily loss limit (increased for more positions)
+
     # Maximum drawdown before stopping (as % of peak equity)
-    max_drawdown_pct: float = 0.10  # 10%
-    
+    max_drawdown_pct: float = 0.15  # 15% max drawdown
+
     # No averaging down
     allow_averaging: bool = False
     
@@ -195,21 +200,27 @@ class ExecutionConfig:
     """Order execution configuration."""
     # Slippage model (as % of price)
     expected_slippage_pct: float = 0.0005  # 0.05%
-    
+
     # Maximum acceptable slippage for market orders
     max_slippage_pct: float = 0.002  # 0.2%
-    
+
     # Partial fill handling: minimum fill % to accept
     min_fill_pct: float = 0.5
-    
+
     # Order timeout (seconds)
     order_timeout_seconds: int = 30
-    
+
     # Retry attempts for failed orders
     max_retries: int = 3
-    
+
     # Use reduce-only for exits
     reduce_only_exits: bool = True
+
+    # Dynamic leverage settings (Hyperliquid)
+    # Leverage is scaled based on trade confidence (dynamic multiplier)
+    dynamic_leverage_enabled: bool = True
+    min_leverage: int = 3  # Minimum leverage for low confidence trades
+    max_leverage: int = 5  # Maximum leverage for high confidence trades
 
 
 @dataclass

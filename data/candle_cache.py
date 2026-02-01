@@ -102,7 +102,7 @@ class CandleCache:
             logger.warning(f"Failed to load candle cache: {e}")
 
     def _save_to_disk(self):
-        """Save current candles to disk."""
+        """Save current candles to disk using atomic write to prevent corruption."""
         try:
             data = {
                 "saved_at": datetime.utcnow().isoformat(),
@@ -123,8 +123,13 @@ class CandleCache:
                     for c in candle_deque
                 ]
 
-            with open(self.cache_file, 'w') as f:
+            # Atomic write: write to temp file first, then rename
+            temp_file = self.cache_file.with_suffix('.tmp')
+            with open(temp_file, 'w') as f:
                 json.dump(data, f)
+
+            # Rename temp file to actual file (atomic on most systems)
+            temp_file.replace(self.cache_file)
 
             total_candles = sum(len(d) for d in self.candles.values())
             logger.debug(f"Saved {total_candles} candles to cache")
@@ -301,12 +306,12 @@ class CandleCache:
                     # Add to buffer (avoid duplicates by checking timestamp)
                     self._add_candle(symbol, candle)
 
-                    # Track candles received
+                    # Track candles received (for internal stats only)
                     if not hasattr(self, '_candles_received'):
                         self._candles_received = 0
                     self._candles_received += 1
-                    if self._candles_received % 100 == 0:
-                        logger.info(f"Candle cache: received {self._candles_received} candle updates")
+                    # if self._candles_received % 100 == 0:
+                    #     logger.info(f"Candle cache: received {self._candles_received} candle updates")
 
         except Exception as e:
             logger.warning(f"Error processing WS message: {e} - data: {str(data)[:100]}")
