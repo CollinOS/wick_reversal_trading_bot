@@ -311,11 +311,101 @@ class MarketFilter:
     """
     Filters out adverse market conditions where the strategy shouldn't trade.
     """
-    
+
     def __init__(self, config: FilterConfig):
         self.config = config
         self.btc_prices: List[float] = []
-    
+        # Track recent prices per symbol for momentum calculation
+        self.symbol_prices: dict = {}  # symbol -> list of close prices
+
+    def update_symbol_price(self, symbol: str, price: float):
+        """Update price history for a symbol (for momentum filter)."""
+        if symbol not in self.symbol_prices:
+            self.symbol_prices[symbol] = []
+
+        self.symbol_prices[symbol].append(price)
+        # Keep only the lookback period + buffer
+        max_len = self.config.momentum_lookback_candles + 5
+        if len(self.symbol_prices[symbol]) > max_len:
+            self.symbol_prices[symbol] = self.symbol_prices[symbol][-max_len:]
+
+    def seed_symbol_prices(self, symbol: str, prices: List[float]):
+        """
+        Seed price history for a symbol from historical candle data.
+        Call this on startup to initialize the momentum filter with existing data.
+        """
+        if not prices:
+            return
+
+        max_len = self.config.momentum_lookback_candles + 5
+        # Take the most recent prices up to max_len
+        self.symbol_prices[symbol] = prices[-max_len:]
+
+        # Calculate current momentum for logging
+        if len(self.symbol_prices[symbol]) >= self.config.momentum_lookback_candles + 1:
+            lookback = self.config.momentum_lookback_candles
+            start = self.symbol_prices[symbol][-(lookback + 1)]
+            end = self.symbol_prices[symbol][-1]
+            if start > 0:
+                momentum = (end - start) / start * 100
+                logger.info(
+                    f"📈 Seeded {symbol}: {len(self.symbol_prices[symbol])} prices, "
+                    f"current momentum: {momentum:+.2f}% over {lookback} candles"
+                )
+        else:
+            logger.info(f"📈 Seeded {symbol} with {len(self.symbol_prices[symbol])} historical prices")
+
+    def check_momentum(self, symbol: str, signal_side: str) -> Tuple[bool, str]:
+        """
+        Check if we're trading against strong momentum.
+
+        Args:
+            symbol: The trading symbol
+            signal_side: "long" or "short"
+
+        Returns:
+            (passed, detail) - passed=False means trade is blocked
+        """
+        if not self.config.momentum_filter_enabled:
+            return True, ""
+
+        if symbol not in self.symbol_prices:
+            # No data yet - be conservative and block until we have history
+            return False, f"No price history yet (need {self.config.momentum_lookback_candles} candles)"
+
+        prices = self.symbol_prices[symbol]
+        lookback = self.config.momentum_lookback_candles
+
+        if len(prices) < lookback + 1:
+            # Not enough data - be conservative and block
+            return False, f"Insufficient price history ({len(prices)}/{lookback + 1} candles)"
+
+        # Calculate price change over lookback period
+        start_price = prices[-(lookback + 1)]
+        current_price = prices[-1]
+
+        if start_price <= 0:
+            return True, ""
+
+        price_change_pct = (current_price - start_price) / start_price
+        threshold = self.config.momentum_threshold_pct
+
+        # Always log momentum check for visibility
+        logger.info(
+            f"📊 {symbol} momentum check: {price_change_pct*100:+.2f}% over {lookback} candles "
+            f"(threshold: ±{threshold*100:.1f}%) - signal: {signal_side.upper()}"
+        )
+
+        # Block shorts if price is strongly up
+        if signal_side == "short" and price_change_pct >= threshold:
+            return False, f"Strong uptrend: +{price_change_pct*100:.1f}% over {lookback} candles (don't short)"
+
+        # Block longs if price is strongly down
+        if signal_side == "long" and price_change_pct <= -threshold:
+            return False, f"Strong downtrend: {price_change_pct*100:.1f}% over {lookback} candles (don't long)"
+
+        return True, ""
+
     def update_btc_price(self, price: float):
         """Update BTC price history for correlation filter."""
         self.btc_prices.append(price)
@@ -476,6 +566,20 @@ class SignalGenerator:
     def record_signal(self, symbol: str, candle_idx: int):
         """Record that a signal was generated (for cooldown tracking)."""
         self.last_signal_candle[symbol] = candle_idx
+
+    def seed_momentum_data(self, symbol: str, candles: list):
+        """
+        Seed momentum filter with historical candle data for a symbol.
+        Call this on startup to initialize the momentum filter.
+
+        Args:
+            symbol: Trading symbol
+            candles: List of Candle objects (oldest first)
+        """
+        if not candles:
+            return
+        prices = [c.close for c in candles]
+        self.market_filter.seed_symbol_prices(symbol, prices)
     
     def calculate_entry_levels(
         self,
@@ -598,6 +702,9 @@ class SignalGenerator:
             signal.filter_details = f"ATR too low ({market_data.atr:.6f} < {min_atr:.6f}) - need more candle history"
             return signal
 
+        # Update symbol price history for momentum filter
+        self.market_filter.update_symbol_price(symbol, market_data.candle.close)
+
         # Run market filters
         filter_result, filter_detail = self.market_filter.run_all_filters(
             market_data, btc_price
@@ -608,7 +715,7 @@ class SignalGenerator:
             signal.filter_result = filter_result
             signal.filter_details = filter_detail
             return signal
-        
+
         # Analyze wick pattern (pass volume_ratio for strength calculation)
         signal_type, strength, criteria = self.wick_analyzer.analyze_wick(
             market_data.candle,
@@ -616,12 +723,28 @@ class SignalGenerator:
             market_data.vwap,
             market_data.volume_ratio
         )
-        
+
         signal.signal_type = signal_type
         signal.strength = strength
         signal.criteria_met = criteria
         signal.trigger_candle = market_data.candle
-        
+
+        # Check momentum filter AFTER we know the signal direction
+        # This blocks trades that go against strong trends
+        if signal_type != SignalType.NO_SIGNAL and strength > 0:
+            signal_side = "short" if signal_type == SignalType.UPPER_WICK_SHORT else "long"
+            momentum_passed, momentum_detail = self.market_filter.check_momentum(symbol, signal_side)
+
+            if not momentum_passed:
+                # Log AND print so it's visible in console
+                msg = f"🚫 {symbol} {signal_side.upper()} BLOCKED by momentum filter: {momentum_detail}"
+                logger.warning(msg)
+                print(f"\n  {msg}\n")  # Make it visible in console
+                signal.signal_type = SignalType.NO_SIGNAL
+                signal.filter_result = FilterResult.MOMENTUM_FILTER
+                signal.filter_details = momentum_detail
+                return signal
+
         # Calculate entry/exit levels if signal is valid
         if signal_type != SignalType.NO_SIGNAL and strength > 0:
             entry, stop, target = self.calculate_entry_levels(

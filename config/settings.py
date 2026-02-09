@@ -185,14 +185,20 @@ class FilterConfig:
     max_spread_pct: float = 0.01  # 1% - more realistic for altcoins
     
     # Order book depth filter (minimum depth in USD at X% from mid)
-    min_orderbook_depth_usd: float = 2500
+    min_orderbook_depth_usd: float = 4000
     orderbook_depth_pct: float = 0.005  # 0.5% from mid
     
     # Time-of-day filters (UTC hours to avoid)
     avoid_hours: List[int] = field(default_factory=lambda: [])
-    
+
     # Days to avoid (0=Monday, 6=Sunday)
     avoid_days: List[int] = field(default_factory=lambda: [])
+
+    # Momentum filter: don't trade against strong trends
+    # If price moved more than X% in one direction over Y candles, don't trade against it
+    momentum_filter_enabled: bool = True
+    momentum_threshold_pct: float = 0.03  # 3% move triggers filter (lowered from 8%)
+    momentum_lookback_candles: int = 12   # Look back 12 candles (~60 min on 5m)
 
 
 @dataclass
@@ -215,6 +221,12 @@ class ExecutionConfig:
 
     # Use reduce-only for exits
     reduce_only_exits: bool = True
+
+    # Use limit orders for stops/TPs instead of market orders (reduces slippage)
+    use_limit_orders_for_exits: bool = True
+    # Buffer for stop-limit orders (% beyond trigger to ensure fill)
+    # E.g., 0.005 = 0.5% buffer - stop at $100 will have limit at $100.50 for buys
+    stop_limit_buffer_pct: float = 0.005
 
     # Dynamic leverage settings (Hyperliquid)
     # Leverage is scaled based on trade confidence (dynamic multiplier)

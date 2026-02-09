@@ -302,14 +302,18 @@ class BacktestEngine:
             logger.debug(f"Trade rejected: {assessment.reason}")
             return
 
-        # Create position
+        # Create position using adjusted values from risk assessment
+        # The assessment ensures stop_loss is within max_stop_loss_pct of actual entry
+        entry_price = assessment.adjusted_entry_price or signal.suggested_entry or candle.close
+        stop_loss = assessment.adjusted_stop_loss or signal.suggested_stop
+
         position = Position(
             symbol=signal.symbol,
             side=signal.side,
             status=PositionStatus.OPEN,
             quantity=assessment.position_size,
-            entry_price=signal.suggested_entry or candle.close,
-            stop_loss=signal.suggested_stop,
+            entry_price=entry_price,
+            stop_loss=stop_loss,
             take_profit=signal.suggested_target,
             risk_amount=assessment.risk_amount,
             opened_at=timestamp,

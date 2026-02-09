@@ -60,6 +60,7 @@ class FilterResult(Enum):
     THIN_ORDERBOOK = "thin_orderbook"
     TIME_FILTER = "time_filter"
     COOLDOWN = "cooldown"
+    MOMENTUM_FILTER = "momentum_filter"  # Trading against strong trend
 
 
 @dataclass

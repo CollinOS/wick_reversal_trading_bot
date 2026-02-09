@@ -569,6 +569,9 @@ class LiveTradingManager:
                 for candle in candles:
                     self.strategy.data_aggregator.add_candle(symbol, candle)
 
+                # Seed momentum filter with historical prices
+                self.strategy.signal_generator.seed_momentum_data(symbol, candles)
+
                 if data_age_minutes > self.MAX_DATA_AGE_MINUTES:
                     print(f"  {symbol}: {len(candles)} candles "
                           f"(⚠️ {data_age_minutes:.0f}min old - TRADING DISABLED until fresh data)")

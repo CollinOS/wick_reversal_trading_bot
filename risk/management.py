@@ -27,6 +27,8 @@ class RiskAssessment:
     leverage_used: float = 0.0
     base_position_size: float = 0.0  # Position size before dynamic multiplier
     dynamic_multiplier: float = 1.0  # The dynamic leverage multiplier applied
+    adjusted_stop_loss: Optional[float] = None  # Stop loss after max_stop_loss_pct enforcement
+    adjusted_entry_price: Optional[float] = None  # Actual entry price used for calculations
 
     def to_dict(self) -> dict:
         return {
@@ -36,7 +38,9 @@ class RiskAssessment:
             "risk_amount": self.risk_amount,
             "leverage_used": self.leverage_used,
             "base_position_size": self.base_position_size,
-            "dynamic_multiplier": self.dynamic_multiplier
+            "dynamic_multiplier": self.dynamic_multiplier,
+            "adjusted_stop_loss": self.adjusted_stop_loss,
+            "adjusted_entry_price": self.adjusted_entry_price
         }
 
 
@@ -327,6 +331,36 @@ class RiskManager:
             assessment.reason = "No stop loss defined"
             return assessment
 
+        # CRITICAL: Validate stop loss distance from ACTUAL entry price
+        # The signal's stop may have been calculated based on a different entry (retrace price)
+        # but actual execution happens at current_price
+        actual_entry = current_price  # This is what we'll actually execute at
+        max_stop_loss_pct = self.config.exit.max_stop_loss_pct
+
+        if signal.side == Side.LONG:
+            stop_distance_pct = (actual_entry - stop_loss) / actual_entry
+            if stop_distance_pct > max_stop_loss_pct:
+                # Adjust stop loss to be within max allowed distance
+                old_stop = stop_loss
+                stop_loss = actual_entry * (1 - max_stop_loss_pct)
+                logger.warning(
+                    f"{signal.symbol}: Stop loss adjusted from ${old_stop:.6f} to ${stop_loss:.6f} "
+                    f"(was {stop_distance_pct*100:.2f}% away, capped at {max_stop_loss_pct*100:.1f}%)"
+                )
+        else:  # SHORT
+            stop_distance_pct = (stop_loss - actual_entry) / actual_entry
+            if stop_distance_pct > max_stop_loss_pct:
+                # Adjust stop loss to be within max allowed distance
+                old_stop = stop_loss
+                stop_loss = actual_entry * (1 + max_stop_loss_pct)
+                logger.warning(
+                    f"{signal.symbol}: Stop loss adjusted from ${old_stop:.6f} to ${stop_loss:.6f} "
+                    f"(was {stop_distance_pct*100:.2f}% away, capped at {max_stop_loss_pct*100:.1f}%)"
+                )
+
+        # Use actual entry for position sizing (not suggested_entry which may be stale)
+        entry_price = actual_entry
+
         # Calculate dynamic leverage multiplier based on signal quality
         leverage_multiplier, leverage_breakdown = self.calculate_leverage_multiplier(signal)
 
@@ -374,6 +408,8 @@ class RiskManager:
         assessment.leverage_used = leverage
         assessment.base_position_size = base_position_size
         assessment.dynamic_multiplier = leverage_multiplier
+        assessment.adjusted_stop_loss = stop_loss  # May have been adjusted for max_stop_loss_pct
+        assessment.adjusted_entry_price = entry_price  # Actual entry price used
 
         # Store breakdown for external logging
         assessment.leverage_breakdown = leverage_breakdown

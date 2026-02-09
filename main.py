@@ -282,8 +282,11 @@ class WickReversalStrategy:
     ):
         """Enter a new position."""
         position_size = assessment.position_size
-        entry_price = signal.suggested_entry or candle.close
-        
+        # Use the adjusted entry price from risk assessment (actual current price used for calculations)
+        entry_price = assessment.adjusted_entry_price or signal.suggested_entry or candle.close
+        # Use the adjusted stop loss from risk assessment (capped at max_stop_loss_pct)
+        stop_loss = assessment.adjusted_stop_loss or signal.suggested_stop
+
         # Create position
         position = Position(
             symbol=signal.symbol,
@@ -291,7 +294,7 @@ class WickReversalStrategy:
             status=PositionStatus.OPEN,
             quantity=position_size,
             entry_price=entry_price,
-            stop_loss=signal.suggested_stop,
+            stop_loss=stop_loss,
             take_profit=signal.suggested_target,
             opened_at=candle.timestamp,
             entry_candle_count=self.candle_count,
@@ -323,6 +326,30 @@ class WickReversalStrategy:
                 position.total_commission = order.commission
                 self.logger.log_fill(order, result.latency_ms)
                 self.performance_monitor.record_latency("execution_latency", result.latency_ms)
+
+                # CRITICAL: Validate stop loss distance from actual fill price
+                # The risk assessment calculated based on expected entry, but fill may differ
+                max_stop_loss_pct = self.config.exit.max_stop_loss_pct
+                if signal.side == Side.LONG:
+                    stop_distance_pct = (position.entry_price - position.stop_loss) / position.entry_price
+                    if stop_distance_pct > max_stop_loss_pct:
+                        old_stop = position.stop_loss
+                        position.stop_loss = position.entry_price * (1 - max_stop_loss_pct)
+                        logger.warning(
+                            f"Stop loss adjusted after fill: ${old_stop:.6f} -> ${position.stop_loss:.6f} "
+                            f"(was {stop_distance_pct*100:.2f}% from fill ${position.entry_price:.4f}, "
+                            f"capped at {max_stop_loss_pct*100:.1f}%)"
+                        )
+                else:  # SHORT
+                    stop_distance_pct = (position.stop_loss - position.entry_price) / position.entry_price
+                    if stop_distance_pct > max_stop_loss_pct:
+                        old_stop = position.stop_loss
+                        position.stop_loss = position.entry_price * (1 + max_stop_loss_pct)
+                        logger.warning(
+                            f"Stop loss adjusted after fill: ${old_stop:.6f} -> ${position.stop_loss:.6f} "
+                            f"(was {stop_distance_pct*100:.2f}% from fill ${position.entry_price:.4f}, "
+                            f"capped at {max_stop_loss_pct*100:.1f}%)"
+                        )
 
                 # Validate take profit is actually profitable after fill
                 # If fill price is worse than expected, recalculate TP to ensure minimum profit

@@ -794,7 +794,24 @@ class HyperliquidExecutor(ExecutionHandler):
             tick_size = meta.get("tickSize", "unknown")
             if symbol not in self._asset_meta:
                 logger.warning(f"No metadata for {symbol}, using default tick size")
-            logger.info(f"Stop loss {symbol}: trigger={trigger_price:.6f} -> rounded={rounded_trigger:.6f}, tick={tick_size}, is_buy={is_buy}")
+
+            # Check if we should use limit orders for exits (reduces slippage)
+            use_limit = getattr(self._execution_config, 'use_limit_orders_for_exits', False) if self._execution_config else False
+            buffer_pct = getattr(self._execution_config, 'stop_limit_buffer_pct', 0.005) if self._execution_config else 0.005
+
+            if use_limit:
+                # Calculate limit price with buffer to ensure fill
+                # For buying (closing short): limit above trigger
+                # For selling (closing long): limit below trigger
+                if is_buy:
+                    limit_price = rounded_trigger * (1 + buffer_pct)
+                else:
+                    limit_price = rounded_trigger * (1 - buffer_pct)
+                limit_price = self._round_price(limit_price, symbol)
+                logger.info(f"Stop loss {symbol}: trigger={rounded_trigger:.6f}, limit={limit_price:.6f} (LIMIT ORDER), is_buy={is_buy}")
+            else:
+                limit_price = rounded_trigger
+                logger.info(f"Stop loss {symbol}: trigger={rounded_trigger:.6f} (MARKET ORDER), is_buy={is_buy}")
 
             # Use trigger order type for stop loss
             # tpsl: "sl" indicates this is a stop loss order
@@ -802,11 +819,11 @@ class HyperliquidExecutor(ExecutionHandler):
                 name=name,
                 is_buy=is_buy,
                 sz=rounded_size,
-                limit_px=rounded_trigger,  # For market stops, this is ignored but required
+                limit_px=limit_price,
                 order_type={
                     "trigger": {
                         "triggerPx": rounded_trigger,
-                        "isMarket": True,  # Execute as market order when triggered
+                        "isMarket": not use_limit,  # Use limit order if configured
                         "tpsl": "sl"  # Mark as stop loss
                     }
                 },
@@ -908,7 +925,15 @@ class HyperliquidExecutor(ExecutionHandler):
             tick_size = meta.get("tickSize", "unknown")
             if symbol not in self._asset_meta:
                 logger.warning(f"No metadata for {symbol}, using default tick size")
-            logger.info(f"Take profit {symbol}: trigger={trigger_price:.6f} -> rounded={rounded_trigger:.6f}, tick={tick_size}, is_buy={is_buy}")
+
+            # Check if we should use limit orders for exits (reduces slippage)
+            use_limit = getattr(self._execution_config, 'use_limit_orders_for_exits', False) if self._execution_config else False
+
+            if use_limit:
+                # For take profits, use trigger price as limit (no buffer needed - we want exact price or better)
+                logger.info(f"Take profit {symbol}: trigger={rounded_trigger:.6f} (LIMIT ORDER), is_buy={is_buy}")
+            else:
+                logger.info(f"Take profit {symbol}: trigger={rounded_trigger:.6f} (MARKET ORDER), is_buy={is_buy}")
 
             # Use trigger order type for take profit
             result = self.exchange.order(
@@ -919,7 +944,7 @@ class HyperliquidExecutor(ExecutionHandler):
                 order_type={
                     "trigger": {
                         "triggerPx": rounded_trigger,
-                        "isMarket": True,
+                        "isMarket": not use_limit,  # Use limit order if configured
                         "tpsl": "tp"  # Mark as take profit
                     }
                 },
