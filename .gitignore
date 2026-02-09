@@ -17,6 +17,9 @@ logs/*.log
 .env
 *.pem
 
+# Claude Code local settings
+.claude/
+
 # Data files at root (legacy locations)
 historical_data.json
 active_symbols.json
