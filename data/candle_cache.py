@@ -17,6 +17,7 @@ from dataclasses import asdict
 import aiohttp
 
 from core.types import Candle
+from config.paths import CANDLE_CACHE_FILE
 
 logger = logging.getLogger(__name__)
 
@@ -30,19 +31,17 @@ class CandleCache:
     - Provides instant access to historical data
     """
 
-    CACHE_FILE = "candle_cache.json"
     MAX_CANDLES_PER_SYMBOL = 200  # ~16 hours of 5m candles
     SAVE_INTERVAL_SECONDS = 60  # Save to disk every minute
 
     def __init__(
         self,
-        cache_dir: str = "data",
+        cache_file: Path = CANDLE_CACHE_FILE,
         timeframe: str = "5m",
         testnet: bool = False
     ):
-        self.cache_dir = Path(cache_dir)
-        self.cache_dir.mkdir(parents=True, exist_ok=True)
-        self.cache_file = self.cache_dir / self.CACHE_FILE
+        self.cache_file = Path(cache_file)
+        self.cache_file.parent.mkdir(parents=True, exist_ok=True)
         self.timeframe = timeframe
         self.testnet = testnet
 

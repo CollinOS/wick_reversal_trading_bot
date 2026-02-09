@@ -11,6 +11,8 @@ from typing import Dict, List, Optional, Any
 from dataclasses import asdict
 import sys
 
+from config.paths import TRADE_JOURNAL_FILE
+
 
 class StructuredLogger:
     """
@@ -196,8 +198,8 @@ class TradeJournal:
     Maintains a detailed trade journal for analysis.
     """
     
-    def __init__(self, journal_path: str = "logs/trade_journal.json"):
-        self.journal_path = Path(journal_path)
+    def __init__(self, journal_path: str = None):
+        self.journal_path = Path(journal_path) if journal_path else TRADE_JOURNAL_FILE
         self.journal_path.parent.mkdir(parents=True, exist_ok=True)
         self.trades: List[dict] = []
         self._load_existing()

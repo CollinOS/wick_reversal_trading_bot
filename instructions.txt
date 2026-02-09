@@ -1,19 +1,18 @@
 Running live_monitor.py along with run_live.py
 
-  Before beginning a live trading session, run: 
-  python verify_live_setup.py --private-key YOUR_PRIVATE_KEY
+  Before beginning a live trading session, run:
+  python verify_setup.py --private-key YOUR_PRIVATE_KEY
 
   Terminal 1 - Live Monitor (detects opportunities):
-  python live_monitor.py --auto-update --output active_symbols.json
+  python live_monitor.py --auto-update --output output/active_symbols.json
 
   Terminal 2 - Live Trading Bot (executes trades):
-  python run_live.py --private-key YOUR_PRIVATE_KEY --watch-symbols active_symbols.json
+  python run_live.py --private-key YOUR_PRIVATE_KEY --watch-symbols output/active_symbols.json
 
 
 
-After running, open powershell as administrator and run the following commands to keep your private key safe
-  
+After running, open powershell as administrator and run the following commands to clear your private key from the powershell history.
+
   Clear-History
   Remove-Item (Get-PSReadlineOption).HistorySavePath
   Clear-Host
-

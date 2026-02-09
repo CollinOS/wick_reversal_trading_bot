@@ -14,6 +14,7 @@ from typing import Dict, List
 
 from core.types import Candle
 from data.ingestion import HyperliquidProvider
+from config.paths import HISTORICAL_DATA_FILE
 
 
 def candle_to_dict(candle: Candle) -> dict:
@@ -139,7 +140,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chunk-days", type=int, default=7, help="Days per API request")
     parser.add_argument("--sleep", type=float, default=0.2, help="Sleep between requests")
     parser.add_argument("--no-btc", action="store_true", help="Skip BTC-PERP for filters")
-    parser.add_argument("--out", default="historical_data.json", help="Output JSON file")
+    parser.add_argument("--out", default=str(HISTORICAL_DATA_FILE), help="Output JSON file")
     return parser.parse_args()
 
 

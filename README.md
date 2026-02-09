@@ -1,184 +1,194 @@
-# Wick Reversal Strategy
+# Wick Reversal Trading Bot
 
-A systematic crypto trading strategy that exploits exaggerated price wicks in low-liquidity perpetual futures markets using a mean-reversion approach.
+A Python-based crypto trading bot that exploits exaggerated price wicks in low-liquidity perpetual futures markets using mean-reversion. Supports live trading on Hyperliquid, paper trading on testnet, automated market scanning, and historical backtesting with Monte Carlo analysis.
+
+Quick Note: This bot performs quite well when backtesting on old data, but has failed to maintain profitability when trading on live markets. Making the repo public in case any friends want to toy around with it and see what they can get working. The biggest struggle points were losing profits due to slippage and racking up large losses on low cap alts making large moves quickly. Good luck!
 
 ## Strategy Overview
 
 ### Concept
-This strategy targets low-to-medium liquidity crypto perpetual futures markets where exaggerated wicks frequently occur due to thin order books and stop-loss sweeps. The core assumption is that extreme wicks represent temporary price dislocations—not new information—and price will revert to fair value shortly after.
+This strategy targets low-to-medium liquidity crypto perpetual futures where exaggerated wicks frequently occur due to thin order books and stop-loss sweeps. The core assumption is that extreme wicks represent temporary price dislocations — not new information — and price will revert to fair value shortly after.
 
 ### Key Features
-- **Mean-reversion approach** targeting wick rejection patterns
+- **Live trading** on Hyperliquid mainnet with exchange-based stop loss/take profit orders
+- **Paper trading** on Hyperliquid testnet with identical logic
+- **Automated market scanning** — ranks all perpetual markets by strategy profitability
+- **Real-time market monitor** — WebSocket-based opportunity detection with dynamic symbol rotation
+- **Backtesting engine** with Monte Carlo analysis (1000 simulations)
+- **Dynamic leverage** — scales 3-5x based on signal confidence
+- **Partial take profit** — closes 50% at first target, lets the rest ride
 - **Multi-condition signal detection** (wick-to-body ratio, ATR-normalized wick size, VWAP distance)
-- **Comprehensive risk management** (fixed fractional sizing, hard stops, position limits)
-- **Market regime filters** (volume spikes, volatility expansion, BTC correlation)
-- **Modular architecture** for easy customization and backtesting
+- **Market regime filters** (volume spikes, volatility expansion, BTC correlation, momentum)
 
 ## Project Structure
 
 ```
-wick_reversal_strategy/
+wick_reversal_trading_bot/
+├── main.py                          # Strategy orchestrator (WickReversalStrategy)
+├── run_live.py                      # Live trading CLI
+├── run_paper_trade.py               # Paper trading CLI
+├── run_backtest.py                  # Backtest with historical data
+├── scan_markets.py                  # Market scanner CLI
+├── live_monitor.py                  # Live market monitor CLI
+├── fetch_hyperliquid_history.py     # Fetch candle history from Hyperliquid
+├── fetch_bybit_history.py           # Fetch candle history from Bybit
+├── verify_setup.py                  # Pre-flight checks for live trading
+├── test_candle_fetch.py             # Candle fetch smoke test
+│
 ├── config/
-│   └── settings.py          # All configurable parameters
+│   ├── settings.py                  # All configurable parameters (nested dataclasses)
+│   └── paths.py                     # Centralized path constants
 ├── core/
-│   └── types.py              # Data structures (Candle, Signal, Position, Order)
+│   └── types.py                     # Data structures (Candle, Signal, Position, Order)
 ├── data/
-│   └── ingestion.py          # Data providers (Hyperliquid, Bybit, Simulated)
+│   ├── ingestion.py                 # Data providers (Hyperliquid, Bybit, Simulated)
+│   └── candle_cache.py              # WebSocket candle cache with disk persistence
 ├── signals/
-│   └── detection.py          # Wick analysis and signal generation
+│   └── detection.py                 # Wick analysis, market filters, signal generation
 ├── risk/
-│   └── management.py         # Position sizing, exposure, drawdown control
+│   └── management.py                # Position sizing, exposure limits, circuit breakers
 ├── execution/
-│   └── orders.py             # Order management and execution handlers
+│   └── orders.py                    # Order management and Hyperliquid SDK integration
 ├── backtest/
-│   └── engine.py             # Backtesting engine with Monte Carlo analysis
+│   └── engine.py                    # Backtesting engine with Monte Carlo analysis
 ├── utils/
-│   └── logging.py            # Structured logging and trade journal
-├── main.py                   # Main strategy orchestrator
-├── run_test_data.py            # Example usage script
-└── README.md
+│   └── logger.py                    # Structured logging and trade journal
+├── trading/                         # Shared live/paper trading infrastructure
+│   ├── symbol_watcher.py            # Dynamic symbol rotation from JSON file
+│   ├── base_manager.py              # Common trading manager logic
+│   ├── live_manager.py              # LiveTradingManager (mainnet)
+│   └── paper_manager.py             # PaperTradingManager (testnet)
+├── scanner/                         # Market scanning modules
+│   ├── market_scanner.py            # HyperliquidScanner + MarketScore
+│   └── live_monitor.py              # LiveMarketMonitor + WebSocket alerts
+├── output/                          # Runtime-generated data (gitignored)
+└── logs/                            # Trade journals and logs (gitignored)
 ```
 
 ## Installation
 
 ```bash
-# Clone or copy the strategy directory
-cd wick_reversal_strategy
-
 # Install dependencies
 pip install aiohttp pandas numpy
 
-# For Hyperliquid integration (optional)
-pip install eth-account
+# For Hyperliquid live trading
+pip install eth-account hyperliquid-python-sdk
 ```
-
-### Key Commands
-
-  # Run backtest with detailed analysis
-  python run_real_data.py --input historical_data.json --analyze
-
-  # Export trades to CSV for external analysis
-  python run_real_data.py --input historical_data.json --export-csv trades.csv
-
-  # Both
-  python run_real_data.py --input historical_data.json --analyze --export-csv trades.csv
-  
 
 ## Quick Start
 
-### 1. Run Backtest Example
+### 1. Scan Markets for Opportunities
 
-```python
-from run_test_data import run_backtest_example
-
-engine, metrics = run_backtest_example()
-print(metrics.to_dict())
+```bash
+# Scan all Hyperliquid perps and rank by strategy profitability
+python scan_markets.py --days 30 --top 20
 ```
 
-### 2. Customize Configuration
+### 2. Fetch Historical Data and Backtest
 
-```python
-from config.settings import StrategyConfig, SignalConfig
+```bash
+# Fetch 90 days of 5m candles for top symbols
+python fetch_hyperliquid_history.py --symbols TAO-PERP AAVE-PERP ZRO-PERP --timeframe 5m --days 90
 
-config = StrategyConfig()
+# Run backtest with analysis
+python run_backtest.py --input output/historical_data.json --analyze
 
-# Adjust signal detection
-config.signal.wick_to_body_ratio = 2.5
-config.signal.wick_atr_multiplier = 1.5
-
-# Adjust risk parameters
-config.risk.risk_per_trade_pct = 0.005  # 0.5% risk per trade
-config.risk.max_positions = 3
-config.risk.max_leverage = 2.0
+# Export trades to CSV
+python run_backtest.py --input output/historical_data.json --export-csv trades.csv
 ```
 
-### 3. Run Paper Trading
+### 3. Paper Trade on Testnet
 
-```python
-import asyncio
-from main import WickReversalStrategy
-from data.ingestion import HyperliquidProvider
-
-async def paper_trade():
-    config = StrategyConfig()
-    config.paper_trading = True
-    
-    provider = HyperliquidProvider(testnet=True)
-    strategy = WickReversalStrategy(config=config, data_provider=provider)
-    
-    await strategy.initialize(initial_capital=10000)
-    await strategy.run_live(["DOGE-PERP", "SHIB-PERP"])
-
-asyncio.run(paper_trade())
+```bash
+python run_paper_trade.py --private-key YOUR_PRIVATE_KEY --capital 1000
 ```
+
+### 4. Go Live
+
+```bash
+# Step 1: Verify your setup
+python verify_setup.py --private-key YOUR_PRIVATE_KEY
+
+# Step 2: Start the market monitor (Terminal 1)
+python live_monitor.py --auto-update --output output/active_symbols.json
+
+# Step 3: Start the trading bot (Terminal 2)
+python run_live.py --private-key YOUR_PRIVATE_KEY --watch-symbols output/active_symbols.json --capital 200
+```
+
+The monitor continuously scans all markets and writes the best symbols to `output/active_symbols.json`. The trading bot watches this file and dynamically adds/removes symbols.
 
 ## Signal Detection
 
-### Entry Criteria
-Signals are generated when a closed candle exhibits an exaggerated wick meeting one or more conditions:
+Signals are generated when a closed candle exhibits an exaggerated wick. One or more conditions must be met (OR logic by default):
 
-| Condition | Default Threshold | Description |
-|-----------|------------------|-------------|
-| Wick-to-body ratio | ≥ 2.0 | Wick must be 2x the body size |
-| Wick ATR ratio | ≥ 1.5 | Wick must exceed 1.5x ATR |
-| VWAP distance | ≥ 1.0 ATR | Wick extreme must be 1 ATR from VWAP |
+| Condition | Default Threshold | Weight | Historical Win Rate |
+|-----------|------------------|--------|---------------------|
+| Wick-to-body ratio | >= 2.3x | 0.95 | 67.4% |
+| Wick ATR ratio | >= 1.5x ATR | 1.3 | 81.0% (most predictive) |
+| VWAP distance | >= 1.0 ATR | 1.0 | 68.7% |
+| Volume bonus | High volume at wick | 0.8 | — |
 
-**Additional Requirements:**
-- Minimum wick size: 0.1% of price
-- Rejection confirmation: Close must be ≥30% of wick away from extreme
+**Additional requirements:**
+- Minimum wick size: 0.8% of price
+- Rejection confirmation: Close must be >= 42% of wick away from extreme
 
-### Signal Types
-- **Upper Wick → SHORT**: Price rejected from highs
-- **Lower Wick → LONG**: Price rejected from lows
+**Signal types:**
+- Upper wick -> SHORT (price rejected from highs)
+- Lower wick -> LONG (price rejected from lows)
 
 ## Entry Rules
 
 | Rule | Description |
 |------|-------------|
 | Entry timing | After candle close confirms rejection |
-| Entry price | Candle close OR retrace to wick midpoint |
-| Order type | Limit preferred (configurable) |
-| No wick entries | Never enter during the wick formation |
+| Entry mode | Retrace to 60% of wick midpoint (default) or at candle close |
+| Max wait | 2 candles for retrace entry |
+| Order type | Market orders (for reliability) |
 
 ## Exit Rules
 
-### Take Profit Targets (Configurable)
-1. **VWAP** (default) - Mean-reversion target
-2. **Candle Open** - Prior equilibrium
-3. **Wick Midpoint** - Partial reversion
-4. **ATR-based** - Fixed ATR multiple
+### Take Profit
+- **Primary target**: ATR-based (0.9x ATR from entry)
+- **Partial TP**: 50% of position closes at 0.5x ATR, remainder rides to full target
 
 ### Stop Loss
-- Placed just beyond wick extreme
-- Buffer: 0.2 × ATR (configurable)
-- Maximum: 2% of entry price
+- Placed beyond wick extreme + 0.4x ATR buffer
+- Maximum: 2.5% of entry price
+- **Exchange-based**: SL/TP orders placed directly on Hyperliquid for protection if bot goes offline
 
 ### Additional Exits
-- **Trailing stop**: Activates at 70% of target, trails at 0.3 ATR
-- **Time exit**: Maximum 20 candles held
+- **Trailing stop**: Activates at 75% of target, trails at 0.5x ATR
+- **Time exit**: Maximum 12 candles held
 
 ## Risk Management
 
 ### Position Sizing
 ```
-Position Size = (Account Equity × Risk %) / (Entry - Stop Loss)
+Position Size = (Account Equity x Risk %) / (Entry - Stop Loss)
 ```
+Default: 2% risk per trade
 
-Default: 0.5% risk per trade
+### Dynamic Leverage
+Leverage scales with signal confidence:
+- Base: 3x on Hyperliquid
+- +0.25x per additional criteria met
+- Capped at 5x maximum
+- Signal strength multiplier: 0.5x to 2.5x
 
 ### Exposure Limits
 | Parameter | Default | Description |
 |-----------|---------|-------------|
-| Max positions | 3 | Total simultaneous positions |
+| Max positions | 10 | Total simultaneous positions |
 | Max per symbol | 1 | Positions per trading pair |
-| Max leverage | 3.0x | Maximum effective leverage |
-| Cooldown | 5 candles | Wait period after each trade |
+| Max leverage | 5.0x | Maximum effective leverage |
+| Base position size | $200-$500 | Per-symbol configurable |
 
 ### Circuit Breakers
 | Trigger | Threshold | Action |
 |---------|-----------|--------|
-| Daily loss | -2% | Stop trading for the day |
-| Max drawdown | -10% | Stop all trading |
+| Daily loss | -5% | Stop trading for the day |
+| Max drawdown | -15% | Stop all trading |
 
 ## Market Filters
 
@@ -186,160 +196,122 @@ Trading is **disabled** when:
 
 | Filter | Threshold | Rationale |
 |--------|-----------|-----------|
-| Volume spike | > 3x baseline | Abnormal activity (news, manipulation) |
-| ATR expansion | > 2x baseline | Regime change, breakout |
-| BTC move | > 3% in 5 candles | Market-wide risk-off |
-| Low volume | < $100K USD | Insufficient liquidity |
-| Wide spread | > 0.1% | Poor execution conditions |
-| Thin orderbook | < $50K depth | Slippage risk |
+| Volume spike | > 3.5x baseline | Abnormal activity (news, manipulation) |
+| ATR expansion | > 2.2x baseline | Regime change, breakout |
+| BTC move | > 3% in recent candles | Market-wide risk-off |
+| Low volume | < $1,000 USD | Insufficient liquidity |
+| Wide spread | > 1% | Poor execution conditions |
+| Thin orderbook | < $4,000 depth | Slippage risk |
+| Momentum | > 3% move in 12 candles | Counter-trend too risky |
 
-## Recommended Exchanges
+## Market Scanning
 
-### 1. Hyperliquid (Primary Recommendation)
-**Pros:**
-- Decentralized perpetual DEX on Arbitrum
-- No KYC required
-- Very low fees (0.02% maker / 0.05% taker)
-- Transparent on-chain order book
-- Good altcoin perp liquidity
-- API-friendly with WebSocket support
+The scanner ranks all Hyperliquid perpetual markets using weighted criteria:
 
-**Cons:**
-- Newer platform (less battle-tested)
-- Limited fiat on-ramp
+| Criteria | Weight | Description |
+|----------|--------|-------------|
+| Signal frequency | 35% | Signals per day — most important |
+| Win rate | 25% | Simulated trade win percentage |
+| Profit factor | 20% | Gross profit / gross loss |
+| Volatility (ATR) | 15% | Higher ATR = more opportunities |
+| Signal strength | 5% | Average signal quality |
 
-### 2. Bybit
-**Pros:**
-- Wide selection of altcoin perpetuals
-- Robust API and WebSocket
-- Testnet available
-- Higher overall volume
+```bash
+# Full market scan
+python scan_markets.py --days 30 --top 20
 
-**Cons:**
-- Centralized (counterparty risk)
-- KYC required for larger accounts
+# Filter for volatile assets only
+python scan_markets.py --days 14 --volatile-only --min-signals 50
 
-### 3. dYdX v4
-**Pros:**
-- Fully decentralized (sovereign chain)
-- No KYC
-- Good for larger positions
+# Export results
+python scan_markets.py --days 30 --export results.csv
+```
 
-**Cons:**
-- Lower altcoin selection
-- More complex integration
+## Live Trading
+
+### Two-Terminal Setup
+
+**Terminal 1** — Market monitor (detects best symbols):
+```bash
+python live_monitor.py --auto-update --output output/active_symbols.json
+```
+
+**Terminal 2** — Trading bot (executes trades):
+```bash
+python run_live.py --private-key YOUR_PRIVATE_KEY --watch-symbols output/active_symbols.json
+```
+
+### Features
+- **Dynamic symbol rotation**: Monitor updates `active_symbols.json`, bot subscribes/unsubscribes automatically
+- **Pinned symbols**: `--pinned TAO-PERP` to always keep a symbol active
+- **Pre-existing position detection**: Bot ignores positions opened manually
+- **Session P&L tracking**: Running profit/loss displayed throughout session
+- **Candle caching**: Monitor writes cached candle data for the bot to preload (faster startup)
+- **Exchange-based stops**: SL/TP orders on Hyperliquid protect positions even if bot is offline
+- **Graceful shutdown**: Ctrl+C cleanly disconnects streams
+
+### Pre-Flight Verification
+
+```bash
+python verify_setup.py --private-key YOUR_PRIVATE_KEY
+```
+
+Checks: private key validity, wallet address, exchange connection, account balance, asset index mapping, existing positions.
+
+## Backtesting
+
+```bash
+# Fetch data
+python fetch_hyperliquid_history.py --symbols TAO-PERP AAVE-PERP --days 90
+
+# Run backtest with Monte Carlo analysis
+python run_backtest.py --input output/historical_data.json --analyze
+
+# Detailed trade log
+python run_backtest.py --input output/historical_data.json --trade-details
+
+# Export trades to CSV
+python run_backtest.py --input output/historical_data.json --export-csv trades.csv
+```
+
+### Metrics Reported
+- Win rate, profit factor, expectancy
+- Sharpe, Sortino, and Calmar ratios
+- Max drawdown (depth and duration)
+- Exit reason breakdown (TP, SL, trailing, time)
+- Long vs short performance
+- Monte Carlo 5th/95th percentile outcomes
+
+## Configuration
+
+All parameters are in `config/settings.py` using nested dataclasses. Key sections:
+
+| Config | Controls |
+|--------|----------|
+| `SignalConfig` | Wick detection thresholds |
+| `EntryConfig` | Entry mode, retrace settings |
+| `ExitConfig` | TP targets, SL buffer, trailing stop, partial TP |
+| `RiskConfig` | Risk per trade, max positions, drawdown limits |
+| `DynamicLeverageConfig` | Signal-based leverage scaling |
+| `FilterConfig` | Market regime filters |
+| `ExecutionConfig` | Slippage, order timeouts, leverage range |
+| `BacktestConfig` | Commission, funding rates, Monte Carlo settings |
+| `SymbolConfig` | Per-symbol overrides (risk multiplier, base size) |
+
+Default symbols: TAO-PERP, AAVE-PERP, ZRO-PERP
 
 ## Target Markets
 
 **Ideal characteristics:**
 - Mid-cap altcoins with perpetual futures
-- Enough liquidity for execution ($100K+ daily volume)
+- Enough liquidity for execution ($1K+ daily volume)
 - Frequent wick patterns (thinner order books)
 - Active retail participation (stop hunts common)
 
-**Example symbols:**
-- DOGE-PERP
-- SHIB-PERP
-- PEPE-PERP
-- FLOKI-PERP
-- BONK-PERP
-- WIF-PERP
-
 **Avoid:**
-- BTC/ETH (too efficient, wicks = information)
+- BTC/ETH (too efficient, wicks = real information)
 - Very low-cap tokens (execution impossible)
 - New listings (unstable behavior)
-
-## Backtesting
-
-### Running a Backtest
-
-```python
-from backtest.engine import BacktestEngine
-from config.settings import StrategyConfig
-
-config = StrategyConfig()
-engine = BacktestEngine(config)
-
-# historical_data: Dict[symbol, List[Candle]]
-metrics = engine.run(historical_data, btc_data)
-
-print(f"Net Profit: ${metrics.net_profit:.2f}")
-print(f"Win Rate: {metrics.win_rate*100:.1f}%")
-print(f"Sharpe Ratio: {metrics.sharpe_ratio:.2f}")
-print(f"Max Drawdown: {metrics.max_drawdown_pct*100:.1f}%")
-```
-
-### Key Metrics
-
-| Metric | Target | Description |
-|--------|--------|-------------|
-| Win Rate | > 55% | Percentage of profitable trades |
-| Profit Factor | > 1.5 | Gross profit / Gross loss |
-| Sharpe Ratio | > 1.5 | Risk-adjusted returns |
-| Max Drawdown | < 15% | Peak-to-trough decline |
-| Expectancy | > 0 | Average profit per trade |
-
-### Monte Carlo Analysis
-
-```python
-from backtest.engine import run_monte_carlo_analysis
-
-results = run_monte_carlo_analysis(
-    trades=engine.trades,
-    initial_capital=10000,
-    num_simulations=1000
-)
-
-print(f"5th percentile final equity: ${results['final_equity']['percentile_5']:,.2f}")
-print(f"95th percentile max drawdown: {results['max_drawdown']['percentile_95']*100:.1f}%")
-```
-
-## Live Trading Checklist
-
-### Before Going Live
-- [ ] Backtest on 6+ months of historical data
-- [ ] Test across different market regimes (bull, bear, sideways)
-- [ ] Monte Carlo analysis shows acceptable worst-case scenarios
-- [ ] Paper trade for minimum 2 weeks
-- [ ] Verify API connectivity and order execution
-- [ ] Set up monitoring and alerting
-- [ ] Document your risk tolerance and stop-loss rules
-
-### Go-Live Process
-1. Start with 25% of intended capital
-2. Trade minimum position sizes for first week
-3. Scale up gradually if results match backtest
-4. Monitor for execution slippage vs. backtest assumptions
-5. Review and adjust parameters monthly
-
-## Configuration Reference
-
-See `config/settings.py` for complete parameter documentation:
-
-```python
-@dataclass
-class StrategyConfig:
-    strategy_name: str = "WickReversal_v1"
-    timeframe: TimeFrame = TimeFrame.M5
-    
-    signal: SignalConfig      # Wick detection parameters
-    entry: EntryConfig        # Entry execution settings
-    exit: ExitConfig          # Exit targets and stops
-    risk: RiskConfig          # Position sizing and limits
-    filters: FilterConfig     # Market condition filters
-    execution: ExecutionConfig # Order execution settings
-    backtest: BacktestConfig  # Backtesting parameters
-    
-    symbols: List[SymbolConfig]  # Trading pairs
-```
-
-## Logging
-
-All signals, orders, fills, and positions are logged to:
-- Console (human-readable)
-- `logs/wick_reversal_YYYYMMDD.log` (file)
-- `logs/wick_reversal_YYYYMMDD_structured.jsonl` (JSON for analysis)
 
 ## Disclaimer
 
@@ -347,7 +319,7 @@ This software is for educational purposes only. Cryptocurrency trading involves 
 - Trade only with capital you can afford to lose
 - Understand the risks of leveraged trading
 - Do your own research and testing
-- Start with small positions
+- Start with small positions and scale gradually
 
 ## License
 

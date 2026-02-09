@@ -14,6 +14,7 @@ from typing import Dict, List
 
 from core.types import Candle
 from data.ingestion import BybitProvider
+from config.paths import HISTORICAL_DATA_FILE
 
 
 def candle_to_dict(candle: Candle) -> dict:
@@ -130,7 +131,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--days", type=int, default=180, help="Number of days of history (default: 180)")
     parser.add_argument("--sleep", type=float, default=0.15, help="Sleep between API requests")
     parser.add_argument("--no-btc", action="store_true", help="Skip BTC-PERP data")
-    parser.add_argument("--out", default="historical_data.json", help="Output JSON file")
+    parser.add_argument("--out", default=str(HISTORICAL_DATA_FILE), help="Output JSON file")
     return parser.parse_args()
 
 
